@@ -2,7 +2,7 @@
   "name": "netra-example",
   "version": "0.0.0",
   "private": true,
-  "description": "Illustrative Next.js wiring for netra. The runnable, styled integration lives in the repo's my-app project.",
+  "description": "Illustrative Next.js wiring for netra-artifacts. The runnable, styled integration lives in the repo's my-app project.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@ai-sdk/google": "^2",
     "ai": "^5",
-    "netra": "^0.1.0",
+    "netra-artifacts": "^0.1.0",
     "next": "^16",
     "react": "^19",
     "react-dom": "^19"

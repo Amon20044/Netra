@@ -13,7 +13,7 @@ import type {
 import type { ArtifactMode } from "../types/stream.js";
 
 /**
- * Drives a chat against an `netra` SSE endpoint. Reduces the event
+ * Drives a chat against a `netra-artifacts` SSE endpoint. Reduces the event
  * protocol into `messages` + `artifacts`, exposing `sendMessage`, `stop`, and
  * `reset`. Markdown answers update a message; HTML answers also build an
  * artifact record consumed by `HtmlArtifactCard`.

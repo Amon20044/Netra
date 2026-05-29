@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AuroraBackground } from "./AuroraBackground";
@@ -260,7 +260,7 @@ export function Landing() {
               >
                 Try the live demo →
               </Link>
-              <CopyPill text="npm install netra ai @ai-sdk/google" />
+              <CopyPill text="npm install netra-artifacts ai @ai-sdk/google" />
             </div>
           </div>
 
@@ -294,8 +294,13 @@ export function Landing() {
 
         {/* Experimental callout */}
         <section className="reveal lov-depth mb-6 flex flex-col gap-3 p-6 sm:flex-row sm:items-center sm:gap-6" style={{ ["--lov-radius" as string]: "22px" }}>
-          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1.5 text-[12.5px] font-semibold text-amber-200">
-            ⚠ Experimental
+          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1.5 text-[12.5px] font-semibold text-amber-200">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Experimental
           </span>
           <p className="text-[14.5px] leading-relaxed text-white/70">
             Netra is in an early research phase. The packaged backend helper targets
@@ -511,8 +516,63 @@ function CodeCard({ title, badge, code }: { title: string; badge: string; code: 
         </button>
       </div>
       <pre className="overflow-x-auto p-5 text-[12.5px] leading-[1.7]">
-        <code className="font-mono text-white/80">{code}</code>
+        <code className="font-mono text-white/80">{highlight(code)}</code>
       </pre>
     </div>
   );
+}
+
+/** Tailwind text colors per token kind — tuned to the page's aurora palette. */
+const TOKEN_COLOR: Record<string, string> = {
+  comment: "text-white/35 italic",
+  string: "text-emerald-300/90",
+  number: "text-orange-300",
+  keyword: "text-fuchsia-300",
+  call: "text-sky-300",
+  tag: "text-rose-300",
+  type: "text-indigo-200",
+};
+
+const KEYWORDS =
+  "import|from|export|default|const|let|var|async|await|function|return|new|type|interface|extends|implements|readonly|public|private|if|else|for|while|of|in|typeof|as|class|void|true|false|null|undefined";
+
+/**
+ * Dependency-free TS/TSX tokenizer for the showcase snippets. Patterns are
+ * tried left-to-right at each position; whatever a position doesn't match
+ * (operators, punctuation, whitespace) falls through as plain text, so the
+ * original layout is preserved. Each pattern is its own capturing group, so
+ * the matched group index maps straight back to the token kind.
+ */
+const PATTERNS: { kind: keyof typeof TOKEN_COLOR; re: RegExp }[] = [
+  { kind: "comment", re: /\/\/[^\n]*|\/\*[\s\S]*?\*\// },
+  { kind: "string", re: /`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/ },
+  { kind: "number", re: /\b\d[\d_.]*\b/ },
+  { kind: "keyword", re: new RegExp(`\\b(?:${KEYWORDS})\\b`) },
+  { kind: "call", re: /[A-Za-z_$][\w$]*(?=\s*\()/ },
+  { kind: "tag", re: /<\/?[A-Za-z][\w.-]*/ },
+  { kind: "type", re: /\b[A-Z][\w$]*\b/ },
+];
+
+const TOKEN = new RegExp(PATTERNS.map((p) => `(${p.re.source})`).join("|"), "g");
+
+function highlight(code: string) {
+  const out: ReactNode[] = [];
+  let last = 0;
+  let key = 0;
+  for (let m = TOKEN.exec(code); m; m = TOKEN.exec(code)) {
+    if (m.index > last) out.push(code.slice(last, m.index));
+    const hit = PATTERNS.find((_, i) => m[i + 1] != null);
+    out.push(
+      hit ? (
+        <span key={key++} className={TOKEN_COLOR[hit.kind]}>
+          {m[0]}
+        </span>
+      ) : (
+        m[0]
+      ),
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < code.length) out.push(code.slice(last));
+  return out;
 }

@@ -10,7 +10,7 @@ produce an `AsyncIterable<string>`.
 
 This repository contains:
 
-- `packages/ai-html-artifacts`: the reusable package source (published as `netra`)
+- `packages/ai-html-artifacts`: the reusable package source (published as `netra-artifacts`)
 - `app/api/chat/route.ts`: a Next.js backend example
 - `app/components/ChatDemo.tsx`: a frontend chat demo
 - `/`: a documentation page for Netra
@@ -57,7 +57,7 @@ when the next chunk arrives.
 ## Install
 
 ```bash
-npm install netra ai @ai-sdk/google
+npm install netra-artifacts ai @ai-sdk/google
 ```
 
 Use any Vercel AI SDK provider. The local example uses `@ai-sdk/google`.
@@ -286,7 +286,7 @@ If your dev server is on another port, replace `3000`.
 Direct parser usage:
 
 ```ts
-import { PredictiveHtmlParser } from "netra/stream";
+import { PredictiveHtmlParser } from "netra-artifacts/stream";
 
 const parser = new PredictiveHtmlParser();
 
@@ -303,7 +303,7 @@ parser.push('<input type="email" required />');
 One-shot assembly:
 
 ```ts
-import { assembleStreamingHtml } from "netra/stream";
+import { assembleStreamingHtml } from "netra-artifacts/stream";
 
 const frame = assembleStreamingHtml("<html><body><main><h1>Hello");
 
@@ -331,8 +331,8 @@ and isolated before it reaches the preview.
 
 ```bash
 npm run lint
-npm run build --workspace netra
-npm test --workspace netra
+npm run build --workspace netra-artifacts
+npm test --workspace netra-artifacts
 npm run build
 ```
 

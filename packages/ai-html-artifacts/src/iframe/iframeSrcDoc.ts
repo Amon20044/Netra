@@ -161,10 +161,53 @@ function normalizeInlineCamouflageStyle(style: string): string {
     .join(";");
 }
 
+// Conditional group at-rules whose CONTENTS are nested style rules we still
+// want to normalize (e.g. @media breakpoints). Other at-rules (@keyframes,
+// @font-face, @page) are passed through verbatim — their bodies aren't plain
+// style declarations and must not be touched.
+const NESTED_AT_RULE = /^(media|supports|container)\b/i;
+
+/**
+ * Normalize the CSS inside a `<style>` block for camouflage (light → transparent
+ * backgrounds, light text → host foreground). Brace-aware: it tracks nesting so
+ * conditional group rules like `@media (...) { .x{...} }` are preserved and
+ * their inner rules normalized recursively, instead of being mangled by a flat
+ * regex. Malformed/partial CSS (mid-stream) is emitted as-is.
+ */
 function normalizeCamouflageCss(css: string): string {
-  return css
-    .replace(/([^{}]+)\{([^{}]*)\}/g, (rule, selector: string, body: string) => {
-      const normalizedBody = body
+  let out = "";
+  let i = 0;
+  const n = css.length;
+
+  while (i < n) {
+    const open = css.indexOf("{", i);
+    if (open === -1) {
+      out += css.slice(i);
+      break;
+    }
+
+    // Walk to the brace that closes this block, respecting nesting.
+    let depth = 1;
+    let j = open + 1;
+    for (; j < n && depth > 0; j++) {
+      if (css[j] === "{") depth++;
+      else if (css[j] === "}") depth--;
+    }
+    // `j` now points just past the matching `}` (or end of string if partial).
+    const close = depth === 0 ? j - 1 : n;
+    const prelude = css.slice(i, open);
+    const inner = css.slice(open + 1, close);
+    const selector = prelude.trim();
+    const atRule = selector.startsWith("@")
+      ? selector.slice(1).match(/^[\w-]+/)?.[0] ?? ""
+      : "";
+
+    if (atRule && NESTED_AT_RULE.test(atRule)) {
+      out += `${prelude}{${normalizeCamouflageCss(inner)}}`;
+    } else if (atRule) {
+      out += `${prelude}{${inner}}`;
+    } else {
+      const normalizedBody = inner
         .split(";")
         .map((declaration) =>
           normalizeCamouflageDeclaration(
@@ -174,8 +217,13 @@ function normalizeCamouflageCss(css: string): string {
         )
         .filter(Boolean)
         .join(";");
-      return normalizedBody ? `${selector}{${normalizedBody}}` : rule;
-    });
+      out += normalizedBody ? `${selector}{${normalizedBody}}` : `${prelude}{${inner}}`;
+    }
+
+    i = close + 1;
+  }
+
+  return out;
 }
 
 function normalizeCamouflageDeclaration(

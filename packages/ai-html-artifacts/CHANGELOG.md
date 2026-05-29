@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `netra` are documented here. This project
+All notable changes to `netra-artifacts` are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
 ## [0.1.0] - 2026-05-29

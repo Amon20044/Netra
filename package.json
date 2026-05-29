@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:pkg": "npm run build --workspace netra"
+    "build:pkg": "npm run build --workspace netra-artifacts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.81",

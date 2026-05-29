@@ -18,24 +18,28 @@ Goal: maximum responsive output, minimum markup, zero JavaScript, zero bloat. Ev
 7. **Semantic tags = free a11y + less CSS:** `header main nav section article aside footer button a ul li figure`. Don't `<div>` what a tag already names.
 8. **Less markup wins.** No wrapper unless it earns its keep (it creates a formatting context, a flex/grid parent, or a paint boundary). Style children directly via `>` and gap, not via inner spacer divs.
 
-## Inline-style-only artifacts (no `<style>`)
+## Sandboxed chat artifacts (hybrid: one shared `<style>` + inline)
 
-Some renderers (e.g. sandboxed chat artifacts) **strip every `<style>` tag** and run inline `style=""` only. You lose selectors, `@media`, `@keyframes`, `:hover`, `::before`, and class-based styling — but you keep **all of intrinsic responsiveness**, which is what matters. Rules:
+Some renderers (e.g. sandboxed, streamed chat artifacts) run **one tiny shared `<style>` design system** plus **inline `style=""`** for everything else, inside a no-JS sandbox. This keeps output token-light and consistent while the body still streams and paints element-by-element. Rules:
 
-- **Tokens inline on the root:** `<html style="--bg:#0f121b;--fg:#e0e7ff;--accent:#00e6b8;--space:16px;--radius:14px">`, then `var(--bg)` everywhere.
-- **Responsive with zero media queries** (all inline):
-  - Grid that reflows itself: `style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))"`
-  - Wrapping row / nav: `style="display:flex;flex-wrap:wrap;gap:12px"`
-  - Fluid type/space: `style="font-size:clamp(1.5rem,1rem+3vw,3rem)"`
-  - Wide content (tables, timelines, carousels): wrap in `style="overflow-x:auto"`.
-- **No horizontal overflow, ever:** containers use `max-width:100%`/`min(100%,…)`, never fixed px; text blocks `overflow-wrap:break-word`; media `max-width:100%;height:auto`.
-- **Navs can't be burgers** (no toggle without a stylesheet) → a single **wrapping or horizontally-scrolling** row instead.
-- **Fonts:** at most **3 styles** total (one display + one body, ≤2 weights). Apply `font-family` inline.
-- **Motion:** none (no `@keyframes`/`:hover` inline) — win with static depth, gradients, spacing.
+- **One small `<style>` in `<head>`** (~20 flat lines). Put ONLY what repeats:
+  - Reset: `*,*::before,*::after{box-sizing:border-box}`.
+  - A fluid type+space **scale** as variables on `html`, each a single `clamp()` — so one document is compact on phones and comfortable on desktop with no breakpoints: `html{--s0:clamp(13px,.55vw+11.5px,16px);--h1:clamp(28px,4vw+12px,56px);--gap:clamp(14px,2.5vw,30px);--pad:clamp(16px,3.5vw,36px);font-size:var(--s0);line-height:1.5}`.
+  - **Element defaults** so children inherit instead of being restyled: `h1/h2/h3` sized from `--h*`, `p{margin:0}`, `table{width:100%;border-collapse:collapse}`, `img,svg{display:block;max-width:100%}`.
+  - A few **utility classes**: `.wrap .stack .grid .row .card .scroll-x`.
+- **Color/radius tokens inline on the root:** `<html style="--bg:#0f121b;--fg:#e0e7ff;--surface:rgba(255,255,255,.05);--border:rgba(255,255,255,.1);--radius:14px">` (streams first, lets a host theme apply); the `<style>` references them via `var()`.
+- **Style everything else inline** — per-element colors, weights, one-off sizes, SVG attrs, the actual values. Structure via the utility classes; inline only for what's unique to that element.
+- **Optional 3rd tier — 1–2 `@media` breakpoints** *inside* the one `<style>*, only for true layout shifts the clamp scale can't express (e.g. 2-col → stacked, drop a side column). The artifact is measured by its **iframe's** width, so width queries behave like container queries.
+- **Tier order:** inline per-element (1) → shared clamp scale + utilities (2) → `@media` for structural shifts (3).
+- **No horizontal overflow, ever:** containers `max-width:100%`/`min(100%,…)`, never fixed px; text `overflow-wrap:break-word`; wide tables/charts → `.scroll-x` wrapper.
+- **Navs can't be burgers** (no JS toggle) → a single **wrapping or horizontally-scrolling** `.row`.
+- **Fonts:** at most **3 styles** total (one display + one body, ≤2 weights). **Motion:** none (no `@keyframes`/`:hover`) — win with static depth.
 
-These reflow perfectly when the artifact is previewed at phone / tablet / desktop widths — no breakpoints needed.
+### Two failure modes that break these artifacts (avoid always)
+- **No `position:sticky` / `position:fixed`.** In a sandboxed/transparent ("camouflage") iframe a sticky/fixed bar ghosts over content as it scrolls or detaches from layout (its background is often forced transparent). Keep headers/navs in normal document flow.
+- **Never backslash-escape quotes in an attribute, and never put a data-URI `<svg>` inside `style=""`.** In HTML attributes `\"` is *not* an escape — the first inner double-quote closes the attribute and the rest of the CSS leaks onto the page as visible text. For select arrows/icons use a Unicode glyph (`▾ ✓ →`) or a real inline `<svg>` sibling element, not a CSS `background-image` data-URI.
 
-**Why inline also streams faster:** a `<head><style>` block forces the *entire* stylesheet to stream before any body content can render — the viewer waits, then everything pops in at once. Inline styling has a tiny `<head>`, so the body streams and **paints element-by-element as it arrives**. Keep `<head>` to `<meta>` + one optional font `<link>`; write the body top-to-bottom in visual order so the first tokens already render something.
+**Why this still streams fast:** the `<head>` stays tiny (one short `<style>`), so the body streams and **paints element-by-element as it arrives**. Keep `<head>` to `<meta>` + one optional font `<link>` + the shared `<style>`; write the body top-to-bottom in visual order so the first tokens already render something.
 
 ## The 5 layout primitives (memorize these)
 

@@ -20,7 +20,7 @@ document.
 ## Install
 
 ```bash
-npm install netra
+npm install netra-artifacts
 ```
 
 Add whatever provider SDK you want:
@@ -153,7 +153,7 @@ export function Chat() {
 ## Direct Parser Usage
 
 ```ts
-import { PredictiveHtmlParser } from "netra/stream";
+import { PredictiveHtmlParser } from "netra-artifacts/stream";
 
 const parser = new PredictiveHtmlParser();
 
@@ -170,7 +170,7 @@ const frameB = parser.push('<input type="email" />');
 ## One-Shot Assembly
 
 ```ts
-import { assembleStreamingHtml } from "netra/stream";
+import { assembleStreamingHtml } from "netra-artifacts/stream";
 
 const result = assembleStreamingHtml("<html><body><main><h1>Hello");
 
@@ -185,14 +185,14 @@ result.renderable;
 
 | Import | Purpose |
 | --- | --- |
-| `netra` | Isomorphic helpers, types, parser, sanitizer |
+| `netra-artifacts` | Isomorphic helpers, types, parser, sanitizer |
 | `netra-artifacts/server` | Server response helpers for SSE |
 | `netra-artifacts/client` | React hook and UI components |
-| `netra/iframe` | Iframe card and preview primitives |
-| `netra/stream` | Parser, SSE, buffering utilities |
-| `netra/sanitizer` | Sanitizer helpers |
-| `netra/classifier` | Auto-mode classifier |
-| `netra/types` | Public types |
+| `netra-artifacts/iframe` | Iframe card and preview primitives |
+| `netra-artifacts/stream` | Parser, SSE, buffering utilities |
+| `netra-artifacts/sanitizer` | Sanitizer helpers |
+| `netra-artifacts/classifier` | Auto-mode classifier |
+| `netra-artifacts/types` | Public types |
 
 ## Protocol
 
