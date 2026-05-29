@@ -1,7 +1,7 @@
 "use client";
 
 import { useArtifactStream } from "netra-artifacts/client";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { Composer } from "./Composer";
 import { ThinkingLoader } from "./ThinkingLoader";
@@ -62,6 +62,8 @@ export function LiveChat({
   const heroRef = useRef<HTMLDivElement | null>(null);
   const prevCount = useRef(0);
   const autoSentRef = useRef(false);
+  const stickToBottomRef = useRef(true);
+  const [showScrollBottom, setShowScrollBottom] = useState(false);
   const busy = status === "submitted" || status === "streaming";
   const empty = messages.length === 0;
 
@@ -97,10 +99,36 @@ export function LiveChat({
     if (messages.length > 0) onPersist(sessionId, messages, artifacts);
   }, [messages, artifacts, sessionId, onPersist]);
 
-  // Keep pinned to the latest content (the whole page scrolls, browser scrollbar).
+  const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior });
+  };
+
+  // The whole page scrolls. Stay pinned while the user is already near the
+  // bottom; if they scroll up, show a down-arrow instead of yanking the page.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+
+    const updateScrollState = () => {
+      const doc = document.documentElement;
+      const distance = doc.scrollHeight - window.innerHeight - window.scrollY;
+      const nearBottom = distance < 180;
+      stickToBottomRef.current = nearBottom;
+      setShowScrollBottom(!nearBottom);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!stickToBottomRef.current) return;
+    scrollToBottom("smooth");
   }, [messages, artifacts, status]);
 
   // Hero entrance animation.
@@ -182,6 +210,23 @@ export function LiveChat({
       </div>
 
       {/* Composer pinned to the viewport bottom while the page scrolls behind it. */}
+      {showScrollBottom && (
+        <button
+          type="button"
+          onClick={() => {
+            stickToBottomRef.current = true;
+            setShowScrollBottom(false);
+            scrollToBottom("smooth");
+          }}
+          className="fixed bottom-[116px] left-1/2 z-20 grid size-10 -translate-x-1/2 place-items-center rounded-full border border-white/12 bg-black/45 text-white/80 shadow-[0_18px_50px_-18px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl transition hover:border-white/25 hover:bg-black/55 hover:text-white sm:bottom-[122px]"
+          aria-label="Scroll to bottom"
+          title="Scroll to bottom"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+      )}
       <div className="sticky bottom-0 z-10 px-3 pb-5 pt-3 sm:px-4">
         <div className="relative mx-auto w-full max-w-3xl">
           <Composer

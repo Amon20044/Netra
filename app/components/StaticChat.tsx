@@ -16,7 +16,7 @@ interface StaticChatProps {
 export function StaticChat({ session, onContinue }: StaticChatProps) {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <div className="sticky top-0 z-10 mx-auto flex w-full max-w-3xl flex-wrap items-center gap-2 px-4 pb-2 pt-4 pl-14 lg:pl-4">
+      <div className="sticky top-3 z-20 mx-auto hidden w-[calc(100%-2rem)] max-w-3xl flex-wrap items-center gap-2 rounded-[24px] border border-white/10 bg-black/45 px-4 py-3 shadow-[0_20px_70px_-28px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl lg:flex">
         <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[12px] font-medium text-white/55">
           Saved chat
         </span>
@@ -29,7 +29,7 @@ export function StaticChat({ session, onContinue }: StaticChatProps) {
         </button>
       </div>
 
-      <div className="mx-auto w-full max-w-3xl flex-1 px-2 pb-10 pt-4 sm:px-4">
+      <div className="mx-auto w-full max-w-3xl flex-1 px-2 pb-10 pt-4 sm:px-4 lg:pt-6">
         {session.messages.map((message) => (
           <ChatMessageRow
             key={message.id}

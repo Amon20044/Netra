@@ -39,6 +39,7 @@ table{width:100%;border-collapse:collapse}
 .grid{display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
 .row{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:center}
 .card{padding:var(--pad);border-radius:var(--radius,16px);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),var(--surface,rgba(255,255,255,.04));border:1px solid var(--border,rgba(255,255,255,.1))}
+.control{min-height:44px;padding:.62em 2.2em .62em .9em;border-radius:calc(var(--radius,16px)*.75);border:1px solid var(--border,rgba(255,255,255,.14));background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));color:var(--fg);font:inherit}
 .scroll-x{overflow-x:auto}
 </style>`;
 
@@ -60,7 +61,7 @@ A short (1-2 sentence) chat message. Mention the aesthetic direction you chose, 
 ${SHARED_STYLE_EXAMPLE}
 </head>
 <body style="background:transparent;margin:0;color:var(--fg)">
-<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.scroll-x) for structure + inline style="" for per-element specifics. The OUTER wrapper must have NO background of its own. Fully responsive & compact. -->
+<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.control/.scroll-x) for structure + inline style="" for per-element specifics. The OUTER wrapper must have NO background of its own. Fully responsive & compact. -->
 </body>
 </html>
 </html_artifact>`;
@@ -82,7 +83,7 @@ A short (1-2 sentence) chat message. Mention the aesthetic direction you chose, 
 ${SHARED_STYLE_EXAMPLE}
 </head>
 <body style="margin:0;background:var(--bg);color:var(--fg)">
-<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.scroll-x) for structure + inline style="" for per-element specifics. Fully responsive & compact (see rules). -->
+<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.control/.scroll-x) for structure + inline style="" for per-element specifics. Fully responsive & compact (see rules). -->
 </body>
 </html>
 </html_artifact>`;
@@ -108,11 +109,11 @@ PUT IN THE <style> (keep it ~16 short lines; flat rules only):
 - A fluid type + space SCALE as variables on html, each a single clamp() so text/space SHRINK on phones and grow on desktop automatically — this is how one document is compact on mobile and comfortable on desktop with no breakpoints:
   html{--s0:clamp(13px,.55vw+11.5px,16px);--s1:clamp(15px,1vw+12px,19px);--h3:clamp(17px,1.2vw+13px,22px);--h2:clamp(22px,2.4vw+14px,40px);--h1:clamp(28px,4vw+12px,56px);--gap:clamp(14px,2.5vw,30px);--pad:clamp(16px,3.5vw,36px);font-size:var(--s0);line-height:1.5}
 - Element defaults via INHERITANCE so you don't restyle every node: h1/h2/h3 sized from --h*, p{margin:0;font-size:var(--s1)}, a{color:inherit}, table{width:100%;border-collapse:collapse}, img,svg,video{display:block;max-width:100%}.
-- A FEW reusable layout utility classes (classes WORK now — there is a stylesheet): .wrap (max-width + centered + --pad), .stack (column + --gap), .grid (auto-fit repeat(auto-fit,minmax(min(100%,220px),1fr)) + --gap), .row (flex-wrap + --gap), .card (--pad + radius + surface + border), .scroll-x (overflow-x:auto).
+- A FEW reusable layout utility classes (classes WORK now — there is a stylesheet): .wrap (max-width + centered + --pad), .stack (column + --gap), .grid (auto-fit repeat(auto-fit,minmax(min(100%,220px),1fr)) + --gap), .row (flex-wrap + --gap), .card (--pad + radius + surface + border), .control (polished select/input/filter button base), .scroll-x (overflow-x:auto).
 
 DECLARE COLOR/RADIUS TOKENS INLINE on <html style="--bg:…;--fg:…;--surface:…;--border:…;--muted:…;--radius:…;--accent:…"> (the <html> tag streams first AND lets the host theme apply). The <style> scale + utilities reference these via var().
 
-STYLE EVERYTHING ELSE INLINE: per-element specifics — exact colors, font-weight, one-off sizes, SVG attributes, individual backgrounds, the actual stat value, a single card's accent. Use the utility classes for structure (class="grid"/"stack"/"card"/"row"/"wrap"/"scroll-x"), then add inline style="" only for what is unique to THAT element.
+STYLE EVERYTHING ELSE INLINE: per-element specifics — exact colors, font-weight, one-off sizes, SVG attributes, individual backgrounds, the actual stat value, a single card's accent. Use the utility classes for structure (class="grid"/"stack"/"card"/"row"/"wrap"/"control"/"scroll-x"), then add inline style="" only for what is unique to THAT element.
 
 THIRD TIER — optional @media breakpoints (use SPARINGLY, only for true LAYOUT shifts the clamp scale cannot express). The clamp scale already handles fluid type + spacing, so reach for @media ONLY to RESTRUCTURE at a real breakpoint — e.g. collapse a 2-column split to stacked, drop a decorative side column, or change a grid's min track. Put any @media rules INSIDE the single shared <style> (it stays the ONLY <style> block). The artifact is measured by the iframe's own width, so use width queries (e.g. @media(max-width:560px){.split{grid-template-columns:1fr}}) and keep to 1-2 of them. Tier order: (1) inline per-element specifics → (2) shared clamp scale + utility classes → (3) @media only for structural shifts.
 
@@ -121,12 +122,24 @@ STILL FORBIDDEN (none survive the streaming + camouflage layer — never emit th
 - @keyframes, @font-face, @supports, @container.
 - Pseudo-classes/elements: :hover, :focus, :active, ::before, ::after, ::marker (no stylesheet re-runs mid-stream).
 - javascript:, external stylesheets, a click-toggle "burger" menu. For navs use a single wrapping/scrolling .row.
+- Bare browser-default controls. NEVER emit naked <select>, <button>, <input>, or filter controls that look like plain OS widgets (tiny rectangular default boxes). Every control must use class="control" or equivalent inline styling, with a visible surface, border, spacing, readable font, and >=44px hit area. For select arrows, place a small text glyph (▼) in an adjacent span inside a position:relative wrapper; do not use CSS data-URI arrows.
 
 CONCRETE PATTERN (auto-fit grid of stat cards — reflows 4-up → 1-up by itself, compact on phones):
 <div class="grid">
   <div class="card"><div style="font-size:13px;letter-spacing:.04em;color:var(--muted)">Revenue</div><div style="font-size:var(--h2);font-weight:700">$48.9K</div><div style="font-size:13px;color:#34d399">▲ 4.2%</div></div>
 </div>
-Structure comes from the class; only the unique bits are inline.`;
+Structure comes from the class; only the unique bits are inline.
+
+CONCRETE CONTROL PATTERN (filters/selects — polished, not browser-default):
+<div class="row" style="--gap:10px">
+  <label style="position:relative;display:inline-flex;align-items:center">
+    <span style="position:absolute;left:-9999px">Time range</span>
+    <select class="control" style="appearance:none;-webkit-appearance:none;min-width:132px"><option>30 Days</option><option>90 Days</option></select>
+    <span aria-hidden="true" style="position:absolute;right:12px;color:var(--muted);pointer-events:none">▼</span>
+  </label>
+  <button class="control" type="button" style="padding-right:.9em">All Assets (5)</button>
+  <button class="control" type="button" style="padding-right:.9em">All Segments</button>
+</div>`;
 }
 
 const DESIGN_DIRECTION = `DESIGN DIRECTION — make it genuinely beautiful, not generic. Avoid "AI slop" at all costs.
@@ -166,7 +179,7 @@ function buildFontRule(allowExternalFonts: boolean): string {
 
 function buildFormRule(allowForms: boolean): string {
   if (allowForms) {
-    return `FORMS: native HTML controls only (form, label, input, textarea, select, button) with native validation (required, pattern, min, max, type=email/tel/...). Style inputs inline to match the aesthetic — generous hit areas (≥44px). For a select's dropdown arrow use a Unicode glyph next to it or leave the native arrow; NEVER a data-URI SVG background-image (it breaks attribute quoting). No JavaScript validation.`;
+    return `FORMS & FILTER CONTROLS: native HTML controls only (form, label, input, textarea, select, button) with native validation (required, pattern, min, max, type=email/tel/...). Every visible control must be deliberately styled to match the artifact aesthetic: use class="control" or equivalent inline styles, min-height >=44px, rounded token radius, visible filled/gradient surface, 1px border, inherited font, and comfortable horizontal padding. Filter bars like "30 Days / All Assets / All Segments" should render as polished pills or select controls in a wrapping .row, not raw default browser boxes. For a select's dropdown arrow use a Unicode glyph in an adjacent absolute-positioned span or leave the native arrow; NEVER a data-URI SVG background-image (it breaks attribute quoting). No JavaScript validation.`;
   }
   return `FORMS: avoid interactive controls; present information as polished static content.`;
 }

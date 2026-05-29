@@ -176,7 +176,7 @@ export function ChatExperience() {
           {!sidebarOpen && (
             <button
               onClick={() => setSidebarOpen(true)}
-              className="absolute left-3 top-3 z-30 rounded-xl border border-white/10 bg-black/30 p-2 text-white/60 backdrop-blur transition hover:text-white"
+              className="fixed left-3 top-3 z-50 rounded-xl border border-white/10 bg-black/45 p-2 text-white/70 shadow-[0_10px_30px_-16px_rgba(0,0,0,0.9)] backdrop-blur-xl transition hover:border-white/20 hover:bg-black/55 hover:text-white"
               title="Show sidebar"
               aria-label="Show sidebar"
             >

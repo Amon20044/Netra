@@ -26,7 +26,7 @@ Some renderers (e.g. sandboxed, streamed chat artifacts) run **one tiny shared `
   - Reset: `*,*::before,*::after{box-sizing:border-box}`.
   - A fluid type+space **scale** as variables on `html`, each a single `clamp()` — so one document is compact on phones and comfortable on desktop with no breakpoints: `html{--s0:clamp(13px,.55vw+11.5px,16px);--h1:clamp(28px,4vw+12px,56px);--gap:clamp(14px,2.5vw,30px);--pad:clamp(16px,3.5vw,36px);font-size:var(--s0);line-height:1.5}`.
   - **Element defaults** so children inherit instead of being restyled: `h1/h2/h3` sized from `--h*`, `p{margin:0}`, `table{width:100%;border-collapse:collapse}`, `img,svg{display:block;max-width:100%}`.
-  - A few **utility classes**: `.wrap .stack .grid .row .card .scroll-x`.
+  - A few **utility classes**: `.wrap .stack .grid .row .card .control .scroll-x`.
 - **Color/radius tokens inline on the root:** `<html style="--bg:#0f121b;--fg:#e0e7ff;--surface:rgba(255,255,255,.05);--border:rgba(255,255,255,.1);--radius:14px">` (streams first, lets a host theme apply); the `<style>` references them via `var()`.
 - **Style everything else inline** — per-element colors, weights, one-off sizes, SVG attrs, the actual values. Structure via the utility classes; inline only for what's unique to that element.
 - **Optional 3rd tier — 1–2 `@media` breakpoints** *inside* the one `<style>*, only for true layout shifts the clamp scale can't express (e.g. 2-col → stacked, drop a side column). The artifact is measured by its **iframe's** width, so width queries behave like container queries.
@@ -34,6 +34,7 @@ Some renderers (e.g. sandboxed, streamed chat artifacts) run **one tiny shared `
 - **Transparent / embedded ("camouflage") contexts:** only the PAGE (html/body + the single outer wrapper) is transparent so the artifact blends into the host — but every DATA CARD / PANEL still needs its OWN visible surface (a subtle filled/gradient `--surface` + a 1px hairline border). Never leave content floating on the bare background; give cards depth for readability and vary fill strength by importance.
 - **No horizontal overflow, ever:** containers `max-width:100%`/`min(100%,…)`, never fixed px; text `overflow-wrap:break-word`; wide tables/charts → `.scroll-x` wrapper.
 - **Navs can't be burgers** (no JS toggle) → a single **wrapping or horizontally-scrolling** `.row`.
+- **No bare browser-default controls:** filters, dropdowns, selects, and buttons must look designed, not like tiny OS default boxes. Add a `.control` utility or equivalent inline styles with `min-height:44px`, filled/gradient surface, 1px border, inherited font, comfortable padding, and token radius. For select arrows, use a Unicode glyph sibling (`▼`) inside a `position:relative` wrapper or leave the native arrow; never a CSS data-URI arrow in `style=""`.
 - **Fonts:** at most **3 styles** total (one display + one body, ≤2 weights). **Motion:** none (no `@keyframes`/`:hover`) — win with static depth.
 
 ### Three failure modes that break these artifacts (avoid always)
@@ -42,6 +43,28 @@ Some renderers (e.g. sandboxed, streamed chat artifacts) run **one tiny shared `
 - **Never backslash-escape quotes in an attribute, and never put a data-URI `<svg>` inside `style=""`.** In HTML attributes `\"` is *not* an escape — the first inner double-quote closes the attribute and the rest of the CSS leaks onto the page as visible text. For select arrows/icons use a Unicode glyph (`▾ ✓ →`) or a real inline `<svg>` sibling element, not a CSS `background-image` data-URI.
 
 **Why this still streams fast:** the `<head>` stays tiny (one short `<style>`), so the body streams and **paints element-by-element as it arrives**. Keep `<head>` to `<meta>` + one optional font `<link>` + the shared `<style>`; write the body top-to-bottom in visual order so the first tokens already render something.
+
+### Polished filter/select pattern
+
+Use this whenever the UI needs dropdown-like filters such as "30 Days", "All Assets (5)", or "All Segments":
+
+```html
+<style>
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.control{min-height:44px;padding:.62em 2.2em .62em .9em;border-radius:calc(var(--radius,16px)*.75);border:1px solid var(--border,rgba(255,255,255,.14));background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));color:var(--fg);font:inherit}
+</style>
+<div class="row">
+  <label style="position:relative;display:inline-flex;align-items:center">
+    <span style="position:absolute;left:-9999px">Time range</span>
+    <select class="control" style="appearance:none;-webkit-appearance:none;min-width:132px"><option>30 Days</option><option>90 Days</option></select>
+    <span aria-hidden="true" style="position:absolute;right:12px;color:var(--muted);pointer-events:none">▼</span>
+  </label>
+  <button class="control" type="button" style="padding-right:.9em">All Assets (5)</button>
+  <button class="control" type="button" style="padding-right:.9em">All Segments</button>
+</div>
+```
+
+Do not emit naked `<select>`/`<button>` controls like default browser widgets.
 
 ## The 5 layout primitives (memorize these)
 
