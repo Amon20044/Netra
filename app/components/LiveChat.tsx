@@ -20,6 +20,7 @@ interface LiveChatProps {
   sessionId: string;
   providerConfig: ProviderConfig | null;
   providerReady: boolean;
+  greeting: string;
   userName: string;
   autoSend: string | null;
   onPersist: (id: string, messages: ChatMessage[], artifacts: Record<string, HtmlArtifact>) => void;
@@ -32,6 +33,7 @@ export function LiveChat({
   sessionId,
   providerConfig,
   providerReady,
+  greeting,
   userName,
   autoSend,
   onPersist,
@@ -63,6 +65,16 @@ export function LiveChat({
   const busy = status === "submitted" || status === "streaming";
   const empty = messages.length === 0;
 
+  // Show the "cooking" loader whenever Netra is working but nothing is visible
+  // yet — before the message text or the HTML artifact has streamed in — so the
+  // row never looks empty during generation.
+  const last = messages[messages.length - 1];
+  const lastArtifact = last?.artifactId ? artifacts[last.artifactId] : undefined;
+  const lastHasContent =
+    (last?.role === "assistant" && last.content.trim() !== "") ||
+    !!(lastArtifact && (lastArtifact.html.trim() !== "" || lastArtifact.snapshot.trim() !== ""));
+  const showCooking = busy && !lastHasContent;
+
   const send = (text: string) => {
     if (!providerReady) {
       onRequestProvider(text);
@@ -85,9 +97,10 @@ export function LiveChat({
     if (messages.length > 0) onPersist(sessionId, messages, artifacts);
   }, [messages, artifacts, sessionId, onPersist]);
 
-  // Keep pinned to the latest content.
+  // Keep pinned to the latest content (the whole page scrolls, browser scrollbar).
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
   }, [messages, artifacts, status]);
 
   // Hero entrance animation.
@@ -117,7 +130,7 @@ export function LiveChat({
 
   if (empty) {
     return (
-      <div ref={heroRef} className="flex h-full flex-col items-center justify-center px-5">
+      <div ref={heroRef} className="flex min-h-[100dvh] flex-col items-center justify-center px-5">
         <div className="w-full max-w-2xl">
           <div className="lov-hero-el mb-7 text-center">
             <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-3.5 py-1.5 text-[12.5px] font-medium text-white/70 backdrop-blur">
@@ -125,7 +138,7 @@ export function LiveChat({
               Generative HTML UI · streamed live
             </div>
             <h1 className="bg-gradient-to-b from-white to-white/55 bg-clip-text text-[40px] font-semibold leading-tight tracking-tight text-transparent sm:text-[46px]">
-              What should we build, {userName}?
+              {greeting}, {userName}. What should we build?
             </h1>
           </div>
 
@@ -156,8 +169,8 @@ export function LiveChat({
   }
 
   return (
-    <div className="flex h-full flex-col">
-      <div ref={scrollRef} className="mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-4 pb-6 pt-4">
+    <div className="flex min-h-[100dvh] flex-col">
+      <div ref={scrollRef} className="mx-auto w-full max-w-3xl flex-1 px-4 pb-6 pt-4">
         {messages.map((message) => (
           <ChatMessageRow
             key={message.id}
@@ -165,17 +178,20 @@ export function LiveChat({
             artifact={message.artifactId ? artifacts[message.artifactId] : undefined}
           />
         ))}
-        {status === "submitted" && <ThinkingLoader />}
+        {showCooking && <ThinkingLoader />}
       </div>
 
-      <div className="mx-auto w-full max-w-3xl px-4 pb-5">
-        <Composer
-          onSend={send}
-          onStop={stop}
-          busy={busy}
-          providerLabel={providerConfig ? providerConfig.modelId : "Connect model"}
-          onConfigure={onConfigure}
-        />
+      {/* Composer pinned to the viewport bottom while the page scrolls behind it. */}
+      <div className="sticky bottom-0 z-10 px-4 pb-5 pt-3">
+        <div className="relative mx-auto w-full max-w-3xl">
+          <Composer
+            onSend={send}
+            onStop={stop}
+            busy={busy}
+            providerLabel={providerConfig ? providerConfig.modelId : "Connect model"}
+            onConfigure={onConfigure}
+          />
+        </div>
       </div>
     </div>
   );

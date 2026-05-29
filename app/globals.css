@@ -114,6 +114,32 @@ body {
   opacity: 0;
 }
 
+/* Shimmering gradient text for the "cooking" loader. */
+@keyframes lov-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.lov-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    #ffffff 18%,
+    #e879f9 38%,
+    #fb923c 54%,
+    #ffffff 72%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: lov-shimmer 2.8s linear infinite;
+}
+
 /* One custom, subtle scrollbar for the whole app. The artifact iframe is sized
    to its content and never shows its own scrollbar, so this is the only one. */
 * {

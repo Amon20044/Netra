@@ -186,6 +186,8 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
         title={title || "Artifact preview"}
         sandbox={sandbox}
         onLoad={handleLoad}
+        allowTransparency
+        scrolling={opts.autoResize ? "no" : "auto"}
         style={{
           display: "block",
           width: "100%",
@@ -193,6 +195,9 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
           minHeight,
           border: "none",
           background: "transparent",
+          // In camouflage, stop the browser compositing a light/dark canvas
+          // behind the transparent document, so the host surface shows through.
+          colorScheme: bare ? "normal" : undefined,
           pointerEvents: streaming && !iframeSrcDoc ? "none" : "auto",
           opacity: showSkeleton ? 0 : 1,
           transition: "opacity 0.2s ease",
@@ -266,13 +271,27 @@ function patchIframeDocument(target: Document, fullDoc: string): void {
   if (target.head && parsed.head && target.head.innerHTML !== parsed.head.innerHTML) {
     target.head.innerHTML = parsed.head.innerHTML;
   }
-  // Mirror body attributes (class/style may change between frames).
-  for (const attr of Array.from(parsed.body.attributes)) {
-    if (target.body.getAttribute(attr.name) !== attr.value) {
-      target.body.setAttribute(attr.name, attr.value);
-    }
-  }
+  // Mirror root/body attributes. Camouflage puts transparent background and CSS
+  // variables on <html style="...">, so missing this makes the live preview
+  // diverge from PDF/static renders.
+  mirrorAttributes(target.documentElement, parsed.documentElement);
+  mirrorAttributes(target.body, parsed.body);
   if (target.body.innerHTML !== parsed.body.innerHTML) {
     target.body.innerHTML = parsed.body.innerHTML;
+  }
+}
+
+function mirrorAttributes(target: Element, source: Element): void {
+  const sourceNames = new Set<string>();
+  for (const attr of Array.from(source.attributes)) {
+    sourceNames.add(attr.name);
+    if (target.getAttribute(attr.name) !== attr.value) {
+      target.setAttribute(attr.name, attr.value);
+    }
+  }
+  for (const attr of Array.from(target.attributes)) {
+    if (!sourceNames.has(attr.name)) {
+      target.removeAttribute(attr.name);
+    }
   }
 }

@@ -15,7 +15,7 @@ function composeSystem(...parts: (string | undefined)[]): string {
 
 export interface HtmlArtifactStreamResult {
   messageId: string;
-  artifactId: string;
+  artifactId: string | null;
   finalHtml: string;
 }
 
@@ -121,6 +121,16 @@ export async function streamHtmlArtifactFromTextStream(
   // Authoritative final parse over the entire model output.
   const parsed = parseArtifactEnvelope(rawText);
 
+  const finalSource = parsed.hasArtifact ? parsed.html : buffer.raw;
+  if (!artifactStarted && !finalSource.trim()) {
+    message.done(parsed.assistantMessage || rawText.trim() || "I couldn't generate an artifact for that request.");
+    return {
+      messageId: message.id,
+      artifactId: null,
+      finalHtml: "",
+    };
+  }
+
   if (!artifactStarted) {
     // The streaming split never opened an artifact; recover from the final parse.
     message.done(parsed.assistantMessage || undefined);
@@ -129,7 +139,6 @@ export async function streamHtmlArtifactFromTextStream(
     message.done();
   }
 
-  const finalSource = parsed.hasArtifact ? parsed.html : buffer.raw;
   const { html: finalHtml } = sanitizeHtml(finalSource, options.sanitize);
   artifact.done(finalHtml);
 

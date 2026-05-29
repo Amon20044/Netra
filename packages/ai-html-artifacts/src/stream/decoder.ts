@@ -65,6 +65,13 @@ export class SseDecoder {
 
     const payload = dataLines.join("\n");
     const parsed = safeJsonParse<unknown>(payload, null);
-    return isArtifactStreamEvent(parsed) ? parsed : null;
+    if (!isArtifactStreamEvent(parsed)) return null;
+    if (
+      parsed.type === "mode" &&
+      (parsed as { mode?: unknown }).mode === "html_artifact"
+    ) {
+      return { type: "mode", mode: "artifact" };
+    }
+    return parsed;
   }
 }

@@ -60,3 +60,24 @@ test("provider-agnostic text stream recovers bare HTML", async () => {
   assert.match(result.finalHtml, /<h1>Hello<\/h1>/);
   assert.equal(events.some((event) => event.type === "artifact_start"), true);
 });
+
+test("provider-agnostic text stream does not emit empty artifacts for plain text", async () => {
+  const events = [];
+  const result = await streamHtmlArtifactFromTextStream(
+    {
+      sanitize,
+      snapshotIntervalMs: 0,
+      textStream: chunks([
+        "I can help test camouflage, but I need an actual UI shape to render.",
+      ]),
+    },
+    (event) => events.push(event),
+  );
+
+  assert.ok(result.messageId.startsWith("msg_"));
+  assert.equal(result.artifactId, null);
+  assert.equal(result.finalHtml, "");
+  assert.equal(events.some((event) => event.type === "artifact_start"), false);
+  assert.equal(events.some((event) => event.type === "artifact_done"), false);
+  assert.equal(events.at(-1).type, "message_done");
+});

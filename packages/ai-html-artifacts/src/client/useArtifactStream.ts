@@ -62,6 +62,24 @@ export function useArtifactStream(
     [],
   );
 
+  const ensureAssistantMessage = React.useCallback(
+    (id: string | null, mode: ArtifactMode | null): string => {
+      if (id) return id;
+      const nextId = createMessageId();
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: nextId,
+          role: "assistant",
+          content: "",
+          mode: mode ?? undefined,
+        },
+      ]);
+      return nextId;
+    },
+    [],
+  );
+
   const patchMessage = React.useCallback(
     (id: string, patch: Partial<ChatMessage>) => {
       setMessages((prev) =>
@@ -160,13 +178,12 @@ export function useArtifactStream(
               break;
             }
             case "artifact_start": {
+              assistantId = ensureAssistantMessage(assistantId, currentMode);
               patchArtifact(ev.artifactId, {
                 title: ev.title,
                 status: "streaming",
               });
-              if (assistantId) {
-                patchMessage(assistantId, { artifactId: ev.artifactId });
-              }
+              patchMessage(assistantId, { artifactId: ev.artifactId });
               break;
             }
             case "artifact_delta": {

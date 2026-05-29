@@ -6,16 +6,32 @@ import { Markdown } from "./Markdown";
 import { NetraLogo } from "./NetraLogo";
 import { SITE_THEME } from "../lib/theme";
 
+// Both modes are INLINE-CSS ONLY (bare minimum, no <style>): styling lives in
+// inline style="" attributes, and responsiveness comes from intrinsic CSS
+// (clamp, grid auto-fit/minmax, flex-wrap) — no media queries needed. This keeps
+// output lean and guarantees no stylesheet rule can leak a background.
 const CARD_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
-  presentation: "seamless",
-  theme: SITE_THEME,
-  radius: "2xl",
+  // Pure artifact: its own self-contained world in a clean rounded glass frame.
+  variant: "glass",
+  radius: "3xl",
   previewOptions: {
     allowExternalFonts: true,
     autoResize: true,
-    minHeight: 0,
     maxHeight: 100000,
     debounceMs: 0,
+    allowStyleTags: false,
+    allowInlineStyles: true,
+  },
+};
+
+// Camouflage: transparent, host-themed, sits inline on the chat.
+const SEAMLESS_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
+  ...CARD_PROPS,
+  presentation: "seamless",
+  theme: SITE_THEME,
+  previewOptions: {
+    ...CARD_PROPS.previewOptions,
+    minHeight: 0,
   },
 };
 
@@ -42,6 +58,9 @@ export function ChatMessageRow({
   }
 
   const hasText = message.content.trim() !== "";
+  const hasArtifact = Boolean(
+    artifact && (artifact.html.trim() !== "" || artifact.snapshot.trim() !== ""),
+  );
 
   return (
     <div className="lov-msg flex gap-3 py-3">
@@ -54,7 +73,12 @@ export function ChatMessageRow({
             <Markdown content={message.content} />
           </div>
         )}
-        {artifact && <HtmlArtifactCard artifact={artifact} {...CARD_PROPS} />}
+        {hasArtifact && artifact && (
+          <HtmlArtifactCard
+            artifact={artifact}
+            {...(message.mode === "generative_ui" ? SEAMLESS_PROPS : CARD_PROPS)}
+          />
+        )}
       </div>
     </div>
   );

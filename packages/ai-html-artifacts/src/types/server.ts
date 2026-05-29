@@ -127,7 +127,10 @@ export interface ResolvedServerConfig {
   system?: string;
   markdownSystemPrompt: string;
   htmlSystemPrompt: string;
+  htmlSystemPromptOverride?: string;
   styleProfile?: ArtifactStyleProfile;
+  theme?: ArtifactTheme;
+  presentation?: ArtifactPresentation;
   sanitize: {
     allowForms: boolean;
     allowScripts: false;

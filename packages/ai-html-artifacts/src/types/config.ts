@@ -18,4 +18,10 @@ export interface SanitizeOptions {
 }
 
 /** Mode resolution strategy for the server helper. */
-export type ArtifactModeOption = "auto" | "markdown" | "html_artifact";
+export type ArtifactModeOption =
+  | "auto"
+  | "markdown"
+  | "artifact"
+  | "generative_ui"
+  /** @deprecated Use `artifact` or `generative_ui`. */
+  | "html_artifact";

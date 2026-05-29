@@ -36,7 +36,10 @@ export function resolveServerConfig(
     system: options.system,
     markdownSystemPrompt: options.markdownSystemPrompt ?? MARKDOWN_SYSTEM_PROMPT,
     htmlSystemPrompt,
+    htmlSystemPromptOverride: options.htmlSystemPrompt,
     styleProfile: options.styleProfile,
+    theme: options.theme,
+    presentation: options.presentation,
     sanitize: {
       allowForms,
       allowScripts: false,

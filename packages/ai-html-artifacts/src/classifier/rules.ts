@@ -45,6 +45,28 @@ const VISUAL_SIGNALS: RegExp[] = [
   /\b(build|create|make|generate|design|render|show me|mock up|wireframe)\b[\s\S]*\b(app|interface|component|prototype|artifact|visual)\b/i,
 ];
 
+/**
+ * Requests that should blend into the host chat/application rather than render
+ * as a standalone document card.
+ */
+const GENERATIVE_UI_SIGNALS: RegExp[] = [
+  /\bgenerative\s*ui\b/i,
+  /\bcamouflage\b/i,
+  /\btransparent\b/i,
+  /\bshowcase\b/i,
+  /\bblend(s|ing)?\s*(in|into|with)?\b[\s\S]*\b(chat|host|ui|app)\b/i,
+  /\bsit(s|ting)?\s*(on|in|inside)\b[\s\S]*\b(chat|host|app|page)\b/i,
+  /\binline\s*(ui|interface|component|artifact|preview)\b/i,
+  /\b(seamless|camouflage|native|chromeless)\s*(ui|interface|component|artifact|preview|gen|generation)?\b/i,
+  /\b(component|widget)\b/i,
+  /\b(app|interface)\s*(prototype|concept|exploration|variations?|states?)\b/i,
+  /\b(ui|interface)\s*(kit|system|concept|exploration|variations?|combinations?)\b/i,
+  /\b(combinations?|variations?|states?)\b[\s\S]*\b(ui|interface|screen|component)\b/i,
+  /\ball\s+(the\s+)?(combinations?|variations?|components?|states?)\b/i,
+  /\bstatic\s*(app|interface|experience|prototype)\b/i,
+  /\bvisual\s*(prototype|concept|system|kit|exploration)\b/i,
+];
+
 /** Phrases that strongly suggest a text answer is the right output. */
 const TEXTUAL_SIGNALS: RegExp[] = [
   /\bexplain\b|\bexplanation\b/i,
@@ -71,11 +93,13 @@ export function classifyByRules(query: string): RuleClassification {
   }
 
   let visual = 0;
+  let generative = 0;
   let textual = 0;
   for (const re of VISUAL_SIGNALS) if (re.test(text)) visual++;
+  for (const re of GENERATIVE_UI_SIGNALS) if (re.test(text)) generative++;
   for (const re of TEXTUAL_SIGNALS) if (re.test(text)) textual++;
 
-  if (visual === 0 && textual === 0) {
+  if (visual === 0 && generative === 0 && textual === 0) {
     return {
       mode: "markdown",
       reason: "No strong visual signal; defaulting to text",
@@ -83,11 +107,14 @@ export function classifyByRules(query: string): RuleClassification {
     };
   }
 
-  if (visual > textual) {
+  if (visual > textual || generative > textual) {
     return {
-      mode: "html_artifact",
-      reason: `Matched ${visual} visual signal(s)`,
-      confidence: Math.min(0.5 + 0.15 * (visual - textual), 0.95),
+      mode: generative > 0 ? "generative_ui" : "artifact",
+      reason:
+        generative > 0
+          ? `Matched ${generative} generative UI signal(s)`
+          : `Matched ${visual} visual signal(s)`,
+      confidence: Math.min(0.5 + 0.15 * Math.max(visual, generative - textual), 0.95),
     };
   }
 

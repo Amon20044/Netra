@@ -4,7 +4,7 @@ import {
 } from "./classifierPrompt.js";
 import { classifyByRules } from "./rules.js";
 import { safeJsonParse } from "../utils/safeJsonParse.js";
-import type { ArtifactMode } from "../types/stream.js";
+import type { AnyArtifactMode, ArtifactMode } from "../types/stream.js";
 import type { GenerateText } from "../types/server.js";
 
 export interface ClassificationResult {
@@ -22,8 +22,8 @@ export interface ClassifyModeParams {
 }
 
 /**
- * Classify a request as `markdown` or `html_artifact`. Tries the model first
- * and fails open to deterministic rules on any error or malformed output.
+ * Classify a request as `markdown`, `artifact`, or `generative_ui`. Tries the
+ * model first and fails open to deterministic rules on any error or malformed output.
  * Never throws — routing must always resolve.
  */
 export async function classifyMode(
@@ -32,7 +32,10 @@ export async function classifyMode(
   const { generateText, query, temperature = 0, abortSignal } = params;
   const fallback = classifyByRules(query);
 
-  if (fallback.mode === "html_artifact" && fallback.confidence >= 0.65) {
+  if (
+    (fallback.mode === "artifact" || fallback.mode === "generative_ui") &&
+    fallback.confidence >= 0.65
+  ) {
     return { ...fallback, source: "rules" };
   }
 
@@ -47,9 +50,10 @@ export async function classifyMode(
     });
 
     const parsed = safeJsonParse<{ mode?: string; reason?: string }>(text, {});
-    if (parsed.mode === "markdown" || parsed.mode === "html_artifact") {
+    const parsedMode = normalizeClassificationMode(parsed.mode);
+    if (parsedMode) {
       return {
-        mode: parsed.mode,
+        mode: parsedMode,
         reason: parsed.reason?.slice(0, 200) ?? "model classification",
         source: "model",
       };
@@ -59,4 +63,16 @@ export async function classifyMode(
   } catch {
     return { ...fallback, source: "rules" };
   }
+}
+
+function normalizeClassificationMode(mode: unknown): ArtifactMode | null {
+  if (
+    mode === "markdown" ||
+    mode === "artifact" ||
+    mode === "generative_ui"
+  ) {
+    return mode;
+  }
+  if ((mode as AnyArtifactMode) === "html_artifact") return "artifact";
+  return null;
 }

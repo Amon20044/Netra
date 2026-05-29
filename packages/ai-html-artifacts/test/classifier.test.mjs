@@ -11,11 +11,16 @@ test("classifyByRules routes explanations to markdown", () => {
   );
 });
 
-test("classifyByRules routes visual UI requests to html_artifact", () => {
-  assert.equal(classifyByRules("Build a pricing page for a SaaS").mode, "html_artifact");
-  assert.equal(classifyByRules("Create an invoice for my client").mode, "html_artifact");
-  assert.equal(classifyByRules("Make a contact form").mode, "html_artifact");
-  assert.equal(classifyByRules("Design a dashboard with stat cards").mode, "html_artifact");
+test("classifyByRules routes standalone visual requests to artifact", () => {
+  assert.equal(classifyByRules("Build a pricing page for a SaaS").mode, "artifact");
+  assert.equal(classifyByRules("Create an invoice for my client").mode, "artifact");
+  assert.equal(classifyByRules("Make a contact form").mode, "artifact");
+  assert.equal(classifyByRules("Design a dashboard with stat cards").mode, "artifact");
+});
+
+test("classifyByRules routes inline native UI requests to generative_ui", () => {
+  assert.equal(classifyByRules("Make a generative UI component for onboarding").mode, "generative_ui");
+  assert.equal(classifyByRules("Create seamless native UI states for a settings panel").mode, "generative_ui");
 });
 
 test("classifyByRules falls back to markdown on empty/ambiguous input", () => {

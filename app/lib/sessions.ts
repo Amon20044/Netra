@@ -6,6 +6,7 @@ export interface ProviderConfig {
   provider: string;
   apiKey: string;
   modelId: string;
+  displayName?: string;
 }
 
 export interface ChatSession {
@@ -71,6 +72,17 @@ export function saveProvider(config: ProviderConfig): void {
   } catch {
     /* non-fatal */
   }
+}
+
+export function greetingForNow(date = new Date()): string {
+  const hour = date.getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+export function displayNameForProvider(config: ProviderConfig | null): string {
+  return config?.displayName?.trim() || "there";
 }
 
 export const PROVIDERS: { id: string; name: string; defaultModel: string; hint: string }[] = [

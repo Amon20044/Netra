@@ -8,6 +8,8 @@ import { StaticChat } from "./StaticChat";
 import { ProviderModal } from "./ProviderModal";
 import {
   deriveTitle,
+  displayNameForProvider,
+  greetingForNow,
   loadProvider,
   loadSessions,
   newId,
@@ -18,8 +20,6 @@ import {
   type ProviderConfig,
 } from "../lib/sessions";
 import type { HtmlArtifact } from "netra/client";
-
-const USER_NAME = "Amon";
 
 export function ChatExperience() {
   const [mounted, setMounted] = useState(false);
@@ -126,12 +126,14 @@ export function ChatExperience() {
   const providerReady = !!providerConfig?.apiKey;
   const viewingActive = viewingId === activeId;
   const viewingSession = viewingActive ? null : sessions.find((s) => s.id === viewingId) ?? null;
+  const userName = displayNameForProvider(providerConfig);
+  const greeting = greetingForNow();
 
   return (
-    <div className="relative flex h-[100dvh] w-full overflow-hidden text-white">
+    <div className="relative flex min-h-[100dvh] w-full text-white">
       <AuroraBackground />
 
-      <div className="relative z-10 flex h-full w-full">
+      <div className="relative z-10 flex w-full">
         <Sidebar
           sessions={sessions}
           activeId={activeId}
@@ -143,7 +145,7 @@ export function ChatExperience() {
           onToggle={() => setSidebarOpen(false)}
         />
 
-        <main className="relative flex h-full min-w-0 flex-1 flex-col">
+        <main className="relative flex min-h-[100dvh] min-w-0 flex-1 flex-col">
           {!sidebarOpen && (
             <button
               onClick={() => setSidebarOpen(true)}
@@ -163,7 +165,8 @@ export function ChatExperience() {
               sessionId={activeId}
               providerConfig={providerConfig}
               providerReady={providerReady}
-              userName={USER_NAME}
+              greeting={greeting}
+              userName={userName}
               autoSend={pendingPrompt}
               onPersist={onPersist}
               onRequestProvider={requestProvider}

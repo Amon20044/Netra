@@ -4,7 +4,9 @@
  * whether to render a markdown bubble or an artifact card.
  */
 
-export type ArtifactMode = "markdown" | "html_artifact";
+export type ArtifactMode = "markdown" | "artifact" | "generative_ui";
+export type LegacyArtifactMode = "html_artifact";
+export type AnyArtifactMode = ArtifactMode | LegacyArtifactMode;
 
 /** The only artifact kind supported in v1. */
 export type ArtifactKind = "html";

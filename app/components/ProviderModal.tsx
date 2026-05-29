@@ -18,6 +18,7 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
   const [provider, setProvider] = useState(initial?.provider ?? "google");
   const [modelId, setModelId] = useState(initial?.modelId ?? PROVIDERS[0].defaultModel);
   const [apiKey, setApiKey] = useState(initial?.apiKey ?? "");
+  const [displayName, setDisplayName] = useState(initial?.displayName ?? "");
   const [testing, setTesting] = useState(false);
   const [error, setError] = useState("");
 
@@ -27,8 +28,13 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
   useEffect(() => {
     if (!open) return;
     // Clear any stale error from a previous open, then play the entrance.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    /* eslint-disable react-hooks/set-state-in-effect */
     setError("");
+    setProvider(initial?.provider ?? "google");
+    setModelId(initial?.modelId ?? PROVIDERS[0].defaultModel);
+    setApiKey(initial?.apiKey ?? "");
+    setDisplayName(initial?.displayName ?? "");
+    /* eslint-enable react-hooks/set-state-in-effect */
     const ctx = gsap.context(() => {
       gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" });
       gsap.fromTo(
@@ -43,7 +49,7 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
       );
     });
     return () => ctx.revert();
-  }, [open]);
+  }, [open, initial]);
 
   if (!open) return null;
 
@@ -60,7 +66,12 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
     if (!apiKey.trim() || testing) return;
     setTesting(true);
     setError("");
-    const config: ProviderConfig = { provider, apiKey: apiKey.trim(), modelId: modelId.trim() };
+    const config: ProviderConfig = {
+      provider,
+      apiKey: apiKey.trim(),
+      modelId: modelId.trim(),
+      displayName: displayName.trim() || undefined,
+    };
     try {
       const res = await fetch("/api/test-key", {
         method: "POST",
@@ -142,6 +153,18 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
               value={modelId}
               onChange={(e) => setModelId(e.target.value)}
               placeholder={activeProvider?.defaultModel}
+              className="w-full rounded-xl border border-white/10 bg-black/30 px-3.5 py-3 text-[14px] text-white outline-none transition focus:border-fuchsia-400/60 focus:ring-2 focus:ring-fuchsia-500/20"
+            />
+          </div>
+
+          <div className="lov-modal-field">
+            <label className="mb-1.5 block text-[12px] font-medium uppercase tracking-wider text-white/45">
+              Your name
+            </label>
+            <input
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder="What should Netra call you?"
               className="w-full rounded-xl border border-white/10 bg-black/30 px-3.5 py-3 text-[14px] text-white outline-none transition focus:border-fuchsia-400/60 focus:ring-2 focus:ring-fuchsia-500/20"
             />
           </div>

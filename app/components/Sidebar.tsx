@@ -44,7 +44,7 @@ export function Sidebar({ sessions, activeId, viewingId, open, onSelect, onNew, 
 
   return (
     <aside
-      className="relative z-20 flex h-full shrink-0 flex-col overflow-hidden transition-all duration-300 ease-out"
+      className="sticky top-0 z-20 flex h-[100dvh] shrink-0 flex-col overflow-hidden transition-all duration-300 ease-out"
       style={{ width: open ? 280 : 0 }}
     >
       <div className="flex h-full w-[280px] flex-col gap-3 p-3">
