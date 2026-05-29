@@ -137,7 +137,7 @@ export function LiveChat({
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-fuchsia-400 to-orange-400" />
               Generative HTML UI · streamed live
             </div>
-            <h1 className="bg-gradient-to-b from-white to-white/55 bg-clip-text text-[40px] font-semibold leading-tight tracking-tight text-transparent sm:text-[46px]">
+            <h1 className="bg-gradient-to-b from-white to-white/55 bg-clip-text text-[28px] font-semibold leading-tight tracking-tight text-transparent sm:text-[46px]">
               {greeting}, {userName}. What should we build?
             </h1>
           </div>
@@ -170,7 +170,7 @@ export function LiveChat({
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <div ref={scrollRef} className="mx-auto w-full max-w-3xl flex-1 px-4 pb-6 pt-4">
+      <div ref={scrollRef} className="mx-auto w-full max-w-3xl flex-1 px-2 pb-6 pt-16 sm:px-4 lg:pt-5">
         {messages.map((message) => (
           <ChatMessageRow
             key={message.id}
@@ -182,7 +182,7 @@ export function LiveChat({
       </div>
 
       {/* Composer pinned to the viewport bottom while the page scrolls behind it. */}
-      <div className="sticky bottom-0 z-10 px-4 pb-5 pt-3">
+      <div className="sticky bottom-0 z-10 px-3 pb-5 pt-3 sm:px-4">
         <div className="relative mx-auto w-full max-w-3xl">
           <Composer
             onSend={send}

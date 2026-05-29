@@ -38,7 +38,7 @@ table{width:100%;border-collapse:collapse}
 .stack{display:flex;flex-direction:column;gap:var(--gap)}
 .grid{display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
 .row{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:center}
-.card{padding:var(--pad);border-radius:var(--radius,16px);background:var(--surface,rgba(255,255,255,.05));border:1px solid var(--border,rgba(255,255,255,.1))}
+.card{padding:var(--pad);border-radius:var(--radius,16px);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),var(--surface,rgba(255,255,255,.04));border:1px solid var(--border,rgba(255,255,255,.1))}
 .scroll-x{overflow-x:auto}
 </style>`;
 
@@ -95,6 +95,7 @@ const HARD_RULES = `HARD RULES — the artifact renders in a sandboxed iframe wi
 - NO markdown code fences. NO prose outside <assistant_message>. NO placeholders ("data will load here") — PRECOMPUTE and write every value directly into the HTML.
 - Reset body margins (body{margin:0}). Content flows in normal TOP-TO-BOTTOM document order and is fully responsive.
 - NO position:sticky and NO position:fixed, and no full-page overlays. Inside the iframe — and especially in embedded/seamless mode where backgrounds are forced transparent — a sticky/fixed bar ghosts over the content as it scrolls or detaches from layout. Keep headers and navs in the normal flow.
+- AUTO-SIZED TO CONTENT — the artifact renders in an iframe that resizes to its content height. Do NOT set height or min-height to 100%, 100vh, or 100dvh on <html> or <body>, and do NOT vertically center the whole document against the viewport (no body{min-height:100vh;display:flex;justify-content:center}). Viewport-relative ROOT heights have no fixed height to resolve against and collapse the frame to nothing. Let content define the page height; give explicit heights only to individual inner boxes that need them (e.g. a chart container).
 - ATTRIBUTE QUOTING IS LITERAL — never backslash-escape quotes inside an HTML attribute (no \\" and no \\'). Inside a double-quoted style="…" any inner quotes must be single quotes and the value must contain no raw double-quote. NEVER put a data-URI <svg …> (or any markup containing quotes) inside a style attribute — the first inner quote closes the attribute and the rest of your CSS leaks onto the page as visible text. For custom select arrows / small icons use a plain Unicode glyph (▾ ✓ → ●) or a real inline <svg> sibling element, NOT a CSS background-image data-URI.
 - Semantic HTML and accessible labels (label/for, alt text, aria where helpful). Maintain strong color contrast.`;
 
@@ -220,7 +221,7 @@ function buildPresentationRule(presentation?: ArtifactPresentation): string {
 - TRANSPARENT background everywhere at the top level: html{background:transparent} and body{background:transparent;margin:0}. NEVER paint a page/background color, white sheet, or gradient on html or body.
 - Styling = the ONE shared <style> design system (reset + clamp scale + element defaults + utilities) plus inline per-element styling, exactly as in the styling rule. 1-2 @media breakpoints inside that one <style> are allowed for genuine layout shifts; no @keyframes/:hover.
 - Do NOT wrap the whole artifact in an outer card/sheet/panel/frame/border/box-shadow/"window". The single outermost element must have NO background of its own — the host surface shows through. (Inner .card sections for actual content are fine and encouraged.)
-- This is a DARK host UI. Use the host theme colors above: light text on the transparent dark surface. NEVER use a light/white background or dark-text-on-white — that would look like a pasted white box. If you need contrast, use subtle translucent surfaces (e.g. rgba(255,255,255,0.05)), not opaque white.
+- This is a DARK host UI with a TRANSPARENT page. The page and the single outermost wrapper stay transparent (the host shows through), but every DATA CARD / PANEL MUST have its own clearly-visible surface — NEVER leave cards or sections floating on the bare background. Give cards a subtle FILLED surface or soft gradient plus a 1px hairline border for depth and readability, e.g. background:linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025));border:1px solid var(--border) — or an elevated var(--surface). Keep light text on these dark card surfaces. Card surfaces are REQUIRED for visibility; only the page itself is transparent — vary fill strength by importance (hero/primary cards a touch stronger).
 - Keep it compact and content-sized: no sticky/fixed bars, no min-height:100vh, no full-viewport hero. Occupy only the height the content needs and flow inline.`;
 }
 

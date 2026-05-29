@@ -211,26 +211,38 @@ export function Landing() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-8">
         {/* Nav */}
-        <header className="flex items-center justify-between py-5">
+        <header className="flex items-center justify-between gap-3 py-4 sm:py-5">
           <div className="flex items-center gap-2.5">
-            <NetraLogo size={34} />
+            <NetraLogo size={32} />
             <span className="text-[16px] font-semibold tracking-tight">Netra</span>
           </div>
           <nav className="flex items-center gap-1 text-[14px]">
-            <a href="#why" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
-              Why HTML
-            </a>
-            <a href="#usage" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
-              Usage
-            </a>
-            <a href="#protocol" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
-              Protocol
+            <div className="hidden items-center gap-1 md:flex">
+              <a href="#why" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
+                Why HTML
+              </a>
+              <a href="#usage" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
+                Usage
+              </a>
+              <a href="#protocol" className="rounded-full px-3.5 py-2 text-white/65 transition hover:text-white">
+                Protocol
+              </a>
+            </div>
+            <a
+              href="https://github.com/Amon20044/Netra"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white/65 transition hover:bg-white/10 hover:text-white"
+              title="View on GitHub"
+              aria-label="View source on GitHub"
+            >
+              <GitHubMark size={19} />
             </a>
             <Link
               href="/demo"
-              className="ml-1 rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 px-4 py-2 font-semibold text-white shadow-[0_8px_30px_-8px_rgba(236,72,153,0.7)] transition hover:scale-[1.03]"
+              className="rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 px-3.5 py-2 text-[13.5px] font-semibold text-white shadow-[0_8px_30px_-8px_rgba(236,72,153,0.7)] transition hover:scale-[1.03] sm:px-4 sm:text-[14px]"
             >
               Open demo
             </Link>
@@ -238,25 +250,25 @@ export function Landing() {
         </header>
 
         {/* Hero */}
-        <section className="grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+        <section className="grid items-center gap-10 py-10 sm:gap-12 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
           <div>
             <div className="hero-el mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-3.5 py-1.5 text-[12.5px] font-medium text-white/75 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-fuchsia-400 to-orange-400" />
               Experimental · v0.1 alpha · Vercel AI SDK adapter
             </div>
-            <h1 className="hero-el bg-gradient-to-b from-white to-white/55 bg-clip-text text-[44px] font-semibold leading-[1.05] tracking-tight text-transparent sm:text-[58px]">
+            <h1 className="hero-el bg-gradient-to-b from-white to-white/55 bg-clip-text text-[30px] font-semibold leading-[1.1] tracking-tight text-transparent sm:text-[42px] sm:leading-[1.08] lg:text-[58px] lg:leading-[1.05]">
               Stream AI-generated HTML into live, sandboxed previews.
             </h1>
-            <p className="hero-el mt-6 max-w-xl text-[17px] leading-relaxed text-white/65">
+            <p className="hero-el mt-5 max-w-xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-[17px]">
               Netra is a predictive HTML parser and streaming toolkit for the Vercel
               AI SDK. It balances unfinished documents for instant iframe rendering
               while keeping the model stream as the source of truth — so generative
               UI builds up smoothly instead of popping in at the end.
             </p>
-            <div className="hero-el mt-8 flex flex-wrap items-center gap-3">
+            <div className="hero-el mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/demo"
-                className="rounded-2xl bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 px-5 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_36px_-10px_rgba(236,72,153,0.8)] transition hover:scale-[1.02]"
+                className="w-full rounded-2xl bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 px-5 py-3.5 text-center text-[15px] font-semibold text-white shadow-[0_10px_36px_-10px_rgba(236,72,153,0.8)] transition hover:scale-[1.02] sm:w-auto"
               >
                 Try the live demo →
               </Link>
@@ -312,12 +324,12 @@ export function Landing() {
         </section>
 
         {/* Why HTML */}
-        <section id="why" className="py-16">
+        <section id="why" className="py-12 sm:py-16">
           <div className="reveal max-w-2xl">
             <p className="text-[13px] font-semibold uppercase tracking-wider text-fuchsia-300/80">
               Why HTML
             </p>
-            <h2 className="mt-2 text-[34px] font-semibold leading-tight tracking-tight sm:text-[40px]">
+            <h2 className="mt-2 text-[26px] font-semibold leading-tight tracking-tight sm:text-[34px] lg:text-[40px]">
               Because the web is already HTML — so render it natively, safely.
             </h2>
             <p className="mt-4 text-[16px] leading-relaxed text-white/60">
@@ -342,12 +354,12 @@ export function Landing() {
         </section>
 
         {/* Usage */}
-        <section id="usage" className="py-16">
+        <section id="usage" className="py-12 sm:py-16">
           <div className="reveal max-w-2xl">
             <p className="text-[13px] font-semibold uppercase tracking-wider text-fuchsia-300/80">
               Server + client
             </p>
-            <h2 className="mt-2 text-[34px] font-semibold leading-tight tracking-tight sm:text-[40px]">
+            <h2 className="mt-2 text-[26px] font-semibold leading-tight tracking-tight sm:text-[34px] lg:text-[40px]">
               Two short files. That&apos;s the whole integration.
             </h2>
             <p className="mt-4 text-[16px] leading-relaxed text-white/60">
@@ -364,13 +376,13 @@ export function Landing() {
         </section>
 
         {/* Protocol */}
-        <section id="protocol" className="py-16">
+        <section id="protocol" className="py-12 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="reveal">
               <p className="text-[13px] font-semibold uppercase tracking-wider text-fuchsia-300/80">
                 Streaming protocol
               </p>
-              <h2 className="mt-2 text-[32px] font-semibold leading-tight tracking-tight sm:text-[38px]">
+              <h2 className="mt-2 text-[24px] font-semibold leading-tight tracking-tight sm:text-[30px] lg:text-[38px]">
                 Raw deltas for truth. Snapshots for pixels.
               </h2>
               <p className="mt-4 text-[15.5px] leading-relaxed text-white/60">
@@ -399,8 +411,8 @@ export function Landing() {
         </section>
 
         {/* Features */}
-        <section className="py-16">
-          <h2 className="reveal max-w-2xl text-[32px] font-semibold leading-tight tracking-tight sm:text-[38px]">
+        <section className="py-12 sm:py-16">
+          <h2 className="reveal max-w-2xl text-[24px] font-semibold leading-tight tracking-tight sm:text-[30px] lg:text-[38px]">
             Built for AI apps that need safe, beautiful visual output.
           </h2>
           <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -428,7 +440,7 @@ export function Landing() {
           <span className="doodle-float pointer-events-none absolute bottom-6 right-7 opacity-25" aria-hidden>
             <Interfaces.MagicWand width={44} height={44} fill="#ffffff" />
           </span>
-          <h2 className="max-w-xl text-[30px] font-semibold leading-tight tracking-tight sm:text-[36px]">
+          <h2 className="max-w-xl text-[24px] font-semibold leading-tight tracking-tight sm:text-[30px] lg:text-[36px]">
             See partial HTML become a live UI.
           </h2>
           <Link
@@ -440,11 +452,22 @@ export function Landing() {
         </section>
 
         <footer className="flex flex-col items-center justify-between gap-3 border-t border-white/10 py-8 text-[13px] text-white/40 sm:flex-row">
-          <span className="flex items-center gap-2.5">
+          <span className="flex items-center gap-2.5 text-center sm:text-left">
             <NetraLogo size={22} glow={false} />
             Netra · experimental predictive HTML parser for AI
           </span>
-          <span className="font-mono">v0.1.0-alpha · MIT</span>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/Amon20044/Netra"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-white/45 transition hover:text-white"
+            >
+              <GitHubMark size={17} />
+              GitHub
+            </a>
+            <span className="font-mono">v0.1.0-alpha · MIT</span>
+          </div>
         </footer>
       </div>
     </div>
@@ -464,15 +487,27 @@ function CopyPill({ text }: { text: string }) {
           () => {},
         );
       }}
-      className="group flex items-center gap-3 rounded-2xl border border-white/12 bg-black/30 px-4 py-3.5 font-mono text-[13.5px] text-white/75 backdrop-blur transition hover:border-white/25"
+      className="group flex w-full max-w-full items-center gap-3 rounded-2xl border border-white/12 bg-black/30 px-4 py-3.5 font-mono text-[13px] text-white/75 backdrop-blur transition hover:border-white/25 sm:w-auto sm:text-[13.5px]"
       title="Copy"
     >
-      <span className="text-white/35">$</span>
-      {text}
-      <span className="text-white/40 transition group-hover:text-white/80">
+      <span className="shrink-0 text-white/35">$</span>
+      {/* Scrolls within the pill on narrow screens instead of overflowing the page. */}
+      <span className="min-w-0 flex-1 break-words sm:flex-none sm:whitespace-nowrap">
+        {text}
+      </span>
+      <span className="shrink-0 text-white/40 transition group-hover:text-white/80">
         {copied ? "copied ✓" : "⧉"}
       </span>
     </button>
+  );
+}
+
+/** GitHub "octocat" mark, sized via the `size` prop and inheriting currentColor. */
+function GitHubMark({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.21 3.44 9.63 8.21 11.19.6.11.82-.25.82-.56 0-.28-.01-1.02-.02-2-3.34.71-4.04-1.58-4.04-1.58-.55-1.37-1.34-1.74-1.34-1.74-1.09-.73.08-.72.08-.72 1.2.08 1.84 1.21 1.84 1.21 1.07 1.8 2.81 1.28 3.5.98.11-.76.42-1.28.76-1.57-2.67-.3-5.47-1.31-5.47-5.84 0-1.29.47-2.34 1.24-3.17-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.21.96-.26 1.98-.39 3-.4 1.02.01 2.04.14 3 .4 2.28-1.53 3.29-1.21 3.29-1.21.66 1.65.24 2.87.12 3.17.77.83 1.24 1.88 1.24 3.17 0 4.54-2.81 5.54-5.49 5.83.43.36.81 1.09.81 2.2 0 1.59-.01 2.87-.01 3.26 0 .31.21.68.83.56C20.56 21.91 24 17.5 24 12.29 24 5.78 18.63.5 12 .5Z" />
+    </svg>
   );
 }
 
@@ -487,7 +522,7 @@ function CodeCard({ title, badge, code }: { title: string; badge: string; code: 
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </span>
         <span className="ml-1.5 font-mono text-[12px] text-white/55">{title}</span>
-        <span className="ml-auto rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fuchsia-200/80">
+        <span className="ml-auto hidden rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 font-mono text-[11px] text-fuchsia-200/80 sm:inline-block">
           {badge}
         </span>
         <button
@@ -500,7 +535,7 @@ function CodeCard({ title, badge, code }: { title: string; badge: string; code: 
               () => {},
             );
           }}
-          className="rounded-lg p-1.5 text-white/40 transition hover:bg-white/10 hover:text-white/85"
+          className="ml-auto rounded-lg p-1.5 text-white/40 transition hover:bg-white/10 hover:text-white/85 sm:ml-0"
           title="Copy code"
           aria-label="Copy code"
         >

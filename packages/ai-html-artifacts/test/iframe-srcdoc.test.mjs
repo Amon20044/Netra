@@ -2,58 +2,53 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildSrcDoc } from "../dist/iframe/index.js";
 
-test("camouflage override lands after model styles and suppresses white panels", () => {
+test("camouflage transparentizes the page but keeps inner card surfaces", () => {
   const doc = buildSrcDoc(
     `<!DOCTYPE html><html><head>
       <style>
-        body{background:white!important}
-        .panel{background:#fff!important;background-image:linear-gradient(#fff,#fff);color:#111}
+        body{background:#0b0b12!important}
+        .panel{background:#fff;background-image:linear-gradient(#222,#111);color:#eee}
       </style>
-    </head><body><main class="shell"><section class="panel">White box</section></main></body></html>`,
+    </head><body><main class="shell"><section class="panel">Card</section></main></body></html>`,
     { camouflage: true, seamless: true },
   );
 
-  assert.doesNotMatch(doc, /body :where\(main,section,article,aside,header,footer,nav,form,div\)/);
+  // The PAGE (html/body) is forced transparent.
   assert.match(doc, /<body[^>]*style="[^"]*background:transparent!important/);
-  assert.match(doc, /<main[^>]*style="[^"]*background-color:transparent!important/);
-  assert.match(doc, /<section[^>]*style="[^"]*background-color:transparent!important/);
+  // Inner card keeps its own surface + gradient (no longer stripped).
+  assert.match(doc, /\.panel\{background:#fff;background-image:linear-gradient\(#222,#111\)/);
+  // Inner blocks are NOT force-transparented anymore.
+  assert.doesNotMatch(doc, /<section[^>]*style="[^"]*background-color:transparent!important/);
 });
 
-test("camouflage rewrites off-white and variable page backgrounds", () => {
+test("camouflage preserves inner surfaces (light and dark) and only clears the page", () => {
   const doc = buildSrcDoc(
     `<!DOCTYPE html><html><head>
       <style>
-        :root{--panel:#f8fafc;--paper:rgb(249,250,251)}
-        .shell{background:var(--panel)!important}
-        .card{background-color:#f9fafb}
+        :root{--panel:#f8fafc}
+        .card{background-color:#111827}
         .soft{background:rgb(248,249,250)}
       </style>
-    </head><body><main class="shell"><section class="card"><div class="soft">Soft panel</div></section></main></body></html>`,
+    </head><body><main class="shell"><section class="card"><div class="soft">Soft</div></section></main></body></html>`,
     { camouflage: true, seamless: true },
   );
 
-  assert.doesNotMatch(doc, /#f8fafc/i);
-  assert.doesNotMatch(doc, /#f9fafb/i);
-  assert.doesNotMatch(doc, /rgb\(249,250,251\)/i);
-  assert.doesNotMatch(doc, /rgb\(248,249,250\)/i);
-  assert.match(doc, /--panel:transparent/);
+  // Inner surfaces preserved verbatim (dark AND light) — cards stay visible.
+  assert.match(doc, /\.card\{background-color:#111827/);
+  assert.match(doc, /\.soft\{background:rgb\(248,249,250\)/);
+  assert.match(doc, /--panel:#f8fafc/);
+  // Page transparent.
   assert.match(doc, /<html[^>]*style="[^"]*background-color:transparent!important/);
-  assert.match(doc, /<main[^>]*style="[^"]*background-color:transparent!important/);
 });
 
-test("camouflage rewrites inline important white backgrounds before rendering", () => {
+test("camouflage leaves inline element backgrounds intact, page transparent", () => {
   const doc = buildSrcDoc(
-    `<main style="background:#fff!important;color:#111!important">
-      <section style="background-image:linear-gradient(#fff,#fff)!important;color:white!important">White box</section>
-    </main>`,
+    `<main style="background:#0f172a;color:#fff"><section style="background-image:linear-gradient(#1e293b,#0f172a)">Card</section></main>`,
     { camouflage: true, seamless: true },
   );
 
-  assert.doesNotMatch(doc, /background:#fff/i);
-  assert.doesNotMatch(doc, /linear-gradient\(#fff,#fff\)/i);
-  assert.match(doc, /background:transparent !important/);
-  assert.match(doc, /background-image:none !important/);
-  assert.match(doc, /color:var\(--foreground,#f4f4f8\) !important/);
+  assert.match(doc, /style="background:#0f172a;color:#fff"/);
+  assert.match(doc, /background-image:linear-gradient\(#1e293b,#0f172a\)/);
   assert.match(doc, /<body[^>]*style="[^"]*background:transparent!important/);
 });
 

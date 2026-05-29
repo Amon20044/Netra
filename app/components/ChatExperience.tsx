@@ -47,6 +47,9 @@ export function ChatExperience() {
     const id = newId();
     setActiveId(id);
     setViewingId(id);
+    // Sidebar starts open on desktop, closed on phones/tablets (it's an overlay
+    // drawer there, so a default-open sidebar would bury the chat).
+    setSidebarOpen(window.innerWidth >= 1024);
     setMounted(true);
     /* eslint-enable react-hooks/set-state-in-effect */
     return () => {
@@ -84,14 +87,29 @@ export function ChatExperience() {
     [commit],
   );
 
+  // On phones/tablets the sidebar is an overlay, so collapse it once the user
+  // picks or starts a chat to reveal the conversation underneath.
+  const closeOnMobile = useCallback(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setSidebarOpen(false);
+    }
+  }, []);
+
   const newChat = useCallback(() => {
     const id = newId();
     setActiveId(id);
     setViewingId(id);
     setPendingPrompt(null);
-  }, []);
+    closeOnMobile();
+  }, [closeOnMobile]);
 
-  const selectSession = useCallback((id: string) => setViewingId(id), []);
+  const selectSession = useCallback(
+    (id: string) => {
+      setViewingId(id);
+      closeOnMobile();
+    },
+    [closeOnMobile],
+  );
 
   const deleteSession = useCallback(
     (id: string) => {
@@ -144,6 +162,15 @@ export function ChatExperience() {
           onDelete={deleteSession}
           onToggle={() => setSidebarOpen(false)}
         />
+
+        {/* Mobile-only scrim: tap anywhere off the drawer to close it. */}
+        {sidebarOpen && (
+          <button
+            aria-label="Close sidebar"
+            onClick={() => setSidebarOpen(false)}
+            className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          />
+        )}
 
         <main className="relative flex min-h-[100dvh] min-w-0 flex-1 flex-col">
           {!sidebarOpen && (

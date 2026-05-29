@@ -94,7 +94,7 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4"
       style={{ background: "rgba(4,4,8,0.6)", backdropFilter: "blur(6px)" }}
       onMouseDown={(e) => {
         if (e.target === overlayRef.current && !testing) onCancel();
@@ -102,7 +102,7 @@ export function ProviderModal({ open, initial, pendingPrompt, onCancel, onConnec
     >
       <div
         ref={cardRef}
-        className="lov-depth w-full max-w-md p-7 text-white"
+        className="lov-depth my-auto max-h-[90dvh] w-full max-w-md overflow-y-auto p-6 text-white sm:p-7"
         style={{ ["--lov-radius" as string]: "28px" }}
       >
         <div className="lov-modal-field mb-5">

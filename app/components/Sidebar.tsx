@@ -44,10 +44,13 @@ export function Sidebar({ sessions, activeId, viewingId, open, onSelect, onNew, 
 
   return (
     <aside
-      className="sticky top-0 z-20 flex h-[100dvh] shrink-0 flex-col overflow-hidden transition-all duration-300 ease-out"
-      style={{ width: open ? 280 : 0 }}
+      className={`fixed inset-y-0 left-0 z-40 flex h-[100dvh] w-[280px] max-w-[85vw] shrink-0 flex-col overflow-hidden transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-auto lg:max-w-none lg:transition-[width] ${
+        open
+          ? "translate-x-0 lg:w-[280px]"
+          : "-translate-x-full lg:w-0 lg:translate-x-0"
+      }`}
     >
-      <div className="flex h-full w-[280px] flex-col gap-3 p-3">
+      <div className="flex h-full w-[280px] max-w-[85vw] flex-col gap-3 border-r border-white/[0.08] bg-[linear-gradient(180deg,#17172033,#0c0c14_42%,#08080d)] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_-1px_0_0_rgba(255,255,255,0.04),12px_0_40px_-18px_rgba(0,0,0,0.85)] backdrop-blur-2xl lg:max-w-none">
         <div className="flex items-center gap-2.5 px-2 pt-1">
           <NetraLogo size={30} />
           <span className="text-[15px] font-semibold tracking-tight text-white">Netra</span>

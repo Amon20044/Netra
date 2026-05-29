@@ -14,7 +14,7 @@ export const SITE_THEME: ArtifactTheme = {
   accent: "#ec4899",
   muted: "rgba(244,244,248,0.55)",
   border: "rgba(255,255,255,0.10)",
-  surface: "rgba(255,255,255,0.045)",
+  surface: "rgba(255,255,255,0.06)",
   radius: "16px",
   fontFamily:
     'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif',

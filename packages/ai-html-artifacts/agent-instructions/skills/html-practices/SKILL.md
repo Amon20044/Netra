@@ -31,11 +31,13 @@ Some renderers (e.g. sandboxed, streamed chat artifacts) run **one tiny shared `
 - **Style everything else inline** — per-element colors, weights, one-off sizes, SVG attrs, the actual values. Structure via the utility classes; inline only for what's unique to that element.
 - **Optional 3rd tier — 1–2 `@media` breakpoints** *inside* the one `<style>*, only for true layout shifts the clamp scale can't express (e.g. 2-col → stacked, drop a side column). The artifact is measured by its **iframe's** width, so width queries behave like container queries.
 - **Tier order:** inline per-element (1) → shared clamp scale + utilities (2) → `@media` for structural shifts (3).
+- **Transparent / embedded ("camouflage") contexts:** only the PAGE (html/body + the single outer wrapper) is transparent so the artifact blends into the host — but every DATA CARD / PANEL still needs its OWN visible surface (a subtle filled/gradient `--surface` + a 1px hairline border). Never leave content floating on the bare background; give cards depth for readability and vary fill strength by importance.
 - **No horizontal overflow, ever:** containers `max-width:100%`/`min(100%,…)`, never fixed px; text `overflow-wrap:break-word`; wide tables/charts → `.scroll-x` wrapper.
 - **Navs can't be burgers** (no JS toggle) → a single **wrapping or horizontally-scrolling** `.row`.
 - **Fonts:** at most **3 styles** total (one display + one body, ≤2 weights). **Motion:** none (no `@keyframes`/`:hover`) — win with static depth.
 
-### Two failure modes that break these artifacts (avoid always)
+### Three failure modes that break these artifacts (avoid always)
+- **The artifact is AUTO-SIZED to its content** — the iframe resizes to the document height. So NEVER set `height`/`min-height` to `100%`, `100vh`, or `100dvh` on `<html>`/`<body>`, and never vertically center the whole document against the viewport (`body{min-height:100vh;display:flex;justify-content:center}`). A viewport-relative ROOT height has no fixed height to resolve against and collapses the frame to ~0 — the artifact renders blank. Let content define the page height; give explicit heights only to individual inner boxes (e.g. a chart container).
 - **No `position:sticky` / `position:fixed`.** In a sandboxed/transparent ("camouflage") iframe a sticky/fixed bar ghosts over content as it scrolls or detaches from layout (its background is often forced transparent). Keep headers/navs in normal document flow.
 - **Never backslash-escape quotes in an attribute, and never put a data-URI `<svg>` inside `style=""`.** In HTML attributes `\"` is *not* an escape — the first inner double-quote closes the attribute and the rest of the CSS leaks onto the page as visible text. For select arrows/icons use a Unicode glyph (`▾ ✓ →`) or a real inline `<svg>` sibling element, not a CSS `background-image` data-URI.
 

@@ -6,10 +6,13 @@ import { Markdown } from "./Markdown";
 import { NetraLogo } from "./NetraLogo";
 import { SITE_THEME } from "../lib/theme";
 
-// Both modes are INLINE-CSS ONLY (bare minimum, no <style>): styling lives in
-// inline style="" attributes, and responsiveness comes from intrinsic CSS
-// (clamp, grid auto-fit/minmax, flex-wrap) — no media queries needed. This keeps
-// output lean and guarantees no stylesheet rule can leak a background.
+// Artifacts use the HYBRID styling model: ONE small shared <style> design system
+// (box-sizing reset + clamp type/space scale + element defaults + .wrap/.stack/
+// .grid/.row/.card utility classes) PLUS inline style="" for per-element specifics.
+// So <style> MUST be allowed — stripping it removes every utility class and the
+// scale, collapsing layout (grids stack to one column, cards lose their surface).
+// The sanitizer still cleans <style> contents (no @import except fonts, no
+// expression()), so this stays static-safe.
 const CARD_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
   // Pure artifact: its own self-contained world in a clean rounded glass frame.
   variant: "glass",
@@ -19,7 +22,7 @@ const CARD_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
     autoResize: true,
     maxHeight: 100000,
     debounceMs: 0,
-    allowStyleTags: false,
+    allowStyleTags: true,
     allowInlineStyles: true,
   },
 };
@@ -63,8 +66,9 @@ export function ChatMessageRow({
   );
 
   return (
-    <div className="lov-msg flex gap-3 py-3">
-      <div className="mt-0.5 shrink-0">
+    <div className="lov-msg flex gap-2 py-2 sm:gap-3 sm:py-3">
+      {/* Avatar is hidden on phones so the AI output spans the full width. */}
+      <div className="mt-0.5 hidden shrink-0 sm:block">
         <NetraLogo size={28} />
       </div>
       <div className="min-w-0 flex-1 space-y-2.5">

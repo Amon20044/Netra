@@ -12,12 +12,25 @@ import { DEFAULT_SANDBOX, FORBIDDEN_SANDBOX_TOKENS } from "../constants/sandbox.
  * light mode). Camouflage transparency is handled separately by
  * {@link inlineCamouflageHtml}.
  */
-const SEAMLESS_BASE = `<style>html,body{margin:0;padding:0;}*{box-sizing:border-box;}</style>`;
+// The `height:auto/min-height:0 !important` neutralizes viewport-relative root
+// heights (height:100%, min-height:100vh) an artifact may set: the preview iframe
+// auto-sizes to content, so those would otherwise collapse the frame to ~0 and
+// nothing would show. `!important` is required to beat an inline <html style="">.
+const SEAMLESS_BASE = `<style>html,body{margin:0;padding:0;height:auto!important;min-height:0!important;}*{box-sizing:border-box;}</style>`;
 
-const LIGHT_COLOR =
-  /(?:#fff(?:fff)?\b|#f[0-9a-f]{2}f[0-9a-f]{2}f[0-9a-f]{2}\b|#(?:f8fafc|f9fafb|f8f9fa|f5f5f5|f4f4f5|f3f4f6|f1f5f9|fafafa|fcfcfd|fdfdfd)\b|white\b|rgba?\(\s*(?:23[0-9]|24[0-9]|25[0-5])\s*,\s*(?:23[0-9]|24[0-9]|25[0-5])\s*,\s*(?:23[0-9]|24[0-9]|25[0-5])(?:\s*,\s*(?:0?\.[5-9]\d*|1(?:\.0+)?))?\s*\)|hsla?\(\s*(?:0|[12]?\d{1,2}|3[0-5]\d|360)\s*,\s*(?:0|[1-9]\d?|100)%\s*,\s*(?:8[8-9]|9\d|100)%[^)]*\))/i;
-const LIGHT_GRADIENT =
-  /(?:linear|radial|conic)-gradient\([^;}]*(?:#fff(?:fff)?\b|white\b|rgba?\(\s*255\s*,\s*255\s*,\s*255)[^;}]*\)/i;
+// Custom, theme-aware scrollbars for any scroll containers INSIDE the artifact
+// (e.g. .scroll-x wide tables). The host page's scrollbar CSS can't reach into
+// the iframe document, so we inject our own — tinted from the artifact's
+// --foreground so it matches whatever palette the artifact/theme uses, with a
+// neutral fallback when no theme variable is present.
+const SCROLLBAR_CSS = `<style>
+*{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--foreground,var(--fg,#9aa0ab)) 28%,transparent) transparent}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--foreground,var(--fg,#9aa0ab)) 28%,transparent);border-radius:999px;border:2px solid transparent;background-clip:content-box}
+*::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb,var(--foreground,var(--fg,#9aa0ab)) 48%,transparent);background-clip:content-box}
+*::-webkit-scrollbar-corner{background:transparent}
+</style>`;
 
 /**
  * Render a host {@link ArtifactTheme} into a `<style>` block exposing its values
@@ -120,6 +133,10 @@ function inlineCamouflageHtml(html: string, theme?: ArtifactTheme): string {
     "background-image:none!important",
     "color-scheme:normal!important",
     "box-sizing:border-box",
+    // Inline artifacts are auto-sized to their CONTENT; viewport-relative root
+    // heights (height:100%, min-height:100vh) would collapse the frame to ~0.
+    "height:auto!important",
+    "min-height:0!important",
     "color:var(--foreground,#f4f4f8)!important",
     theme?.fontFamily ? "font-family:var(--font)!important" : "",
   ]
@@ -132,24 +149,20 @@ function inlineCamouflageHtml(html: string, theme?: ArtifactTheme): string {
     "background-color:transparent!important",
     "background-image:none!important",
     "box-sizing:border-box",
+    "height:auto!important",
+    "min-height:0!important",
     "color:var(--foreground,#f4f4f8)!important",
     theme?.fontFamily ? "font-family:var(--font)!important" : "",
   ]
     .filter(Boolean)
     .join(";");
-  const blockStyle = [
-    "background-color:transparent!important",
-    "background-image:none!important",
-    "box-sizing:border-box",
-    "color:var(--foreground,#f4f4f8)!important",
-    "border-color:var(--border,rgba(255,255,255,0.12))!important",
-  ].join(";");
-
   return html.replace(CAMOUFLAGE_TAGS, (tag, name: string, attrs: string) => {
     const lowerName = name.toLowerCase();
     if (lowerName === "html") return `<${name}${appendInlineStyle(attrs, rootStyle)}>`;
     if (lowerName === "body") return `<${name}${appendInlineStyle(attrs, bodyStyle)}>`;
-    return `<${name}${appendInlineStyle(attrs, blockStyle)}>`;
+    // Inner blocks keep their OWN surfaces, gradients, text and border colours so
+    // data cards stay clearly visible — camouflage only makes the PAGE transparent.
+    return tag;
   });
 }
 
@@ -233,33 +246,22 @@ function normalizeCamouflageDeclaration(
   const trimmed = declaration.trim();
   if (!trimmed) return "";
 
+  // Inner content (cards, sections, inline styles) is left untouched so its own
+  // surfaces, gradients, text and border colours stay intact — camouflage only
+  // makes the PAGE transparent. `forceTransparent` is set only for html/body.
+  if (!forceTransparent) return trimmed;
+
   const match = trimmed.match(/^(-?[\w-]+)\s*:\s*([\s\S]+)$/);
   if (!match) return trimmed;
 
   const property = match[1]?.toLowerCase() ?? "";
   const value = match[2] ?? "";
   const important = /!important/i.test(value) ? " !important" : "";
-  const cleanValue = value.replace(/!important/gi, "").trim();
 
-  if (property === "background-image" && (forceTransparent || LIGHT_GRADIENT.test(cleanValue) || LIGHT_COLOR.test(cleanValue))) {
-    return `${property}:none${important}`;
-  }
-
-  if (property.startsWith("--") && LIGHT_COLOR.test(cleanValue)) {
-    return `${property}:transparent`;
-  }
-
+  if (property === "background-image") return `background-image:none${important}`;
   if (property === "background" || property === "background-color") {
-    if (forceTransparent) return `${property}:transparent${important}`;
-    if (LIGHT_COLOR.test(cleanValue) || LIGHT_GRADIENT.test(cleanValue)) {
-      return `${property}:transparent${important}`;
-    }
+    return `${property}:transparent${important}`;
   }
-
-  if (property === "color" && LIGHT_COLOR.test(cleanValue)) {
-    return `${property}:var(--foreground,#f4f4f8)${important}`;
-  }
-
   return trimmed;
 }
 
@@ -300,7 +302,7 @@ export function buildSrcDoc(
   }
 
   const themeStyles = theme && !camouflage ? themeToCss(theme) : "";
-  const injection = `<base target="_blank" />${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}`;
+  const injection = `<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}`;
 
   let doc: string;
   if (isFullDocument(html)) {

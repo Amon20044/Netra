@@ -3,6 +3,40 @@
 All notable changes to `netra-artifacts` are documented here. This project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- HTML-artifact prompt reworked to a **hybrid styling model**: one small shared
+  `<style>` design system (box-sizing reset + fluid `clamp()` type/space scale +
+  element defaults + `.wrap/.stack/.grid/.row/.card/.scroll-x` utility classes)
+  plus inline `style=""` for per-element specifics, with an optional 1–2 `@media`
+  breakpoints as a third tier. Cuts repeated inline markup and yields
+  compact-on-mobile, comfortable-on-desktop layouts. (`<style>` was always
+  sanitizer-allowed; the prompt previously forbade it for streaming reasons.)
+- Camouflage/seamless rendering now **preserves inner card surfaces**: only
+  `html`/`body` are forced transparent so the page blends into the host, while
+  data cards keep their own backgrounds, gradients, text, and border colours
+  (previously every block element was force-transparented, flattening the UI).
+  The seamless prompt now requires visible card surfaces.
+
+### Fixed
+
+- Artifacts that pinned the root to the viewport (`height:100%`,
+  `min-height:100vh`) collapsed to ~0 height in the auto-sizing iframe and
+  rendered blank. `SEAMLESS_BASE` and the camouflage pass now force
+  `html,body{height:auto;min-height:0}`, and the prompt forbids viewport-relative
+  root heights (the artifact is auto-sized to content).
+- `position:sticky`/`position:fixed` ghosting over scrolled content, and CSS
+  leaking as visible text when a data-URI `<svg>` (or backslash-escaped quotes)
+  was placed inside a `style` attribute — both now hard rules in the prompt and
+  the `html-practices` skill.
+- Camouflage CSS normalizer is now brace-aware: nested `@media`/`@supports`/
+  `@container` blocks are preserved and their inner rules normalized, instead of
+  being mangled by a flat regex.
+- Theme-aware custom scrollbars are injected into the artifact iframe (tinted
+  from `--foreground`/`--fg`), so inner scroll containers match the palette.
+
 ## [0.1.0] - 2026-05-29
 
 ### Added
