@@ -1,0 +1,123 @@
+{
+  "name": "netra",
+  "version": "0.1.0-alpha.0",
+  "description": "Predictive HTML parser and streaming artifact toolkit for AI-generated static HTML previews.",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "author": "Amon",
+  "keywords": [
+    "ai",
+    "vercel-ai-sdk",
+    "generative-ui",
+    "netra",
+    "predictive-html-parser",
+    "html-artifacts",
+    "sse",
+    "streaming",
+    "iframe",
+    "sandbox",
+    "react",
+    "nextjs"
+  ],
+  "main": "./dist-cjs/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist-cjs/index.js",
+      "default": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "require": "./dist-cjs/server/index.js",
+      "default": "./dist/server/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.js",
+      "require": "./dist-cjs/client/index.js",
+      "default": "./dist/client/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.js",
+      "require": "./dist-cjs/types/index.js",
+      "default": "./dist/types/index.js"
+    },
+    "./stream": {
+      "types": "./dist/stream/index.d.ts",
+      "import": "./dist/stream/index.js",
+      "require": "./dist-cjs/stream/index.js",
+      "default": "./dist/stream/index.js"
+    },
+    "./iframe": {
+      "types": "./dist/iframe/index.d.ts",
+      "import": "./dist/iframe/index.js",
+      "require": "./dist-cjs/iframe/index.js",
+      "default": "./dist/iframe/index.js"
+    },
+    "./sanitizer": {
+      "types": "./dist/sanitizer/index.d.ts",
+      "import": "./dist/sanitizer/index.js",
+      "require": "./dist-cjs/sanitizer/index.js",
+      "default": "./dist/sanitizer/index.js"
+    },
+    "./classifier": {
+      "types": "./dist/classifier/index.d.ts",
+      "import": "./dist/classifier/index.js",
+      "require": "./dist-cjs/classifier/index.js",
+      "default": "./dist/classifier/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "dist-cjs",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "node -e \"const fs=require('fs');for(const d of ['dist','dist-cjs'])fs.rmSync(d,{recursive:true,force:true})\"",
+    "build": "tsc -p tsconfig.json && node scripts/build-cjs.cjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test",
+    "ci": "npm run clean && npm run typecheck && npm run build && npm test",
+    "prepublishOnly": "npm run ci"
+  },
+  "peerDependencies": {
+    "ai": ">=5.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "ai": ">=5.0.0",
+    "react": ">=18.0.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.7"
+  }
+}
