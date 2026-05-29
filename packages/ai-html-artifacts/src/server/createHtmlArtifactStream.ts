@@ -24,6 +24,8 @@ export interface HtmlArtifactTextStreamOptions {
   textStream: AsyncIterable<string>;
   /** Sanitizer config used for snapshots and final HTML. */
   sanitize: ResolvedServerConfig["sanitize"];
+  /** Whether this artifact should render as seamless/camouflaged UI. */
+  camouflage?: boolean;
   /** Snapshot cadence in milliseconds. Use 0 for every renderable delta. */
   snapshotIntervalMs?: number;
 }
@@ -49,6 +51,7 @@ export async function streamHtmlArtifact(
     {
       textStream,
       sanitize: config.sanitize,
+      camouflage: config.presentation === "seamless",
       snapshotIntervalMs: config.snapshotIntervalMs,
     },
     emit,
@@ -66,7 +69,9 @@ export async function streamHtmlArtifactFromTextStream(
   emit: Emit,
 ): Promise<HtmlArtifactStreamResult> {
   const message = new MessageLifecycle(emit);
-  const artifact = new ArtifactLifecycle(emit);
+  const artifact = new ArtifactLifecycle(emit, undefined, {
+    camouflage: options.camouflage,
+  });
   const parser = new StreamingEnvelopeParser();
   const buffer = new ArtifactBuffer();
   const snapshotIntervalMs = options.snapshotIntervalMs ?? 0;

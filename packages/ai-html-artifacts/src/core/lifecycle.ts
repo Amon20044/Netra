@@ -60,6 +60,7 @@ export class ArtifactLifecycle {
   constructor(
     private readonly emit: Emit,
     id: string = createArtifactId(),
+    private readonly options: { camouflage?: boolean } = {},
   ) {
     this.id = id;
   }
@@ -67,7 +68,9 @@ export class ArtifactLifecycle {
   start(title: string): void {
     if (this.started) return;
     this.started = true;
-    this.emit(event.artifactStart(this.id, title, "html"));
+    this.emit(
+      event.artifactStart(this.id, title, "html", this.options.camouflage === true),
+    );
   }
 
   delta(html: string): void {

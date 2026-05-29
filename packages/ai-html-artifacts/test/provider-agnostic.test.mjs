@@ -43,6 +43,27 @@ test("provider-agnostic text stream emits artifact lifecycle", async () => {
   assert.equal(events.at(-1).type, "artifact_done");
 });
 
+test("provider-agnostic text stream marks camouflage artifacts", async () => {
+  const events = [];
+  await streamHtmlArtifactFromTextStream(
+    {
+      sanitize,
+      camouflage: true,
+      snapshotIntervalMs: 0,
+      textStream: chunks([
+        "<assistant_message>Inline</assistant_message>",
+        '<html_artifact title="Inline UI">',
+        "<!DOCTYPE html><html><body><main>Camouflage</main></body></html>",
+        "</html_artifact>",
+      ]),
+    },
+    (event) => events.push(event),
+  );
+
+  const start = events.find((event) => event.type === "artifact_start");
+  assert.equal(start.camouflage, true);
+});
+
 test("provider-agnostic text stream recovers bare HTML", async () => {
   const events = [];
   const result = await streamHtmlArtifactFromTextStream(

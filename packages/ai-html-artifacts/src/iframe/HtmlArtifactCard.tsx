@@ -38,6 +38,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
     previewOptions,
     className,
   } = props;
+  const effectivePresentation = artifact.camouflage ? "seamless" : presentation;
 
   const [tab, setTab] = React.useState<ArtifactTab>(defaultTab);
   const [copied, setCopied] = React.useState(false);
@@ -126,7 +127,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
   // Seamless ("camouflage") presentation: a transparent, chromeless iframe that
   // sits inline like native chat content — no card frame, no window, no border.
   // A faint action row appears only on hover so the clean UI stays clean.
-  if (presentation === "seamless") {
+  if (effectivePresentation === "seamless") {
     return (
       <div className={`aha-scope${className ? ` ${className}` : ""}`}>
         <div className="aha-seamless">

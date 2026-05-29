@@ -32,11 +32,13 @@ export const event = {
     artifactId: string,
     title: string,
     artifactType: ArtifactKind = "html",
+    camouflage = false,
   ): ArtifactStreamEvent => ({
     type: "artifact_start",
     artifactId,
     title,
     artifactType,
+    camouflage,
   }),
 
   artifactDelta: (artifactId: string, delta: string): ArtifactStreamEvent => ({

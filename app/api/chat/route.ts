@@ -89,9 +89,8 @@ export async function POST(req: Request) {
     generateTextStream,
     generateText: classifyWithModel,
     mode: 'auto',
-    // Generate transparent, chromeless artifacts that match the host theme so
-    // they sit inline in the chat ("camouflage"), instead of standalone cards.
-    presentation: 'seamless',
+    // Theme/style hints are used only when auto resolves to generative UI.
+    // Standalone artifacts stay self-contained and render with their own background.
     theme: SITE_THEME,
     styleProfile: {
       aesthetic: 'dark',

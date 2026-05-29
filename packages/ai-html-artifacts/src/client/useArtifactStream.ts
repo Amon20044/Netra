@@ -52,6 +52,7 @@ export function useArtifactStream(
             type: "html",
             html: "",
             snapshot: "",
+            camouflage: false,
             status: "streaming",
             createdAt: now,
             updatedAt: now,
@@ -181,6 +182,7 @@ export function useArtifactStream(
               assistantId = ensureAssistantMessage(assistantId, currentMode);
               patchArtifact(ev.artifactId, {
                 title: ev.title,
+                camouflage: ev.camouflage === true,
                 status: "streaming",
               });
               patchMessage(assistantId, { artifactId: ev.artifactId });
@@ -240,7 +242,16 @@ export function useArtifactStream(
         if (abortRef.current === controller) abortRef.current = null;
       }
     },
-    [endpoint, headers, body, status, patchArtifact, patchMessage, onError],
+    [
+      endpoint,
+      headers,
+      body,
+      status,
+      patchArtifact,
+      patchMessage,
+      ensureAssistantMessage,
+      onError,
+    ],
   );
 
   return {

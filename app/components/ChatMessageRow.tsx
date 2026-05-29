@@ -100,7 +100,8 @@ function UserMessageBubble({ content }: { content: string }) {
 /**
  * One chat message, rendered by role. User messages are a right-aligned glass
  * bubble; assistant messages get a Netra avatar, optional markdown, and the
- * artifact rendered seamlessly (transparent, chromeless) so it sits inline.
+ * artifact rendered either as a normal framed artifact or, for generative UI,
+ * as a seamless transparent camouflage surface.
  */
 export function ChatMessageRow({
   message,
@@ -121,6 +122,9 @@ export function ChatMessageRow({
   const hasArtifact = Boolean(
     artifact && (artifact.html.trim() !== "" || artifact.snapshot.trim() !== ""),
   );
+  const camouflage = artifact?.camouflage ?? message.mode === "generative_ui";
+  const artifactProps =
+    camouflage ? SEAMLESS_PROPS : CARD_PROPS;
 
   return (
     <div className="lov-msg flex gap-2 py-2 sm:gap-3 sm:py-3">
@@ -135,10 +139,9 @@ export function ChatMessageRow({
           </div>
         )}
         {hasArtifact && artifact && (
-          // Every chat artifact renders seamless/transparent (camouflage) so it
-          // blends into the chat with NO opaque dark card box. Camouflage only
-          // transparentizes the PAGE — inner cards/charts keep their surfaces.
-          <HtmlArtifactCard artifact={artifact} {...SEAMLESS_PROPS} />
+          // Only generative UI uses camouflage. Standalone artifacts keep their
+          // authored document background and render inside the normal artifact frame.
+          <HtmlArtifactCard artifact={artifact} {...artifactProps} />
         )}
       </div>
     </div>

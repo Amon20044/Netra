@@ -6,6 +6,7 @@ export function createHtmlArtifact(params: {
   id: string;
   title?: string;
   status?: ArtifactStatus;
+  camouflage?: boolean;
 }): HtmlArtifact {
   const now = Date.now();
   return {
@@ -14,6 +15,7 @@ export function createHtmlArtifact(params: {
     type: "html",
     html: "",
     snapshot: "",
+    camouflage: params.camouflage,
     status: params.status ?? ARTIFACT_STATUS.STREAMING,
     createdAt: now,
     updatedAt: now,

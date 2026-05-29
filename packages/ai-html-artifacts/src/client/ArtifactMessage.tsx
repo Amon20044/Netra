@@ -63,7 +63,11 @@ export function ArtifactMessage(props: ArtifactMessageProps) {
           <MarkdownMessage content={message.content} />
         ))}
       {resolved && (
-        <HtmlArtifactCard artifact={resolved} {...cardProps} />
+        <HtmlArtifactCard
+          artifact={resolved}
+          {...cardProps}
+          presentation={resolved.camouflage ? "seamless" : cardProps?.presentation}
+        />
       )}
     </div>
   );

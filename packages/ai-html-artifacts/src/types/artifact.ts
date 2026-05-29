@@ -16,6 +16,12 @@ export interface HtmlArtifact {
   html: string;
   /** Last valid sanitized snapshot suitable for rendering. */
   snapshot: string;
+  /**
+   * True when this artifact should render as seamless/camouflaged UI: a
+   * transparent root document blended into the host surface. Standalone
+   * artifacts leave this false/undefined and keep their authored background.
+   */
+  camouflage?: boolean;
   status: ArtifactStatus;
   createdAt: number;
   updatedAt: number;

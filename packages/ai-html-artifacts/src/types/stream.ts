@@ -38,6 +38,8 @@ export interface ArtifactStartEvent {
   artifactId: string;
   title: string;
   artifactType: ArtifactKind;
+  /** True when the client should render this with camouflage/seamless chrome. */
+  camouflage?: boolean;
 }
 
 export interface ArtifactDeltaEvent {
