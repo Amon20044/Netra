@@ -1,11 +1,12 @@
 # Netra Predictive HTML Parser
 
-Experimental package for streaming AI-generated HTML into sandboxed iframe
-previews. Built for AI apps, tested with the Vercel AI SDK.
+Experimental dependency-free package for streaming AI-generated HTML into
+sandboxed iframe previews. Bring any model SDK that can produce text chunks.
 
-The high-level server helper is Vercel AI SDK-first. For LangChain or any other
-provider that can produce an `AsyncIterable<string>`, use
-`streamHtmlArtifactFromTextStream`.
+The high-level server helper is provider-agnostic: pass a
+`generateTextStream(args) => AsyncIterable<string>` adapter. For lower-level
+integrations, `streamHtmlArtifactFromTextStream` accepts raw text chunks
+directly.
 
 Netra keeps two versions of streamed HTML:
 
@@ -19,10 +20,10 @@ document.
 ## Install
 
 ```bash
-npm install netra ai
+npm install netra
 ```
 
-Add a provider:
+Add whatever provider SDK you want:
 
 ```bash
 npm install @ai-sdk/google
@@ -32,19 +33,21 @@ npm install @ai-sdk/google
 
 ```ts
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { generateText, streamText } from "ai";
 import { createArtifactStreamResponse } from "netra/server";
-import type { ModelMessage } from "ai";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
 });
 
 export async function POST(req: Request) {
-  const { messages } = (await req.json()) as { messages: ModelMessage[] };
+  const { messages } = await req.json();
+  const model = google("gemini-2.5-flash");
 
   return createArtifactStreamResponse({
-    model: google("gemini-2.5-flash"),
     messages,
+    generateTextStream: (args) => streamText({ model, ...args }).textStream,
+    generateText: async (args) => (await generateText({ model, ...args })).text,
     mode: "auto",
     snapshotIntervalMs: 0,
     allowExternalFonts: true,

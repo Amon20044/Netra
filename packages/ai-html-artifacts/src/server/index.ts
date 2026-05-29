@@ -1,6 +1,10 @@
 export { createArtifactStreamResponse } from "./createArtifactStreamResponse.js";
 export { createSseResponse } from "./createSseResponse.js";
-export { streamMarkdown } from "./createMarkdownStream.js";
+export {
+  streamMarkdown,
+  streamMarkdownFromTextStream,
+  type MarkdownTextStreamOptions,
+} from "./createMarkdownStream.js";
 export {
   streamHtmlArtifact,
   streamHtmlArtifactFromTextStream,

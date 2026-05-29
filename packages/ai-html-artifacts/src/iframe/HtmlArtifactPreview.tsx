@@ -51,7 +51,9 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
 
   // Latest inputs, read by the throttled flush without re-subscribing it.
   const stateRef = React.useRef({ html, streaming, opts });
-  stateRef.current = { html, streaming, opts };
+  React.useLayoutEffect(() => {
+    stateRef.current = { html, streaming, opts };
+  }, [html, streaming, opts]);
 
   // Throttle bookkeeping: coalesce bursts of tokens into frame-aligned paints.
   const schedRef = React.useRef<{
@@ -137,7 +139,6 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
 
   React.useEffect(() => {
     if (!html) {
-      setSrcDoc("");
       lastDocRef.current = "";
       loadedRef.current = false;
       projectorRef.current?.reset();
@@ -162,6 +163,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   // skeleton box, no progress bar — just the transparent artifact inline.
   const showSkeleton = !html && !errored && !bare;
   const minHeight = bare ? 0 : opts.minHeight;
+  const iframeSrcDoc = html ? srcDoc : "";
 
   return (
     <div
@@ -180,7 +182,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
 
       <iframe
         ref={iframeRef}
-        srcDoc={srcDoc}
+        srcDoc={iframeSrcDoc}
         title={title || "Artifact preview"}
         sandbox={sandbox}
         onLoad={handleLoad}
@@ -191,7 +193,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
           minHeight,
           border: "none",
           background: "transparent",
-          pointerEvents: streaming && !srcDoc ? "none" : "auto",
+          pointerEvents: streaming && !iframeSrcDoc ? "none" : "auto",
           opacity: showSkeleton ? 0 : 1,
           transition: "opacity 0.2s ease",
         }}

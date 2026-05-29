@@ -1,8 +1,8 @@
-import type { ModelMessage } from "ai";
 import { DEFAULT_SNAPSHOT_INTERVAL_MS } from "../constants/defaults.js";
 import { MARKDOWN_SYSTEM_PROMPT } from "../prompts/markdownPrompt.js";
 import { buildHtmlArtifactPrompt } from "../prompts/htmlArtifactPrompt.js";
 import type {
+  CoreMessage,
   CreateArtifactStreamResponseOptions,
   ResolvedServerConfig,
 } from "../types/server.js";
@@ -28,10 +28,11 @@ export function resolveServerConfig(
     });
 
   return {
-    model: options.model,
     messages: options.messages,
+    generateTextStream: options.generateTextStream,
     mode: options.mode ?? "auto",
-    classifierModel: options.classifierModel ?? options.model,
+    generateText: options.generateText,
+    classify: options.classify,
     system: options.system,
     markdownSystemPrompt: options.markdownSystemPrompt ?? MARKDOWN_SYSTEM_PROMPT,
     htmlSystemPrompt,
@@ -52,7 +53,7 @@ export function resolveServerConfig(
 }
 
 /** Extract the latest user message text for classification. */
-export function latestUserText(messages: ModelMessage[]): string {
+export function latestUserText(messages: CoreMessage[]): string {
   for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
     if (!message || message.role !== "user") continue;
@@ -61,7 +62,7 @@ export function latestUserText(messages: ModelMessage[]): string {
   return "";
 }
 
-function messageToText(content: ModelMessage["content"]): string {
+function messageToText(content: CoreMessage["content"]): string {
   if (typeof content === "string") return content;
   if (Array.isArray(content)) {
     return content

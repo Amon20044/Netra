@@ -1,5 +1,3 @@
-import { generateText } from "ai";
-import type { LanguageModel } from "ai";
 import {
   CLASSIFIER_SYSTEM_PROMPT,
   buildClassifierUserPrompt,
@@ -7,6 +5,7 @@ import {
 import { classifyByRules } from "./rules.js";
 import { safeJsonParse } from "../utils/safeJsonParse.js";
 import type { ArtifactMode } from "../types/stream.js";
+import type { GenerateText } from "../types/server.js";
 
 export interface ClassificationResult {
   mode: ArtifactMode;
@@ -16,8 +15,8 @@ export interface ClassificationResult {
 }
 
 export interface ClassifyModeParams {
-  model: LanguageModel;
   query: string;
+  generateText?: GenerateText;
   temperature?: number;
   abortSignal?: AbortSignal;
 }
@@ -30,12 +29,17 @@ export interface ClassifyModeParams {
 export async function classifyMode(
   params: ClassifyModeParams,
 ): Promise<ClassificationResult> {
-  const { model, query, temperature = 0, abortSignal } = params;
+  const { generateText, query, temperature = 0, abortSignal } = params;
   const fallback = classifyByRules(query);
 
+  if (fallback.mode === "html_artifact" && fallback.confidence >= 0.65) {
+    return { ...fallback, source: "rules" };
+  }
+
+  if (!generateText) return { ...fallback, source: "rules" };
+
   try {
-    const { text } = await generateText({
-      model,
+    const text = await generateText({
       temperature,
       system: CLASSIFIER_SYSTEM_PROMPT,
       prompt: buildClassifierUserPrompt(query),

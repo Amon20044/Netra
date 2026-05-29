@@ -90,7 +90,6 @@
     "prepublishOnly": "npm run ci"
   },
   "peerDependencies": {
-    "ai": ">=5.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
@@ -100,24 +99,17 @@
     },
     "react-dom": {
       "optional": true
-    },
-    "ai": {
-      "optional": true
     }
   },
   "devDependencies": {
-    "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "ai": ">=5.0.0",
     "react": ">=18.0.0",
     "typescript": "^5"
   },
   "engines": {
     "node": ">=18.18.0"
   },
-  "dependencies": {
-    "dompurify": "^3.4.7"
-  }
+  "dependencies": {}
 }

@@ -5,7 +5,7 @@ import type { ArtifactTheme } from "../types/artifact.js";
 import { DEFAULT_SANDBOX, FORBIDDEN_SANDBOX_TOKENS } from "../constants/sandbox.js";
 
 /** Minimal base styles injected for seamless rendering (transparent, reset). */
-const SEAMLESS_BASE = `<style>html,body{margin:0;padding:0;background:transparent;}*{box-sizing:border-box;}</style>`;
+const SEAMLESS_BASE = `<style>html,body{margin:0;padding:0;background:transparent!important;}*{box-sizing:border-box;}</style>`;
 
 /**
  * Camouflage enforcement: even if the model paints a page/wrapper background,
@@ -14,7 +14,32 @@ const SEAMLESS_BASE = `<style>html,body{margin:0;padding:0;background:transparen
  * "one outer card" case without flattening intentional inner cards in a
  * multi-element layout. `!important` wins over the model's plain declarations.
  */
-const CAMOUFLAGE_OVERRIDE = `<style>html,body{background:transparent!important;background-image:none!important;}body>:only-child{background:transparent!important;background-image:none!important;box-shadow:none!important;border:none!important;backdrop-filter:none!important;}</style>`;
+const CAMOUFLAGE_OVERRIDE = `<style>
+html,body{background:transparent!important;background-color:transparent!important;background-image:none!important;}
+body{color:var(--foreground,#f4f4f8)!important;}
+body :where(main,section,article,aside,header,footer,nav,form,div){
+  background-image:none!important;
+}
+body :where(main,section,article,aside,header,footer,nav,form,div)[class]{
+  background-color:var(--surface,rgba(255,255,255,0.055))!important;
+  color:var(--foreground,#f4f4f8)!important;
+  border-color:var(--border,rgba(255,255,255,0.12))!important;
+}
+body :where(button,a)[class]{
+  color:inherit;
+}
+body>:only-child,
+body>:only-child[class]{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border-color:transparent!important;
+}
+body>:only-child:is(main,section,article,div){
+  min-height:auto!important;
+}
+</style>`;
 
 /**
  * Render a host {@link ArtifactTheme} into a `<style>` block exposing its values
@@ -52,6 +77,9 @@ function isFullDocument(html: string): boolean {
 }
 
 function injectIntoHead(doc: string, injection: string): string {
+  if (/<\/head\s*>/i.test(doc)) {
+    return doc.replace(/<\/head\s*>/i, `${injection}</head>`);
+  }
   if (/<head[^>]*>/i.test(doc)) {
     return doc.replace(/<head([^>]*)>/i, `<head$1>${injection}`);
   }

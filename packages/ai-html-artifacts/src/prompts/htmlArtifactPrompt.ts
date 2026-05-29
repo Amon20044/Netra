@@ -133,6 +133,16 @@ function buildPresentationRule(presentation?: ArtifactPresentation): string {
 - Keep it compact and content-sized: no min-height:100vh, no full-viewport hero. Occupy only the height the content needs and flow inline.`;
 }
 
+function buildArtifactIdentityRule(presentation?: ArtifactPresentation): string {
+  if (presentation === "seamless") {
+    return `CAMOUFLAGE QUALITY BAR:
+- The outer document and first wrapper must be transparent, but the artifact must still feel designed. Put the visual identity INSIDE the transparent shell: translucent panels, CSS/SVG charts, accent gradients, badges, cards, timelines, and dense real content.
+- Never use an opaque full-page white/light background. Never rely on the host page as the only design. The result should read as a polished artifact embedded in the chat, not a pasted webpage screenshot.`;
+  }
+
+  return `ARTIFACT QUALITY BAR: when rendering a standalone artifact, give it its own complete visual world: deliberate page background, palette, typography, composition, and data. It should not merely clone the host website theme unless explicitly requested.`;
+}
+
 /** Build the HTML-artifact system prompt, tuned by style profile and flags. */
 export function buildHtmlArtifactPrompt(options: HtmlPromptOptions = {}): string {
   const {
@@ -157,6 +167,7 @@ export function buildHtmlArtifactPrompt(options: HtmlPromptOptions = {}): string
     buildStyleProfileRule(styleProfile),
     buildThemeRule(theme),
     buildPresentationRule(presentation),
+    buildArtifactIdentityRule(presentation),
     "",
     "Think like a senior product designer with a strong point of view. Do not hold back — show what an exceptional, hand-crafted interface looks like — while honoring the host theme and rendering constraints above.",
   ]

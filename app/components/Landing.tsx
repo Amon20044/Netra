@@ -10,6 +10,7 @@ import { Interfaces, Misc, Files, Objects, type DoodleIcon } from "doodle-icons"
 
 const SERVER_CODE = `// app/api/chat/route.ts
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { generateText, streamText } from "ai";
 import { createArtifactStreamResponse } from "netra/server";
 
 export const dynamic = "force-dynamic";
@@ -17,11 +18,15 @@ const google = createGoogleGenerativeAI();
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
+  const model = google("gemini-2.5-flash");
 
   // Streams markdown OR a sandboxed HTML artifact — automatically.
   return createArtifactStreamResponse({
-    model: google("gemini-2.5-flash"),
     messages,
+    generateTextStream: (args) =>
+      streamText({ model, ...args }).textStream,
+    generateText: async (args) =>
+      (await generateText({ model, ...args })).text,
     mode: "auto",
   });
 }`;

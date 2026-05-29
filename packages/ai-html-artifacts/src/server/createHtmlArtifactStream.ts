@@ -1,4 +1,3 @@
-import { streamText } from "ai";
 import {
   ArtifactLifecycle,
   MessageLifecycle,
@@ -39,38 +38,27 @@ export async function streamHtmlArtifact(
   config: ResolvedServerConfig,
   emit: Emit,
 ): Promise<HtmlArtifactStreamResult> {
-  let streamError: unknown = null;
-  const result = streamText({
-    model: config.model,
+  const textStream = await config.generateTextStream({
     system: composeSystem(config.system, config.htmlSystemPrompt),
     messages: config.messages,
     temperature: config.temperature,
     abortSignal: config.abortSignal,
-    onError: ({ error }) => {
-      streamError = error;
-    },
   });
 
-  const output = await streamHtmlArtifactFromTextStream(
+  return streamHtmlArtifactFromTextStream(
     {
-      textStream: result.textStream,
+      textStream,
       sanitize: config.sanitize,
       snapshotIntervalMs: config.snapshotIntervalMs,
     },
     emit,
   );
-
-  if (streamError) {
-    throw streamError instanceof Error ? streamError : new Error(String(streamError));
-  }
-
-  return output;
 }
 
 /**
  * Provider-agnostic artifact streamer. Use this when a framework such as
- * LangChain gives you an `AsyncIterable<string>` instead of a Vercel AI SDK
- * `LanguageModel`. The caller is responsible for prompting the model with
+ * LangChain gives you an `AsyncIterable<string>`. The caller is responsible
+ * for prompting the model with
  * `HTML_ARTIFACT_SYSTEM_PROMPT` (or equivalent) before passing chunks here.
  */
 export async function streamHtmlArtifactFromTextStream(

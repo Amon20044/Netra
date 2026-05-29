@@ -28,6 +28,12 @@ const VISUAL_SIGNALS: RegExp[] = [
   /\bstat(s|istic)?\s*(card|view|grid)\b/i,
   /\bportfolio\b/i,
   /\bnewsletter\b/i,
+  /\bgenerative\s*ui\b/i,
+  /\b(interface|ui)\s*(kit|system|concept|exploration|variations?|combinations?)\b/i,
+  /\b(combinations?|variations?|states?)\b[\s\S]*\b(ui|interface|layout|screen|component)\b/i,
+  /\bbeautiful\b[\s\S]*\b(ui|interface|layout|screen|component|dashboard|page)\b/i,
+  /\bstatic\s*(app|interface|experience|prototype)\b/i,
+  /\bvisual\s*(prototype|concept|system|kit|exploration)\b/i,
   /\bcertificate\b/i,
   /\bmenu\b.*\b(restaurant|cafe|food)\b/i,
   /\btimeline\b/i,
@@ -36,6 +42,7 @@ const VISUAL_SIGNALS: RegExp[] = [
   /\b(report|stats?)\s*(visuali[sz]ation|view)\b/i,
   /\bsign[\s-]?up\s*form\b|\blogin\s*form\b|\bcontact\s*form\b/i,
   /\b(build|create|make|generate|design|render|show me|mock up|wireframe)\b[\s\S]*\b(page|form|card|table|layout|widget|view|screen|template|ui|website|webpage|section|hero|banner)\b/i,
+  /\b(build|create|make|generate|design|render|show me|mock up|wireframe)\b[\s\S]*\b(app|interface|component|prototype|artifact|visual)\b/i,
 ];
 
 /** Phrases that strongly suggest a text answer is the right output. */

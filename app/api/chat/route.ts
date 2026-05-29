@@ -3,14 +3,17 @@ import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createDeepSeek } from '@ai-sdk/deepseek';
 import { createArtifactStreamResponse } from 'netra/server';
-import type { ModelMessage } from 'ai';
+import { generateText, streamText } from 'ai';
+import type { CoreMessage, GenerateText, GenerateTextStream } from 'netra/server';
 import { SITE_THEME } from '../../lib/theme';
 
 export const dynamic = 'force-dynamic';
 
 interface ChatRequestBody {
-  messages: ModelMessage[];
+  messages: CoreMessage[];
 }
+
+type VercelLanguageModel = Parameters<typeof streamText>[0]['model'];
 
 export async function POST(req: Request) {
   const { messages } = (await req.json()) as ChatRequestBody;
@@ -19,7 +22,7 @@ export async function POST(req: Request) {
   const apiKey = req.headers.get('X-Api-Key') || process.env.GOOGLE_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || '';
   const modelId = req.headers.get('X-Model-Id') || 'gemini-2.5-flash';
 
-  let aiModel;
+  let aiModel: unknown;
 
   switch (provider) {
     case 'google':
@@ -42,19 +45,60 @@ export async function POST(req: Request) {
       break;
   }
 
+  const generateTextStream: GenerateTextStream = async (args) => {
+    let streamError: unknown = null;
+    const result = streamText({
+      model: aiModel as VercelLanguageModel,
+      system: args.system,
+      // The app stores text-only chat messages, which are a compatible subset
+      // of the Vercel AI SDK's ModelMessage shape.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      messages: args.messages as any,
+      temperature: args.temperature,
+      abortSignal: args.abortSignal,
+      onError: ({ error }) => {
+        streamError = error;
+      },
+    });
+
+    async function* textStream() {
+      for await (const delta of result.textStream) {
+        yield delta;
+      }
+      if (streamError) {
+        throw streamError instanceof Error ? streamError : new Error(String(streamError));
+      }
+    }
+
+    return textStream();
+  };
+
+  const classifyWithModel: GenerateText = async (args) => {
+    const result = await generateText({
+      model: aiModel as VercelLanguageModel,
+      system: args.system,
+      prompt: args.prompt,
+      temperature: args.temperature,
+      abortSignal: args.abortSignal,
+    });
+    return result.text;
+  };
+
   return createArtifactStreamResponse({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    model: aiModel as any,
     messages,
+    generateTextStream,
+    generateText: classifyWithModel,
     mode: 'auto',
     // Generate transparent, chromeless artifacts that match the host theme so
     // they sit inline in the chat ("camouflage"), instead of standalone cards.
     presentation: 'seamless',
     theme: SITE_THEME,
     styleProfile: {
+      aesthetic: 'dark',
       mood: 'premium',
       density: 'comfortable',
       radius: '2xl',
+      colorScheme: 'dark',
       visualComplexity: 'rich',
     },
     allowExternalFonts: true,

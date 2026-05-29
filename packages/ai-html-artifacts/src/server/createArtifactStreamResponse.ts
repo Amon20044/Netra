@@ -8,6 +8,7 @@ import { streamHtmlArtifact } from "./createHtmlArtifactStream.js";
 import { streamMarkdown } from "./createMarkdownStream.js";
 import type {
   CreateArtifactStreamResponseOptions,
+  ResolvedServerConfig,
 } from "../types/server.js";
 import type { ArtifactMode } from "../types/stream.js";
 
@@ -54,7 +55,7 @@ export function createArtifactStreamResponse(
 
 async function resolveMode(
   requested: CreateArtifactStreamResponseOptions["mode"],
-  config: ReturnType<typeof resolveServerConfig>,
+  config: ResolvedServerConfig,
 ): Promise<ArtifactMode> {
   if (requested === "markdown") return "markdown";
   if (requested === "html_artifact") {
@@ -64,11 +65,18 @@ async function resolveMode(
 
   // auto
   const query = latestUserText(config.messages);
-  const { mode } = await classifyMode({
-    model: config.classifierModel,
-    query,
-    abortSignal: config.abortSignal,
-  });
+  const classification = config.classify
+    ? await config.classify({
+        query,
+        messages: config.messages,
+        abortSignal: config.abortSignal,
+      })
+    : await classifyMode({
+        generateText: config.generateText,
+        query,
+        abortSignal: config.abortSignal,
+      });
+  const mode = typeof classification === "string" ? classification : classification.mode;
 
   if (mode === "html_artifact" && !htmlBreaker.allowRequest()) {
     return "markdown";

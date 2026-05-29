@@ -1,4 +1,3 @@
-import { streamText } from "ai";
 import { MessageLifecycle, type Emit } from "../core/lifecycle.js";
 import type { ResolvedServerConfig } from "../types/server.js";
 
@@ -15,29 +14,31 @@ export async function streamMarkdown(
   emit: Emit,
   messageId?: string,
 ): Promise<string> {
-  const message = new MessageLifecycle(emit, messageId);
-  message.start();
-
-  // The AI SDK's `textStream` swallows errors by default; capture and rethrow
-  // so the orchestrator can surface them instead of emitting an empty message.
-  let streamError: unknown = null;
-  const result = streamText({
-    model: config.model,
+  const textStream = await config.generateTextStream({
     system: composeSystem(config.system, config.markdownSystemPrompt),
     messages: config.messages,
     temperature: config.temperature,
     abortSignal: config.abortSignal,
-    onError: ({ error }) => {
-      streamError = error;
-    },
   });
 
-  for await (const delta of result.textStream) {
-    message.delta(delta);
-  }
+  return streamMarkdownFromTextStream({ textStream }, emit, messageId);
+}
 
-  if (streamError) {
-    throw streamError instanceof Error ? streamError : new Error(String(streamError));
+export interface MarkdownTextStreamOptions {
+  textStream: AsyncIterable<string>;
+}
+
+/** Provider-agnostic markdown streamer for any source of text chunks. */
+export async function streamMarkdownFromTextStream(
+  options: MarkdownTextStreamOptions,
+  emit: Emit,
+  messageId?: string,
+): Promise<string> {
+  const message = new MessageLifecycle(emit, messageId);
+  message.start();
+
+  for await (const delta of options.textStream) {
+    message.delta(delta);
   }
 
   return message.done();
