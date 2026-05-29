@@ -137,6 +137,7 @@ function buildArtifactIdentityRule(presentation?: ArtifactPresentation): string 
   if (presentation === "seamless") {
     return `CAMOUFLAGE QUALITY BAR:
 - The outer document and first wrapper must be transparent, but the artifact must still feel designed. Put the visual identity INSIDE the transparent shell: translucent panels, CSS/SVG charts, accent gradients, badges, cards, timelines, and dense real content.
+- The artifact is its own custom object, not a copy of the host website. Host theme values are guardrails for contrast and embedding only; choose a distinct dark, premium artifact palette and composition when the request asks for a custom UI/artifact.
 - Never use an opaque full-page white/light background. Never rely on the host page as the only design. The result should read as a polished artifact embedded in the chat, not a pasted webpage screenshot.`;
   }
 

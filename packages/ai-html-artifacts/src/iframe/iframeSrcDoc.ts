@@ -41,6 +41,12 @@ body>:only-child:is(main,section,article,div){
 }
 </style>`;
 
+const SURFACE_FALLBACK = "var(--surface,rgba(255,255,255,0.055))";
+const LIGHT_COLOR =
+  /(?:#fff(?:fff)?\b|white\b|rgba?\(\s*255\s*,\s*255\s*,\s*255(?:\s*,\s*(?:0?\.[5-9]\d*|1(?:\.0+)?))?\s*\)|hsla?\(\s*0\s*,\s*0%\s*,\s*(?:9\d|100)%[^)]*\))/i;
+const LIGHT_GRADIENT =
+  /(?:linear|radial|conic)-gradient\([^;}]*(?:#fff(?:fff)?\b|white\b|rgba?\(\s*255\s*,\s*255\s*,\s*255)[^;}]*\)/i;
+
 /**
  * Render a host {@link ArtifactTheme} into a `<style>` block exposing its values
  * as CSS custom properties inside the iframe, plus sensible base color/font so
@@ -89,6 +95,75 @@ function injectIntoHead(doc: string, injection: string): string {
   return injection + doc;
 }
 
+function normalizeCamouflageHtml(html: string): string {
+  return html
+    .replace(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi, (_tag, attrs: string, css: string) => {
+      return `<style${attrs}>${normalizeCamouflageCss(css)}</style>`;
+    })
+    .replace(/\sstyle\s*=\s*(["'])([\s\S]*?)\1/gi, (_attr, quote: string, css: string) => {
+      const normalized = normalizeInlineCamouflageStyle(css);
+      return normalized ? ` style=${quote}${normalized}${quote}` : "";
+    });
+}
+
+function normalizeInlineCamouflageStyle(style: string): string {
+  return style
+    .split(";")
+    .map((declaration) => normalizeCamouflageDeclaration(declaration))
+    .filter(Boolean)
+    .join(";");
+}
+
+function normalizeCamouflageCss(css: string): string {
+  return css
+    .replace(/([^{}]+)\{([^{}]*)\}/g, (rule, selector: string, body: string) => {
+      const normalizedBody = body
+        .split(";")
+        .map((declaration) =>
+          normalizeCamouflageDeclaration(
+            declaration,
+            /\b(html|body)\b/i.test(selector),
+          ),
+        )
+        .filter(Boolean)
+        .join(";");
+      return normalizedBody ? `${selector}{${normalizedBody}}` : rule;
+    });
+}
+
+function normalizeCamouflageDeclaration(
+  declaration: string,
+  forceTransparent = false,
+): string {
+  const trimmed = declaration.trim();
+  if (!trimmed) return "";
+
+  const match = trimmed.match(/^(-?[\w-]+)\s*:\s*([\s\S]+)$/);
+  if (!match) return trimmed;
+
+  const property = match[1]?.toLowerCase() ?? "";
+  const value = match[2] ?? "";
+  const important = /!important/i.test(value) ? " !important" : "";
+  const cleanValue = value.replace(/!important/gi, "").trim();
+
+  if (property === "background-image" && (forceTransparent || LIGHT_GRADIENT.test(cleanValue) || LIGHT_COLOR.test(cleanValue))) {
+    return `${property}:none${important}`;
+  }
+
+  if (property === "background" || property === "background-color") {
+    if (forceTransparent) return `${property}:transparent${important}`;
+    if (LIGHT_COLOR.test(cleanValue) || LIGHT_GRADIENT.test(cleanValue)) {
+      return `${property}:${SURFACE_FALLBACK}${important}`;
+    }
+  }
+
+  if (property === "color" && LIGHT_COLOR.test(cleanValue)) {
+    return `${property}:var(--foreground,#f4f4f8)${important}`;
+  }
+
+  return trimmed;
+}
+
 export interface BuildSrcDocOptions {
   sanitize?: boolean;
   seamless?: boolean;
@@ -120,6 +195,9 @@ export function buildSrcDoc(
   let html = cleanArtifactHtml(rawHtml ?? "");
   if (sanitize) {
     html = sanitizeHtml(html, { ...sanitizeOptions, allowScripts: false }).html;
+  }
+  if (camouflage) {
+    html = normalizeCamouflageHtml(html);
   }
 
   const themeStyles = theme ? themeToCss(theme) : "";
