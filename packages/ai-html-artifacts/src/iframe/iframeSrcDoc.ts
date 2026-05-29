@@ -138,7 +138,6 @@ function inlineCamouflageHtml(html: string, theme?: ArtifactTheme): string {
     "height:auto!important",
     "min-height:0!important",
     "color:var(--foreground,#f4f4f8)!important",
-    theme?.fontFamily ? "font-family:var(--font)!important" : "",
   ]
     .filter(Boolean)
     .join(";");
@@ -152,7 +151,6 @@ function inlineCamouflageHtml(html: string, theme?: ArtifactTheme): string {
     "height:auto!important",
     "min-height:0!important",
     "color:var(--foreground,#f4f4f8)!important",
-    theme?.fontFamily ? "font-family:var(--font)!important" : "",
   ]
     .filter(Boolean)
     .join(";");

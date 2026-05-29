@@ -53,7 +53,7 @@ export function ChatMessageRow({
   if (message.role === "user") {
     return (
       <div className="lov-msg flex justify-end py-2.5">
-        <div className="max-w-[82%] whitespace-pre-wrap break-words rounded-[20px] rounded-br-md border border-white/10 bg-white/[0.07] px-4 py-2.5 text-[14.5px] leading-relaxed text-white/90 shadow-sm backdrop-blur">
+        <div className="max-w-[82%] whitespace-pre-wrap break-words rounded-[20px] rounded-br-md border border-white/[0.12] bg-gradient-to-b from-[#2d2d34] to-[#161619] px-4 py-2.5 text-[14.5px] leading-relaxed text-white/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_-1px_0_rgba(0,0,0,0.4),0_10px_26px_-12px_rgba(0,0,0,0.75)]">
           {message.content}
         </div>
       </div>
@@ -78,10 +78,10 @@ export function ChatMessageRow({
           </div>
         )}
         {hasArtifact && artifact && (
-          <HtmlArtifactCard
-            artifact={artifact}
-            {...(message.mode === "generative_ui" ? SEAMLESS_PROPS : CARD_PROPS)}
-          />
+          // Every chat artifact renders seamless/transparent (camouflage) so it
+          // blends into the chat with NO opaque dark card box. Camouflage only
+          // transparentizes the PAGE — inner cards/charts keep their surfaces.
+          <HtmlArtifactCard artifact={artifact} {...SEAMLESS_PROPS} />
         )}
       </div>
     </div>
