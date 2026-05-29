@@ -2,9 +2,9 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createDeepSeek } from '@ai-sdk/deepseek';
-import { createArtifactStreamResponse } from 'netra/server';
+import { createArtifactStreamResponse } from 'netra-artifacts/server';
 import { generateText, streamText } from 'ai';
-import type { CoreMessage, GenerateText, GenerateTextStream } from 'netra/server';
+import type { CoreMessage, GenerateText, GenerateTextStream } from 'netra-artifacts/server';
 import { SITE_THEME } from '../../lib/theme';
 
 export const dynamic = 'force-dynamic';

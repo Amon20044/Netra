@@ -1,6 +1,6 @@
 "use client";
 
-import { useArtifactStream } from "netra/client";
+import { useArtifactStream } from "netra-artifacts/client";
 import { useState } from "react";
 import { MessageList } from "./MessageList";
 

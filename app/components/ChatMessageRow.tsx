@@ -1,7 +1,7 @@
 "use client";
 
-import { HtmlArtifactCard } from "netra/client";
-import type { ChatMessage, HtmlArtifact, HtmlArtifactCardProps } from "netra/client";
+import { HtmlArtifactCard } from "netra-artifacts/client";
+import type { ChatMessage, HtmlArtifact, HtmlArtifactCardProps } from "netra-artifacts/client";
 import { Markdown } from "./Markdown";
 import { NetraLogo } from "./NetraLogo";
 import { SITE_THEME } from "../lib/theme";

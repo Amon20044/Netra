@@ -1,4 +1,4 @@
-import type { ChatMessage, HtmlArtifact } from "netra/client";
+import type { ChatMessage, HtmlArtifact } from "netra-artifacts/client";
 
 export type { ChatMessage, HtmlArtifact };
 

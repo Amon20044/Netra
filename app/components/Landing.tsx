@@ -11,7 +11,7 @@ import { Interfaces, Misc, Files, Objects, type DoodleIcon } from "doodle-icons"
 const SERVER_CODE = `// app/api/chat/route.ts
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText, streamText } from "ai";
-import { createArtifactStreamResponse } from "netra/server";
+import { createArtifactStreamResponse } from "netra-artifacts/server";
 
 export const dynamic = "force-dynamic";
 const google = createGoogleGenerativeAI();
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 
 const CLIENT_CODE = `// components/Chat.tsx
 "use client";
-import { useArtifactStream, ArtifactMessage } from "netra/client";
+import { useArtifactStream, ArtifactMessage } from "netra-artifacts/client";
 
 export function Chat() {
   const { messages, artifacts, sendMessage } = useArtifactStream({
@@ -353,8 +353,8 @@ export function Landing() {
           </div>
 
           <div className="reveal mt-9 grid gap-5 lg:grid-cols-2">
-            <CodeCard title="route.ts — server" badge="netra/server" code={SERVER_CODE} />
-            <CodeCard title="Chat.tsx — client" badge="netra/client" code={CLIENT_CODE} />
+            <CodeCard title="route.ts — server" badge="netra-artifacts/server" code={SERVER_CODE} />
+            <CodeCard title="Chat.tsx — client" badge="netra-artifacts/client" code={CLIENT_CODE} />
           </div>
         </section>
 

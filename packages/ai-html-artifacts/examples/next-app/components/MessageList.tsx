@@ -1,7 +1,7 @@
 "use client";
 
-import { ArtifactMessage } from "netra/client";
-import type { ChatMessage, HtmlArtifact } from "netra/client";
+import { ArtifactMessage } from "netra-artifacts/client";
+import type { ChatMessage, HtmlArtifact } from "netra-artifacts/client";
 
 export function MessageList({
   messages,

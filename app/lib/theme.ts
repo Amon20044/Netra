@@ -1,4 +1,4 @@
-import type { ArtifactTheme } from "netra/client";
+import type { ArtifactTheme } from "netra-artifacts/client";
 
 /**
  * The host site's theme. Passed to the chat route it is injected into the

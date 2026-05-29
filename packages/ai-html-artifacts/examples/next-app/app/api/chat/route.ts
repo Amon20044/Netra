@@ -1,5 +1,5 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { createArtifactStreamResponse } from "netra/server";
+import { createArtifactStreamResponse } from "netra-artifacts/server";
 import type { ModelMessage } from "ai";
 
 export const dynamic = "force-dynamic";

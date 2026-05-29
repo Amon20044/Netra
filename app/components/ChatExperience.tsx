@@ -19,7 +19,7 @@ import {
   type ChatSession,
   type ProviderConfig,
 } from "../lib/sessions";
-import type { HtmlArtifact } from "netra/client";
+import type { HtmlArtifact } from "netra-artifacts/client";
 
 export function ChatExperience() {
   const [mounted, setMounted] = useState(false);

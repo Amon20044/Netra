@@ -69,7 +69,7 @@ Create a route that returns the package SSE response.
 ```ts
 // app/api/chat/route.ts
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { createArtifactStreamResponse } from "netra/server";
+import { createArtifactStreamResponse } from "netra-artifacts/server";
 import type { ModelMessage } from "ai";
 
 export const dynamic = "force-dynamic";
@@ -113,7 +113,7 @@ import {
   createSseResponse,
   event,
   streamHtmlArtifactFromTextStream,
-} from "netra/server";
+} from "netra-artifacts/server";
 
 const sanitize = {
   allowForms: true,
@@ -190,7 +190,7 @@ Use the hook and message component.
 ```tsx
 "use client";
 
-import { ArtifactMessage, useArtifactStream } from "netra/client";
+import { ArtifactMessage, useArtifactStream } from "netra-artifacts/client";
 
 export function Chat() {
   const { messages, artifacts, status, sendMessage, stop, reset } =
@@ -231,7 +231,7 @@ export function Chat() {
 Or use the prebuilt chat:
 
 ```tsx
-import { ArtifactChat } from "netra/client";
+import { ArtifactChat } from "netra-artifacts/client";
 
 export default function Page() {
   return <ArtifactChat endpoint="/api/chat" />;

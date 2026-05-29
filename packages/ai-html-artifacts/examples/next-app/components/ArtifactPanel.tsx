@@ -1,7 +1,7 @@
 "use client";
 
-import { HtmlArtifactCard } from "netra/client";
-import type { HtmlArtifact } from "netra/client";
+import { HtmlArtifactCard } from "netra-artifacts/client";
+import type { HtmlArtifact } from "netra-artifacts/client";
 
 /**
  * Optional split-pane layout: render the latest artifact in a dedicated panel

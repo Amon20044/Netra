@@ -1,12 +1,12 @@
 "use client";
 
-import { useArtifactStream } from "netra/client";
+import { useArtifactStream } from "netra-artifacts/client";
 import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { Composer } from "./Composer";
 import { ThinkingLoader } from "./ThinkingLoader";
 import { ChatMessageRow } from "./ChatMessageRow";
-import type { ChatMessage, HtmlArtifact } from "netra/client";
+import type { ChatMessage, HtmlArtifact } from "netra-artifacts/client";
 import type { ProviderConfig } from "../lib/sessions";
 
 const SUGGESTIONS = [

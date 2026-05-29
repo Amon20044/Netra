@@ -34,7 +34,7 @@ npm install @ai-sdk/google
 ```ts
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText, streamText } from "ai";
-import { createArtifactStreamResponse } from "netra/server";
+import { createArtifactStreamResponse } from "netra-artifacts/server";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
@@ -63,7 +63,7 @@ import {
   createSseResponse,
   event,
   streamHtmlArtifactFromTextStream,
-} from "netra/server";
+} from "netra-artifacts/server";
 
 async function* toText(chunks: AsyncIterable<unknown>) {
   for await (const chunk of chunks) {
@@ -114,7 +114,7 @@ export async function POST(req: Request) {
 ```tsx
 "use client";
 
-import { ArtifactMessage, useArtifactStream } from "netra/client";
+import { ArtifactMessage, useArtifactStream } from "netra-artifacts/client";
 
 export function Chat() {
   const { messages, artifacts, status, sendMessage } = useArtifactStream({
@@ -186,8 +186,8 @@ result.renderable;
 | Import | Purpose |
 | --- | --- |
 | `netra` | Isomorphic helpers, types, parser, sanitizer |
-| `netra/server` | Server response helpers for SSE |
-| `netra/client` | React hook and UI components |
+| `netra-artifacts/server` | Server response helpers for SSE |
+| `netra-artifacts/client` | React hook and UI components |
 | `netra/iframe` | Iframe card and preview primitives |
 | `netra/stream` | Parser, SSE, buffering utilities |
 | `netra/sanitizer` | Sanitizer helpers |
