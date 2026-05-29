@@ -17,7 +17,7 @@
     "dompurify": "^3.4.7",
     "doodle-icons": "^1.1.0",
     "gsap": "^3.15.0",
-    "netra-artifacts": "^0.1.0-alpha.0",
+    "netra-artifacts": "^0.1.0-alpha.1",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
