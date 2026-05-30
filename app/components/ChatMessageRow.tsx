@@ -27,6 +27,9 @@ const CARD_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
     allowInlineStyles: true,
     allowVideoEmbeds: true,
     allowScripts: true,
+    // Single-file three.js games: keeps the pinned-CDN importmap so the game
+    // loads. Safe — the sanitizer only allows trusted, version-pinned CDNs.
+    allowModuleImports: true,
   },
 };
 

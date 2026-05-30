@@ -11,12 +11,19 @@ export const dynamic = 'force-dynamic';
 
 interface ChatRequestBody {
   messages: CoreMessage[];
+  /** Per-request overrides sent by starter prompts (see netra-artifacts STARTER_PROMPTS). */
+  mode?: 'auto' | 'markdown' | 'artifact' | 'generative_ui';
+  game?: boolean;
+  allowVideoEmbeds?: boolean;
+  allowModuleImports?: boolean;
+  allowForms?: boolean;
 }
 
 type VercelLanguageModel = Parameters<typeof streamText>[0]['model'];
 
 export async function POST(req: Request) {
-  const { messages } = (await req.json()) as ChatRequestBody;
+  const { messages, mode, game, allowVideoEmbeds, allowModuleImports, allowForms } =
+    (await req.json()) as ChatRequestBody;
 
   const provider = req.headers.get('X-Provider') || 'google';
   const apiKey = req.headers.get('X-Api-Key') || process.env.GOOGLE_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY || '';
@@ -88,7 +95,10 @@ export async function POST(req: Request) {
     messages,
     generateTextStream,
     generateText: classifyWithModel,
-    mode: 'auto',
+    // A game is always a standalone artifact; otherwise honor the requested
+    // mode (markdown / generative_ui / artifact) or auto-classify.
+    mode: game ? 'artifact' : mode ?? 'auto',
+    game: game ?? false,
     // Theme/style hints are used only when auto resolves to generative UI.
     // Standalone artifacts stay self-contained and render with their own background.
     theme: SITE_THEME,
@@ -101,7 +111,9 @@ export async function POST(req: Request) {
       visualComplexity: 'rich',
     },
     allowExternalFonts: true,
-    allowVideoEmbeds: true,
+    allowVideoEmbeds: allowVideoEmbeds ?? true,
+    allowModuleImports: allowModuleImports ?? game ?? false,
+    allowForms: allowForms ?? true,
     allowScripts: true,
     temperature: 0.7,
     snapshotIntervalMs: 0,

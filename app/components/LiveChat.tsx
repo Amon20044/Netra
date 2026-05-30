@@ -1,6 +1,6 @@
 "use client";
 
-import { useArtifactStream } from "netra-artifacts/client";
+import { useArtifactStream, STARTER_PROMPTS } from "netra-artifacts/client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { Composer } from "./Composer";
@@ -8,13 +8,6 @@ import { ThinkingLoader } from "./ThinkingLoader";
 import { ChatMessageRow } from "./ChatMessageRow";
 import type { ChatMessage, HtmlArtifact } from "netra-artifacts/client";
 import type { ProviderConfig } from "../lib/sessions";
-
-const SUGGESTIONS = [
-  "A pricing page for a SaaS startup",
-  "An invoice for Acme Corp, $4,200",
-  "A glassy stats dashboard with 4 KPIs",
-  "A resume for a product designer",
-];
 
 interface LiveChatProps {
   sessionId: string;
@@ -62,6 +55,10 @@ export function LiveChat({
   const heroRef = useRef<HTMLDivElement | null>(null);
   const prevCount = useRef(0);
   const autoSentRef = useRef(false);
+  // Holds the body overrides (mode/game/allowVideoEmbeds…) for a starter prompt
+  // that was clicked before a provider was connected, so the deferred auto-send
+  // after the provider modal still requests the right feature.
+  const pendingBodyRef = useRef<Record<string, unknown> | undefined>(undefined);
   const stickToBottomRef = useRef(true);
   const [showScrollBottom, setShowScrollBottom] = useState(false);
   const busy = status === "submitted" || status === "streaming";
@@ -77,19 +74,21 @@ export function LiveChat({
     !!(lastArtifact && (lastArtifact.html.trim() !== "" || lastArtifact.snapshot.trim() !== ""));
   const showCooking = busy && !lastHasContent;
 
-  const send = (text: string) => {
+  const send = (text: string, body?: Record<string, unknown>) => {
     if (!providerReady) {
+      pendingBodyRef.current = body;
       onRequestProvider(text);
       return;
     }
-    void sendMessage(text);
+    void sendMessage(text, body);
   };
 
   // Deferred send once a provider is connected via the modal.
   useEffect(() => {
     if (providerReady && autoSend && !autoSentRef.current) {
       autoSentRef.current = true;
-      void sendMessage(autoSend);
+      void sendMessage(autoSend, pendingBodyRef.current);
+      pendingBodyRef.current = undefined;
       onAutoSendConsumed();
     }
   }, [providerReady, autoSend, sendMessage, onAutoSendConsumed]);
@@ -181,13 +180,18 @@ export function LiveChat({
           </div>
 
           <div className="lov-hero-el mt-5 flex flex-wrap justify-center gap-2">
-            {SUGGESTIONS.map((s) => (
+            {STARTER_PROMPTS.map((p) => (
               <button
-                key={s}
-                onClick={() => send(s)}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[13px] text-white/65 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-white/25 hover:text-white"
+                key={p.id}
+                onClick={() => send(p.prompt, p.body)}
+                title={p.hint}
+                className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[13px] text-white/65 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-white/25 hover:text-white"
               >
-                {s}
+                <span aria-hidden="true">{p.emoji}</span>
+                <span className="font-medium">{p.label}</span>
+                <span className="hidden text-white/35 transition group-hover:text-white/55 sm:inline">
+                  · {p.hint}
+                </span>
               </button>
             ))}
           </div>
