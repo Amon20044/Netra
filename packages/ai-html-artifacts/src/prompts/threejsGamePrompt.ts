@@ -115,10 +115,10 @@ export const THREEJS_GAME_TEMPLATE = `<!DOCTYPE html>
     }
     let orb = makeOrb();
 
-    // ---- GLOW: subtle bloom on the bright/emissive bits ----
+    // ---- GLOW: a SUBTLE bloom, only on the brightest bits (cheap; keep it light) ----
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.7, 0.5, 0.8);
+    const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.4, 0.4, 0.85);
     composer.addPass(bloom);
 
     // ---- STATE / INPUT ----
@@ -188,6 +188,12 @@ const THREEJS_TOPIC_CHEATSHEET = `THREE.JS CAPABILITY MAP (import from "three/ad
  */
 const THREEJS_GAME_RULES = `You are generating a COMPLETE, PLAYABLE single-file three.js game as one HTML document. It runs in an isolated, script-enabled sandbox (no same-origin), so it must be fully self-contained.
 
+DESIGN IT LIKE A "GAME SHORT" — fast, fun, instantly playable, endlessly replayable:
+- Instant: understandable in 3 seconds, playable in 5. One core verb (jump / dodge / collect / tap / steer). No tutorials, no menus to wade through — a single Play button, then you're in.
+- Fast: snappy controls, quick rounds (~30–90 seconds), immediate restart on death (one tap to go again). It must FEEL fast — responsive input, brisk pacing, juicy feedback.
+- Long-lasting: an escalating difficulty curve and a score/combo/streak chase that makes "one more go" irresistible. Track a best score across rounds.
+- Lightweight & fast-loading: keep geometry simple and counts low, reuse materials, pool objects. The whole thing must load and hit 60fps instantly, including on phones. Effects are seasoning, NOT the meal — keep bloom subtle (strength ~0.3–0.5, high threshold) and skip heavy postprocessing; never let FX cost framerate.
+
 NON-NEGOTIABLE STRUCTURE (build from the TEMPLATE below — do not invent a different loader):
 - Exactly ONE <script type="importmap"> in <head>, using this EXACT pinned, trusted CDN (any other host/version is stripped by the sanitizer and the game will not load):
     "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
@@ -200,8 +206,12 @@ ART DIRECTION — CARTOON / TOON, WITH A LITTLE GLOW (this is mandatory; do NOT 
 - Chunky comic outlines on the main characters/objects via the inverted-hull trick (BackSide black mesh scaled ~1.05–1.08). Keep outlines off tiny particles to stay cheap.
 - Bold, joyful color: a bright sky or pastel-gradient background, saturated character colors, and gentle THREE.Fog matching the sky for soft depth. Rounded, chunky shapes (spheres, rounded boxes, capsules, icosahedrons) — no thin sharp geometry.
 - Soft, even lighting: HemisphereLight (sky/ground) + one warm DirectionalLight with soft PCFSoft shadows. Avoid dark, moody, high-contrast lighting.
-- A LITTLE glow: a subtle UnrealBloomPass (strength ~0.5–0.9) via EffectComposer; make collectibles / power-ups / FX bright-unlit or emissive so they bloom. Call composer.render() in the loop (not renderer.render) and composer.setSize() on resize. (OutlineEffect and EffectComposer don't compose — use inverted-hull outlines when you use bloom.)
-- Juice: squash/stretch or a bouncy sine on the player, a pop/scale on pickup, easing on camera, little particles or a flash on events. Cheap, huge charm.
+- A LITTLE glow, kept subtle: a gentle UnrealBloomPass (strength ~0.3–0.5, high threshold ~0.85) via EffectComposer so ONLY the brightest bits (collectibles / power-ups) glow. Don't overdo bloom or stack heavy effects — it must never cost framerate. Call composer.render() in the loop (not renderer.render) and composer.setSize() on resize. (OutlineEffect and EffectComposer don't compose — use inverted-hull outlines when you use bloom.)
+- Juice: squash/stretch or a bouncy sine on the player, a pop/scale on pickup, easing on camera, the odd particle or flash on events. Cheap, huge charm — favour these over expensive post FX.
+
+RESPONSIVE — THE GAME OWNS THE WHOLE SCREEN AND ADAPTS ITSELF:
+- Size the renderer/camera to the iframe viewport (innerWidth/innerHeight) and update on every resize — the frame may be phone-portrait (~9:16), tablet, or desktop, and it can change live. Re-frame the camera (fov/position) so the full playfield fits whatever the aspect is; never let the action get cropped in portrait.
+- Touch FIRST: on-screen controls live in comfortable thumb zones, big tap targets, and the HUD scales with the viewport. The same build must play great with a thumb in portrait and a keyboard on desktop.
 
 GAMEPLAY THE ARTIFACT MUST ACTUALLY HAVE (not a tech demo):
 - A clear goal and a win/lose (or endless-score) condition, real player control, and visible feedback.

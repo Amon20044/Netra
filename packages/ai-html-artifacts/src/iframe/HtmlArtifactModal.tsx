@@ -8,6 +8,12 @@ export interface HtmlArtifactModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  /**
+   * Called when the view should re-run the artifact — on the Re-run button and
+   * automatically whenever the device width changes (so games/responsive layouts
+   * re-initialise at the new size). Wire this to the card's re-run signal.
+   */
+  onViewChange?: () => void;
 }
 
 type Device = "mobile" | "tablet" | "desktop";
@@ -46,10 +52,22 @@ const DEVICES: { id: Device; label: string; width: number | null; icon: React.Re
  * light↔dark (hue-preserving) so a transparent, light-on-dark camouflage
  * artifact is crystal-clear on a light surface too.
  */
-export function HtmlArtifactModal({ open, onClose, title, children }: HtmlArtifactModalProps) {
+export function HtmlArtifactModal({ open, onClose, title, children, onViewChange }: HtmlArtifactModalProps) {
   useArtifactStyles();
   const [device, setDevice] = React.useState<Device>("desktop");
   const [inverted, setInverted] = React.useState(false);
+
+  // Switching device width must re-run the artifact so games/responsive layouts
+  // re-initialise to the new viewport (e.g. a game re-frames for 9:16 mobile).
+  const changeDevice = React.useCallback(
+    (id: Device) => {
+      setDevice((prev) => {
+        if (prev !== id) onViewChange?.();
+        return id;
+      });
+    },
+    [onViewChange],
+  );
 
   React.useEffect(() => {
     if (!open) return;
@@ -113,7 +131,7 @@ export function HtmlArtifactModal({ open, onClose, title, children }: HtmlArtifa
 
           <div style={{ flex: 1 }} />
 
-          {/* Responsive viewport switcher */}
+          {/* Responsive viewport switcher (auto re-runs on change) */}
           <div className="aha-seg" role="tablist" aria-label="Preview width">
             {DEVICES.map((d) => (
               <button
@@ -122,15 +140,30 @@ export function HtmlArtifactModal({ open, onClose, title, children }: HtmlArtifa
                 role="tab"
                 aria-selected={device === d.id}
                 data-active={device === d.id}
-                onClick={() => setDevice(d.id)}
+                onClick={() => changeDevice(d.id)}
                 title={d.label}
                 style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
               >
                 {d.icon}
-                <span style={{ fontSize: 12 }}>{d.label}</span>
+                <span className="aha-seg-label" style={{ fontSize: 12 }}>{d.label}</span>
               </button>
             ))}
           </div>
+
+          {/* Re-run the artifact (restart games, re-render) */}
+          {onViewChange && (
+            <button
+              type="button"
+              className="aha-iconbtn"
+              onClick={() => onViewChange()}
+              title="Re-run"
+              aria-label="Re-run artifact"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+              </svg>
+            </button>
+          )}
 
           {/* Invert (light↔dark) for a clear view of transparent artifacts */}
           <button

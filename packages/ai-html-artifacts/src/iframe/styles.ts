@@ -47,11 +47,19 @@ export const ARTIFACT_CSS = `
 
 .aha-toolbar{
   display:flex; align-items:center; gap:10px;
+  flex-wrap: wrap; row-gap: 8px;
   padding: 9px 10px 9px 14px;
   background: light-dark(rgba(252,252,253,.82), rgba(20,20,24,.7));
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--aha-hairline);
   position: relative; z-index: 2;
+}
+/* Fullscreen toolbar must never overflow on small screens: drop the device
+   labels and tighten spacing so the controls wrap instead of clipping. */
+@media (max-width: 560px){
+  .aha-toolbar{ gap:6px; padding:8px 8px 8px 12px; }
+  .aha-seg-label{ display:none; }
+  .aha-seg button{ padding:6px 9px; }
 }
 .aha-dots{ display:inline-flex; gap:6px; margin-right:4px; }
 .aha-dot{ width:11px; height:11px; border-radius:50%; }

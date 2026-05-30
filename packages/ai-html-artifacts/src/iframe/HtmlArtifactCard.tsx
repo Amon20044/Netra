@@ -170,7 +170,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
         </div>
 
         {allowFullscreen && (
-          <HtmlArtifactModal open={fullscreen} onClose={() => setFullscreen(false)} title={artifact.title}>
+          <HtmlArtifactModal open={fullscreen} onClose={() => setFullscreen(false)} title={artifact.title} onViewChange={onRerun}>
             <HtmlArtifactPreview
               html={previewHtml}
               streaming={streaming}
@@ -235,6 +235,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
           open={fullscreen}
           onClose={() => setFullscreen(false)}
           title={artifact.title}
+          onViewChange={onRerun}
         >
           <HtmlArtifactPreview
             html={previewHtml}

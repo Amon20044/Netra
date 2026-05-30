@@ -17,11 +17,24 @@ export interface AutoSizeOptions {
  * (ResizeObserver), and after web fonts finish loading (which changes height).
  * If the document is cross-origin/opaque it falls back to `minHeight`.
  */
+/**
+ * Seed height used when `minHeight` is 0 (seamless/camouflage previews). Starting
+ * the iframe at 0 makes its viewport 0-tall, so any content sized by viewport or
+ * percentage height resolves to 0 → `scrollHeight` is 0 → the resize bridge never
+ * reports a height and the artifact stays hidden (seen on freshly-mounted saved
+ * generative-UI chats). A non-zero seed gives the first layout a real viewport;
+ * the measurement then converges to the true content height (and may shrink below
+ * the seed, since the clamp floor is `minHeight`).
+ */
+const MEASURE_SEED = 280;
+
 export function useIframeAutoSize(options: AutoSizeOptions = {}) {
   const { enabled = true, minHeight = 420, maxHeight = 900 } = options;
   const ref = useRef<HTMLIFrameElement | null>(null);
   const observerRef = useRef<ResizeObserver | null>(null);
-  const [height, setHeight] = useState<number>(minHeight);
+  const [height, setHeight] = useState<number>(
+    minHeight > 0 ? minHeight : MEASURE_SEED,
+  );
 
   const measure = useCallback(() => {
     if (!enabled) return;

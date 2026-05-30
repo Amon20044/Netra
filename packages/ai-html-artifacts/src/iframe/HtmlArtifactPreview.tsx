@@ -167,6 +167,30 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     rerun();
   }, [reloadSignal, rerun]);
 
+  // Auto-refresh when the artifact (re)enters the viewport — re-runs scripts/
+  // games and re-measures the height, which also recovers any frame that
+  // collapsed while off-screen. Skips the initial appearance and streaming.
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    let wasVisible = false;
+    let first = true;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.some((e) => e.isIntersecting);
+        if (visible && !wasVisible && !first && !stateRef.current.streaming) {
+          rerun();
+        }
+        first = false;
+        wasVisible = visible;
+      },
+      { threshold: 0.01 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [rerun]);
+
   // Schedule a flush, throttled to at most once per `debounceMs` and aligned to
   // an animation frame so rapid SSE deltas don't trigger a render storm.
   const schedule = React.useCallback(() => {
@@ -245,6 +269,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
 
   return (
     <div
+      ref={containerRef}
       style={{
         position: "relative",
         width: "100%",
