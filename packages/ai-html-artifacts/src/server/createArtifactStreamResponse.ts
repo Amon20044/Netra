@@ -130,6 +130,7 @@ function resolveHtmlConfigForMode(
       allowForms: config.sanitize.allowForms,
       theme: seamless ? config.theme : undefined,
       presentation,
+      game: config.game,
     }),
     presentation,
   };

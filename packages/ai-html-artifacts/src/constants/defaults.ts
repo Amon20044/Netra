@@ -17,6 +17,7 @@ export const DEFAULT_SANITIZE_OPTIONS: Required<SanitizeOptions> = {
   allowSvg: true,
   allowExternalFonts: false,
   allowVideoEmbeds: false,
+  allowModuleImports: false,
 };
 
 /** Preview defaults for the iframe card. */
@@ -29,6 +30,7 @@ export const DEFAULT_PREVIEW_OPTIONS: Required<HtmlArtifactPreviewOptions> = {
   allowSvg: true,
   allowExternalFonts: false,
   allowVideoEmbeds: false,
+  allowModuleImports: false,
   sanitize: true,
   seamless: true,
   minHeight: 420,

@@ -72,6 +72,8 @@ export interface HtmlArtifactPreviewOptions {
   allowSvg?: boolean;
   allowExternalFonts?: boolean;
   allowVideoEmbeds?: boolean;
+  /** Keep trusted, version-pinned `<script type="importmap">` for ESM games (e.g. three.js). Default false. */
+  allowModuleImports?: boolean;
   /** Run the sanitizer before writing srcDoc. Default true. */
   sanitize?: boolean;
   /** Remove iframe chrome so it blends into the card. Default true. */

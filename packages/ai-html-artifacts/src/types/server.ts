@@ -105,6 +105,13 @@ export interface CreateArtifactStreamResponseOptions {
   allowSvg?: boolean;
   allowExternalFonts?: boolean;
   allowVideoEmbeds?: boolean;
+  allowModuleImports?: boolean;
+  /**
+   * Generate single-file three.js games. Switches the HTML prompt to the game
+   * builder and implies `allowModuleImports` (pinned-CDN importmap + module
+   * script) so the game actually loads and runs in the isolated frame.
+   */
+  game?: boolean;
 
   temperature?: number;
 
@@ -133,6 +140,8 @@ export interface ResolvedServerConfig {
   styleProfile?: ArtifactStyleProfile;
   theme?: ArtifactTheme;
   presentation?: ArtifactPresentation;
+  /** Generate single-file three.js games (implies allowModuleImports). */
+  game?: boolean;
   sanitize: {
     allowForms: boolean;
     allowScripts: boolean;
@@ -141,6 +150,7 @@ export interface ResolvedServerConfig {
     allowSvg: boolean;
     allowExternalFonts: boolean;
     allowVideoEmbeds: boolean;
+    allowModuleImports: boolean;
   };
   temperature?: number;
   snapshotIntervalMs: number;

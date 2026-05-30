@@ -1,4 +1,5 @@
 import { BASE_SYSTEM_PROMPT } from "./systemPrompt.js";
+import { buildThreejsGamePrompt } from "./threejsGamePrompt.js";
 import { SYSTEM_FONT_STACK } from "../constants/defaults.js";
 import type {
   ArtifactPresentation,
@@ -12,6 +13,12 @@ export interface HtmlPromptOptions {
   allowExternalFonts?: boolean;
   allowVideoEmbeds?: boolean;
   allowForms?: boolean;
+  /**
+   * Generate a single-file three.js game instead of a static artifact. Switches
+   * to the dedicated game prompt (importmap + module + game loop). Requires the
+   * caller to enable `allowModuleImports` on the sanitizer/preview side.
+   */
+  game?: boolean;
   /** Host theme to match exactly (colours, radius, font). */
   theme?: ArtifactTheme;
   /** `seamless` artifacts must be transparent and chromeless to blend inline. */
@@ -393,7 +400,12 @@ export function buildHtmlArtifactPrompt(options: HtmlPromptOptions = {}): string
     allowForms = true,
     theme,
     presentation,
+    game = false,
   } = options;
+
+  if (game) {
+    return buildThreejsGamePrompt({ themeNote: theme?.notes });
+  }
 
   return [
     BASE_SYSTEM_PROMPT,

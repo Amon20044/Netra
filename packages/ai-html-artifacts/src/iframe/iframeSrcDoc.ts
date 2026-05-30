@@ -7,6 +7,7 @@ import {
   FORBIDDEN_SANDBOX_TOKENS,
   SANDBOX_TOKENS,
 } from "../constants/sandbox.js";
+import { trustedModuleCdnOrigins } from "../constants/trustedCdnHosts.js";
 
 /**
  * Minimal reset injected for the framed (pure artifact) path: margin/box-sizing
@@ -321,7 +322,32 @@ export interface BuildSrcDocOptions {
     | "allowSvg"
     | "allowExternalFonts"
     | "allowVideoEmbeds"
+    | "allowModuleImports"
   >;
+}
+
+/**
+ * Defense-in-depth CSP for game frames. The sandbox (no `allow-same-origin`)
+ * is the primary boundary; this `<meta>` additionally pins script/connect/worker
+ * sources to the trusted ESM CDNs so a stray import can't reach an arbitrary
+ * host. Asset hosts (img/media/font) stay open so games can use textures/audio.
+ */
+function buildModuleCspMeta(): string {
+  const cdns = trustedModuleCdnOrigins();
+  const directives = [
+    "default-src 'none'",
+    `script-src 'unsafe-inline' 'wasm-unsafe-eval' ${cdns} blob:`,
+    "worker-src blob:",
+    "child-src blob:",
+    "style-src 'unsafe-inline'",
+    "img-src * data: blob:",
+    "media-src * data: blob:",
+    "font-src * data:",
+    `connect-src ${cdns} data: blob:`,
+    "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
+    "base-uri 'none'",
+  ];
+  return `<meta http-equiv="Content-Security-Policy" content="${directives.join("; ")}" />`;
 }
 
 /**
@@ -352,8 +378,14 @@ export function buildSrcDoc(
 
   const themeStyles = theme && !camouflage ? themeToCss(theme) : "";
   const needsResizeBridge =
-    resizeBridge ?? Boolean(sanitizeOptions?.allowScripts || sanitizeOptions?.allowVideoEmbeds);
-  const injection = `<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}${needsResizeBridge ? RESIZE_BRIDGE_SCRIPT : ""}`;
+    resizeBridge ??
+    Boolean(
+      sanitizeOptions?.allowScripts ||
+        sanitizeOptions?.allowVideoEmbeds ||
+        sanitizeOptions?.allowModuleImports,
+    );
+  const cspMeta = sanitizeOptions?.allowModuleImports ? buildModuleCspMeta() : "";
+  const injection = `${cspMeta}<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}${needsResizeBridge ? RESIZE_BRIDGE_SCRIPT : ""}`;
 
   let doc: string;
   if (isFullDocument(html)) {
@@ -376,12 +408,14 @@ export function resolveSandbox(options: {
   allowForms?: boolean;
   allowScripts?: boolean;
   allowVideoEmbeds?: boolean;
+  allowModuleImports?: boolean;
 }): string {
   const explicit = options.sandbox;
   if (explicit !== undefined) {
     return normalizeSandboxTokens(explicit.split(/\s+/)).join(" ");
   }
-  const needsScripts = options.allowScripts || options.allowVideoEmbeds;
+  const needsScripts =
+    options.allowScripts || options.allowVideoEmbeds || options.allowModuleImports;
   if (options.allowForms === false && !needsScripts) return "";
   if (!needsScripts) return DEFAULT_SANDBOX;
 

@@ -18,6 +18,9 @@ export function resolveServerConfig(
   const allowSvg = options.allowSvg ?? true;
   const allowExternalFonts = options.allowExternalFonts ?? false;
   const allowVideoEmbeds = options.allowVideoEmbeds ?? false;
+  const game = options.game ?? false;
+  // A game needs its importmap + module script kept; enabling game implies it.
+  const allowModuleImports = options.allowModuleImports ?? game;
 
   const htmlSystemPrompt =
     options.htmlSystemPrompt ??
@@ -29,6 +32,7 @@ export function resolveServerConfig(
       allowForms,
       theme: options.theme,
       presentation: options.presentation,
+      game,
     });
 
   return {
@@ -44,6 +48,7 @@ export function resolveServerConfig(
     styleProfile: options.styleProfile,
     theme: options.theme,
     presentation: options.presentation,
+    game,
     sanitize: {
       allowForms,
       allowScripts,
@@ -52,6 +57,7 @@ export function resolveServerConfig(
       allowSvg,
       allowExternalFonts,
       allowVideoEmbeds,
+      allowModuleImports,
     },
     temperature: options.temperature,
     snapshotIntervalMs:

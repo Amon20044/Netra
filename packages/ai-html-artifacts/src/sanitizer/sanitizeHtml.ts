@@ -17,6 +17,7 @@ import {
   SVG_BLOCK,
 } from "./dangerousPatterns.js";
 import type { SanitizeOptions } from "../types/config.js";
+import { isTrustedModuleUrl } from "../constants/trustedCdnHosts.js";
 
 // A <link> is kept under allowExternalFonts only if its href starts with a
 // Google Fonts host (covers stylesheet links and preconnect hints).
@@ -29,6 +30,11 @@ const VIDEO_EMBED_PLACEHOLDER = "\uE000netra-video-embed:";
 const VIDEO_EMBED_END = "\uE001";
 const SCRIPT_PLACEHOLDER = "\uE002netra-script:";
 const SCRIPT_END = "\uE003";
+const IMPORTMAP_PLACEHOLDER = "\uE004netra-importmap:";
+const IMPORTMAP_END = "\uE005";
+/** `<script type="importmap">...</script>` blocks (kept under allowModuleImports). */
+const IMPORTMAP_BLOCK =
+  /<script\b[^>]*\btype\s*=\s*["']?importmap["']?[^>]*>[\s\S]*?<\/script\s*>/gi;
 const YOUTUBE_VIDEO_ID = /^[A-Za-z0-9_-]{6,64}$/;
 const SAFE_YOUTUBE_PARAMS = new Set([
   "autoplay",
@@ -72,9 +78,22 @@ export function sanitizeHtml(
     let html = input;
     const before = html;
 
+    // 0. Importmaps — kept only when allowModuleImports is on, and only after
+    // their targets are filtered down to trusted, version-pinned CDN URLs. This
+    // must run BEFORE the inline-script protection/strip so the importmap block
+    // isn't matched and removed by the generic <script> handling below.
+    const importmaps = opts.allowModuleImports
+      ? protectAllowedImportmaps(html)
+      : undefined;
+    html = importmaps?.html ?? html;
+
     // 1. Scripts — removed by default; only final inline blocks may be kept
-    // when the caller explicitly opts into script-enabled artifacts.
-    const scripts = opts.allowScripts ? protectAllowedInlineScripts(html) : undefined;
+    // when the caller opts into scripts, or module game code under
+    // allowModuleImports (the importmap above is useless without it).
+    const scripts =
+      opts.allowScripts || opts.allowModuleImports
+        ? protectAllowedInlineScripts(html)
+        : undefined;
     html = (scripts?.html ?? html).replace(SCRIPT_BLOCK, "").replace(SCRIPT_OPEN, "");
 
     // 2. Nested browsing contexts & navigation tricks. Trusted YouTube video
@@ -125,6 +144,9 @@ export function sanitizeHtml(
     if (videoEmbeds) {
       html = restoreTrustedVideoEmbeds(html, videoEmbeds.embeds);
     }
+    if (importmaps) {
+      html = restoreAllowedImportmaps(html, importmaps.maps);
+    }
 
     return { html, modified: html !== before, failedOpen: false };
   } catch {
@@ -155,6 +177,76 @@ function restoreAllowedInlineScripts(input: string, scripts: string[]): string {
     new RegExp(`${SCRIPT_PLACEHOLDER}(\\d+)${SCRIPT_END}`, "g"),
     (_match, index: string) => scripts[Number(index)] ?? "",
   );
+}
+
+function protectAllowedImportmaps(input: string): {
+  html: string;
+  maps: string[];
+} {
+  const maps: string[] = [];
+  const html = input.replace(IMPORTMAP_BLOCK, (tag) => {
+    const map = normalizeAllowedImportmap(tag);
+    if (!map) return "";
+    const index = maps.push(map) - 1;
+    return `${IMPORTMAP_PLACEHOLDER}${index}${IMPORTMAP_END}`;
+  });
+  return { html, maps };
+}
+
+function restoreAllowedImportmaps(input: string, maps: string[]): string {
+  return input.replace(
+    new RegExp(`${IMPORTMAP_PLACEHOLDER}(\\d+)${IMPORTMAP_END}`, "g"),
+    (_match, index: string) => maps[Number(index)] ?? "",
+  );
+}
+
+/**
+ * Validate an `<script type="importmap">` block: parse its JSON and keep only
+ * mappings whose targets resolve to a trusted, version-pinned ESM CDN. Drops the
+ * block entirely if it has no surviving mappings or is malformed. Returns a
+ * re-serialized, minimal importmap so nothing but vetted URLs reach the iframe.
+ */
+function normalizeAllowedImportmap(tag: string): string | null {
+  const match = tag.match(/^<script\b[^>]*>([\s\S]*?)<\/script\s*>$/i);
+  if (!match) return null;
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse((match[1] ?? "").trim());
+  } catch {
+    return null;
+  }
+  if (!parsed || typeof parsed !== "object") return null;
+
+  const source = parsed as Record<string, unknown>;
+  const out: { imports?: Record<string, string>; scopes?: Record<string, Record<string, string>> } = {};
+
+  const imports = filterImportMapping(source.imports);
+  if (imports) out.imports = imports;
+
+  if (source.scopes && typeof source.scopes === "object") {
+    const scopes: Record<string, Record<string, string>> = {};
+    for (const [scope, mapping] of Object.entries(source.scopes as Record<string, unknown>)) {
+      const filtered = filterImportMapping(mapping);
+      if (filtered) scopes[scope] = filtered;
+    }
+    if (Object.keys(scopes).length) out.scopes = scopes;
+  }
+
+  if (!out.imports && !out.scopes) return null;
+  return `<script type="importmap">${JSON.stringify(out)}</script>`;
+}
+
+/** Keep only `specifier -> url` entries whose url is a trusted module URL. */
+function filterImportMapping(value: unknown): Record<string, string> | null {
+  if (!value || typeof value !== "object") return null;
+  const kept: Record<string, string> = {};
+  for (const [specifier, target] of Object.entries(value as Record<string, unknown>)) {
+    if (typeof target === "string" && isTrustedModuleUrl(target)) {
+      kept[specifier] = target;
+    }
+  }
+  return Object.keys(kept).length ? kept : null;
 }
 
 function normalizeAllowedInlineScript(tag: string): string | null {

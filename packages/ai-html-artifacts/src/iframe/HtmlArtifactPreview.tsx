@@ -120,12 +120,12 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     const doc = buildSrcDoc(finalHtml, {
       sanitize: opts.sanitize,
       seamless: true,
-      resizeBridge: opts.allowScripts || opts.allowVideoEmbeds,
+      resizeBridge: opts.allowScripts || opts.allowVideoEmbeds || opts.allowModuleImports,
       camouflage: bare,
       theme,
       sanitizeOptions: opts,
     });
-    paint(doc, !streaming && opts.allowScripts);
+    paint(doc, !streaming && (opts.allowScripts || opts.allowModuleImports));
   }, [paint, theme, bare]);
 
   // Schedule a flush, throttled to at most once per `debounceMs` and aligned to

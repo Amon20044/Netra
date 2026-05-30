@@ -21,6 +21,14 @@ export interface SanitizeOptions {
    * nested browsing contexts are stripped.
    */
   allowVideoEmbeds?: boolean;
+  /**
+   * Keep `<script type="importmap">` blocks whose targets resolve to a trusted,
+   * version-pinned ESM CDN (see `constants/trustedCdnHosts`). This is what lets
+   * a single-file three.js game resolve `import * as THREE from "three"` without
+   * bundling. Off by default. Implies inline module scripts are kept (same as
+   * `allowScripts`) so the game code that consumes the importmap can run.
+   */
+  allowModuleImports?: boolean;
 }
 
 /** Mode resolution strategy for the server helper. */

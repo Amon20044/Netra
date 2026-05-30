@@ -92,3 +92,57 @@ test("allowVideoEmbeds keeps trusted YouTube iframes only when enabled", () => {
   assert.match(html, /allowfullscreen/);
   assert.ok(!/onload|evil\.test|allow="bad"/i.test(html));
 });
+
+test("importmaps are stripped when allowModuleImports is off", () => {
+  const input =
+    '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}</script>';
+  const { html } = sanitizeHtml(input);
+  assert.ok(!/importmap/i.test(html));
+  assert.ok(!/<script/i.test(html));
+});
+
+test("allowModuleImports keeps a trusted, pinned importmap + module game code", () => {
+  const input =
+    '<script type="importmap">{"imports":{' +
+    '"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",' +
+    '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"' +
+    "}}</script>" +
+    '<script type="module">import * as THREE from "three"; window.__game = !!THREE;</script>';
+  const { html } = sanitizeHtml(input, { allowModuleImports: true });
+
+  assert.match(html, /<script type="importmap">/);
+  assert.match(html, /three@0\.169\.0\/build\/three\.module\.js/);
+  assert.match(html, /three\/addons\//);
+  assert.match(html, /<script type="module">import \* as THREE/);
+});
+
+test("importmap drops untrusted hosts and unpinned versions", () => {
+  const input =
+    '<script type="importmap">{"imports":{' +
+    '"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",' +
+    '"evil":"https://evil.test/malware.js",' +
+    '"floating":"https://cdn.jsdelivr.net/npm/three/build/three.module.js"' +
+    "}}</script>";
+  const { html } = sanitizeHtml(input, { allowModuleImports: true });
+
+  assert.match(html, /three@0\.169\.0/);
+  assert.ok(!/evil\.test/.test(html));
+  assert.ok(!/"floating"/.test(html));
+});
+
+test("importmap with no trusted entries is dropped entirely", () => {
+  const input =
+    '<script type="importmap">{"imports":{"x":"https://evil.test/x.js"}}</script>';
+  const { html } = sanitizeHtml(input, { allowModuleImports: true });
+  assert.ok(!/importmap/i.test(html));
+  assert.ok(!/evil\.test/.test(html));
+});
+
+test("allowModuleImports still strips module scripts that load external src", () => {
+  const input =
+    '<script type="module" src="https://evil.test/x.js"></script>' +
+    '<script type="module">window.__ok = 1;</script>';
+  const { html } = sanitizeHtml(input, { allowModuleImports: true });
+  assert.ok(!/evil\.test/.test(html));
+  assert.match(html, /window\.__ok = 1;/);
+});

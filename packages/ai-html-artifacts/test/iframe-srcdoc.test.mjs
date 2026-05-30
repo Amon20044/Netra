@@ -91,6 +91,28 @@ test("resolveSandbox isolates script-enabled previews", () => {
   );
 });
 
+test("game frames get allow-scripts (no same-origin), a CSP, and a kept importmap", () => {
+  assert.equal(
+    resolveSandbox({ allowModuleImports: true }),
+    "allow-forms allow-popups allow-scripts",
+  );
+
+  const game =
+    '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}</script>' +
+    '<script type="module">import * as THREE from "three"; new THREE.Scene();</script>';
+  const doc = buildSrcDoc(game, {
+    sanitizeOptions: { allowModuleImports: true },
+  });
+
+  assert.match(doc, /Content-Security-Policy/);
+  assert.match(doc, /script-src[^"]*cdn\.jsdelivr\.net/);
+  assert.match(doc, /<script type="importmap">/);
+  assert.match(doc, /three@0\.169\.0\/build\/three\.module\.js/);
+  assert.match(doc, /<script type="module">import \* as THREE/);
+  // resize bridge is injected so the host can size the game frame.
+  assert.match(doc, /netra-artifact:resize/);
+});
+
 test("resolveSandbox lets trusted video embeds play without preserving inline scripts", () => {
   assert.equal(
     resolveSandbox({ allowVideoEmbeds: true }),

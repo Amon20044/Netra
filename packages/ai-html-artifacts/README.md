@@ -219,7 +219,8 @@ Artifacts are static HTML/CSS by default:
 - Event handler attributes are stripped
 - Dangerous URLs are stripped
 - Iframes, embeds, object tags, and refresh meta tags are stripped unless `allowVideoEmbeds` keeps a normalized trusted YouTube iframe
-- The preview iframe receives `allow-scripts` only for opt-in inline scripts or trusted video embeds, and that script-capable path omits `allow-same-origin`
+- `<script type="importmap">` is stripped unless `allowModuleImports` is set, and then only mappings that resolve to a trusted, version-pinned ESM CDN survive — enabling single-file ESM games (e.g. three.js) with a defense-in-depth CSP on the frame
+- The preview iframe receives `allow-scripts` only for opt-in inline scripts, trusted video embeds, or module-import games, and that script-capable path omits `allow-same-origin`
 - `allowExternalFonts` only keeps approved Google Fonts hosts
 
 Use Netra's default mode for safe previews of generated static HTML. Opt into

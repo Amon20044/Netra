@@ -5,6 +5,19 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- **Single-file three.js games.** New `allowModuleImports` sanitize/preview flag
+  keeps a `<script type="importmap">` whose targets resolve to a trusted,
+  version-pinned ESM CDN (`esm.sh`, `cdn.jsdelivr.net`, `unpkg.com`,
+  `cdn.skypack.dev`), so a self-contained game can `import … from "three"` with
+  no build step. The game frame runs in the isolated `allow-scripts` sandbox
+  (no `allow-same-origin`) with a defense-in-depth CSP pinning script/connect to
+  those CDNs. New `game` server option switches the HTML prompt to a dedicated
+  three.js game builder (pinned import map + module + fixed-timestep loop) and
+  implies `allowModuleImports`. New `threejs-games` agent skill + single-file
+  setup guidance in `threejs-fundamentals`.
+
 ### Changed
 
 - Trusted YouTube embeds and inline JavaScript are now explicit opt-ins. The

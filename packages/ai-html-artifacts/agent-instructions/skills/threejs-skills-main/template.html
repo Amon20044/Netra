@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>three.js minimal starter</title>
+  <style>
+    /* RULE: kill default margins and let the canvas fill the window.
+       three.js does NOT style anything for you — layout is your job.
+       ref: https://threejs.org/docs/#manual/en/introduction/Creating-a-scene */
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
+    canvas { display: block; } /* removes the tiny gap under inline canvases */
+  </style>
+
+  <!-- RULE: load three.js via an import map so `import ... from "three"` works in
+       the browser with no build step. Bump the version number to upgrade.
+       `three/addons/` maps to the examples/jsm folder (OrbitControls, loaders, etc).
+       ref: https://threejs.org/docs/#manual/en/introduction/Installation -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- RULE: the script MUST be type="module" to use import maps / ES imports. -->
+  <script type="module">
+    import * as THREE from "three";
+    // RULE: anything outside core lives in addons. Import only what you use.
+    // Full list of addons: https://threejs.org/docs/#manual/en/introduction/Installation
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    // 1. RENDERER — draws the scene into a <canvas> using WebGL.
+    //    antialias smooths edges; setPixelRatio keeps it crisp on retina screens.
+    //    ref: https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    document.body.appendChild(renderer.domElement);
+
+    // 2. SCENE — the container/world that holds every object, light and camera.
+    //    ref: https://threejs.org/docs/#api/en/scenes/Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x111111);
+
+    // 3. CAMERA — your point of view. (fov, aspect, near, far).
+    //    Objects closer than `near` or farther than `far` are clipped.
+    //    ref: https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+    const camera = new THREE.PerspectiveCamera(
+      75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
+    camera.position.set(3, 2, 5);
+
+    // 4. CONTROLS — drag to orbit, scroll to zoom. Optional but handy.
+    //    Call controls.update() every frame if enableDamping is on.
+    //    ref: https://threejs.org/docs/#examples/en/controls/OrbitControls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // 5. LIGHTS — most materials need light to be visible (MeshBasicMaterial is the
+    //    exception). Ambient fills shadows; a directional light gives shape.
+    //    ref: https://threejs.org/docs/#api/en/lights/DirectionalLight
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+    sun.position.set(5, 10, 7);
+    scene.add(sun);
+
+    // 6. OBJECT (MESH = geometry + material) — swap these two lines for ANY
+    //    three.js object: load a GLTF model, build particles, add primitives, etc.
+    //    geometries: https://threejs.org/docs/#api/en/geometries/BoxGeometry
+    //    materials:  https://threejs.org/docs/#api/en/materials/MeshStandardMaterial
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshStandardMaterial({ color: 0x4f9dff })
+    );
+    scene.add(mesh);
+
+    // 7. RESIZE — keep the aspect ratio correct when the window changes.
+    //    Forgetting this is the #1 cause of stretched/squished scenes.
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix(); // RULE: required after changing camera props
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // 8. ANIMATION LOOP — runs ~60fps. Put per-frame updates here, then render.
+    //    Use setAnimationLoop (not requestAnimationFrame) — it also handles WebXR.
+    //    ref: https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop
+    renderer.setAnimationLoop(() => {
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.01;
+      controls.update();        // needed because enableDamping is true
+      renderer.render(scene, camera); // RULE: nothing appears until you render
+    });
+
+    // MORE EXAMPLES TO LEARN FROM: https://threejs.org/examples/
+  </script>
+</body>
+</html>
