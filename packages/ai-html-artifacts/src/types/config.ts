@@ -1,12 +1,12 @@
 /**
  * Options that govern what the sanitizer is allowed to keep. Defaults are
- * static-only and script-free: see `constants/defaults`.
+ * static-only and script-free by default: see `constants/defaults`.
  */
 export interface SanitizeOptions {
   /** Keep `<form>`, `<input>`, `<button>`, `<label>`, `<textarea>`, `<select>`. */
   allowForms?: boolean;
-  /** Always coerced to `false`. Scripts are never permitted. */
-  allowScripts?: false;
+  /** Keep inline `<script>` blocks. Off by default; external script URLs stay blocked. */
+  allowScripts?: boolean;
   /** Keep inline `style="..."` attributes. */
   allowInlineStyles?: boolean;
   /** Keep `<style>` tags. */

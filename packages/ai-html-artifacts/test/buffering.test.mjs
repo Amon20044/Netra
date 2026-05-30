@@ -6,6 +6,7 @@ test("looksRenderable rejects partial tags and unbalanced style blocks", () => {
   assert.equal(looksRenderable("<div>ok</div>"), true);
   assert.equal(looksRenderable("<div>ok</div><span"), false);
   assert.equal(looksRenderable("<style>.a{color:red}"), false);
+  assert.equal(looksRenderable("<script>document.body.dataset.x='1'"), false);
   assert.equal(looksRenderable("<p>x</p>&amp"), false);
 });
 

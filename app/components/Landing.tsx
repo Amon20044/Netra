@@ -72,7 +72,7 @@ const WHY: { Icon: DoodleIcon; title: string; body: string }[] = [
   {
     Icon: Interfaces.Shield,
     title: "Rendered directly in a safe sandbox",
-    body: "Artifacts mount in a sandboxed iframe with scripts forbidden (allow-scripts is stripped, always). Model HTML is sanitized and isolated — it can never touch your app's DOM, cookies, or state.",
+    body: "Artifacts mount in a sandboxed iframe with sanitized HTML. Scripts can be enabled for trusted embeds and final-page interactions while the stream still paints safely first.",
   },
   {
     Icon: Interfaces.Zap,
@@ -99,8 +99,8 @@ const FEATURES: { Icon: DoodleIcon; title: string; body: string }[] = [
   },
   {
     Icon: Interfaces.Shield2,
-    title: "Sandboxed, no-JS artifacts",
-    body: "Every artifact renders in a sandboxed iframe with scripts forbidden. Charts are CSS/SVG, accordions are <details>, forms are native.",
+    title: "Sandboxed artifacts",
+    body: "Every artifact renders in a sandboxed iframe. The body and CSS stream first; optional final scripts can enhance trusted embeds and interactions.",
   },
   {
     Icon: Interfaces.Sync,

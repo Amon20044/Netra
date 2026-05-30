@@ -46,9 +46,24 @@ test("strips CSS expression() vector", () => {
   assert.ok(!/expression\(/i.test(html));
 });
 
-test("scripts stay removed even if allowScripts is forced", () => {
+test("scripts stay removed when allowScripts is false", () => {
   const { html } = sanitizeHtml("<script>x</script>", { allowScripts: false });
   assert.ok(!/<script/i.test(html));
+});
+
+test("allowScripts preserves inline scripts but strips external or evented scripts", () => {
+  const { html } = sanitizeHtml(
+    '<div>ok</div><script>window.__netra = 1;</script>' +
+      '<script type="module">window.__module = true;</script>' +
+      '<script src="https://evil.test/x.js">bad</script>' +
+      '<script onload="steal()">bad</script>' +
+      '<script type="application/json">{"bad":true}</script>',
+    { allowScripts: true },
+  );
+
+  assert.match(html, /<script>window\.__netra = 1;<\/script>/);
+  assert.match(html, /<script type="module">window\.__module = true;<\/script>/);
+  assert.ok(!/src=|onload|application\/json|bad/i.test(html));
 });
 
 test("allowExternalFonts keeps Google Fonts but strips other external CSS", () => {

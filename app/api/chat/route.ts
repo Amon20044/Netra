@@ -102,6 +102,7 @@ export async function POST(req: Request) {
     },
     allowExternalFonts: true,
     allowVideoEmbeds: true,
+    allowScripts: true,
     temperature: 0.7,
     snapshotIntervalMs: 0,
   });

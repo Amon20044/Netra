@@ -114,6 +114,15 @@ test("raw-text CSS with '>' combinators doesn't break parsing", () => {
   assert.match(html, /<p>hi<\/p><\/body><\/html>$/);
 });
 
+test("partial script raw text is not projected into streaming snapshots", () => {
+  const p = new PredictiveHtmlParser();
+  assert.equal(p.push("<body><script>document.body.dataset.x='1'"), "<body></body>");
+
+  const rendered = p.push(";</script><p>Ready");
+  assert.match(rendered, /<script>document\.body\.dataset\.x='1';<\/script>/);
+  assert.match(rendered, /<p>Ready<\/p><\/body>$/);
+});
+
 test("never throws on malformed input (fail open)", () => {
   assert.doesNotThrow(() => assembleStreamingHtml("<<<>>> <a <b <c"));
   const p = new PredictiveHtmlParser();

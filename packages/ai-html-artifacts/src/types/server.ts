@@ -99,6 +99,7 @@ export interface CreateArtifactStreamResponseOptions {
   presentation?: ArtifactPresentation;
 
   allowForms?: boolean;
+  allowScripts?: boolean;
   allowInlineStyles?: boolean;
   allowStyleTags?: boolean;
   allowSvg?: boolean;
@@ -134,7 +135,7 @@ export interface ResolvedServerConfig {
   presentation?: ArtifactPresentation;
   sanitize: {
     allowForms: boolean;
-    allowScripts: false;
+    allowScripts: boolean;
     allowInlineStyles: boolean;
     allowStyleTags: boolean;
     allowSvg: boolean;

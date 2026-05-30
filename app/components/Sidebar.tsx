@@ -127,7 +127,7 @@ export function Sidebar({ sessions, activeId, viewingId, open, onSelect, onNew, 
         </div>
 
         <div className="px-2 pb-1 text-[11px] text-white/25">
-          Predictive HTML Parser · sandboxed · no JS
+          Predictive HTML Parser · sandboxed · JS-ready
         </div>
       </div>
     </aside>

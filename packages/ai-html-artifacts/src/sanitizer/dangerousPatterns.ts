@@ -4,7 +4,8 @@
  * inside the artifact iframe, regardless of how creative the model gets.
  *
  * The sanitizer is regex-based on purpose: it must run identically on the
- * server (Node) and the client (browser) with zero DOM dependency.
+ * server (Node) and the client (browser) with zero DOM dependency. Inline
+ * scripts can be preserved only through the explicit allowScripts path.
  */
 
 /** `<script>...</script>`, including attributes and across newlines. */

@@ -6,8 +6,5 @@ import type { SanitizeOptions } from "../types/config.js";
 export function resolveSanitizeOptions(
   options?: SanitizeOptions,
 ): Required<SanitizeOptions> {
-  const merged = mergeConfig(DEFAULT_SANITIZE_OPTIONS, options);
-  // Scripts are never allowed, no matter what a caller passes.
-  merged.allowScripts = false;
-  return merged;
+  return mergeConfig(DEFAULT_SANITIZE_OPTIONS, options);
 }

@@ -73,13 +73,22 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   // Commit a built document to the frame: patch the live DOM in place once the
   // frame has loaded (no reload, no flash), else seed it via `srcDoc`.
   const paint = React.useCallback(
-    (doc: string) => {
-      if (doc === lastDocRef.current) return;
+    (doc: string, forceReload = false) => {
+      if (doc === lastDocRef.current && !forceReload) return;
       lastDocRef.current = doc;
       const iframe = iframeRef.current;
-      if (loadedRef.current && iframe?.contentDocument) {
+      if (forceReload) {
+        loadedRef.current = false;
+        cleanupNavigationRef.current?.();
+        cleanupNavigationRef.current = null;
+        setSrcDoc(doc);
+        return;
+      }
+      if (loadedRef.current && iframe) {
         try {
-          patchIframeDocument(iframe.contentDocument, doc);
+          const target = iframe.contentDocument;
+          if (!target) throw new Error("iframe document unavailable");
+          patchIframeDocument(target, doc);
           measure();
           return;
         } catch {
@@ -111,11 +120,12 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     const doc = buildSrcDoc(finalHtml, {
       sanitize: opts.sanitize,
       seamless: true,
+      resizeBridge: opts.allowScripts || opts.allowVideoEmbeds,
       camouflage: bare,
       theme,
       sanitizeOptions: opts,
     });
-    paint(doc);
+    paint(doc, !streaming && opts.allowScripts);
   }, [paint, theme, bare]);
 
   // Schedule a flush, throttled to at most once per `debounceMs` and aligned to
@@ -168,7 +178,10 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     [],
   );
 
-  const sandbox = React.useMemo(() => resolveSandbox(opts), [opts]);
+  const sandbox = React.useMemo(
+    () => resolveSandbox({ ...opts, sandbox: options?.sandbox }),
+    [opts, options?.sandbox],
+  );
 
   // In bare/seamless mode the host surface shows through: no background, no
   // skeleton box, no progress bar — just the transparent artifact inline.
@@ -268,7 +281,12 @@ function cancelScheduled(sched: {
 function attachIframeHashNavigation(
   iframe: HTMLIFrameElement | null,
 ): () => void {
-  const doc = iframe?.contentDocument;
+  let doc: Document | null | undefined;
+  try {
+    doc = iframe?.contentDocument;
+  } catch {
+    return () => {};
+  }
   if (!iframe || !doc) return () => {};
 
   const onClick = (event: MouseEvent) => {

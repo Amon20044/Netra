@@ -80,11 +80,20 @@ export class PredictiveHtmlParser {
   /** The current renderable projection: committed + predicted closings. */
   render(): string {
     let html = this.committed;
+    const stack = [...this.stack];
+    if (this.insideRawText === "script") {
+      const open = html.toLowerCase().lastIndexOf("<script");
+      if (open !== -1) html = html.slice(0, open);
+      const scriptIndex = stack.lastIndexOf("script");
+      if (scriptIndex !== -1) stack.splice(scriptIndex, 1);
+    }
     // Only append the held tail if it's plain text (CSS/text), never a partial
     // tag fragment like "<div cla" or "</sty".
-    if (this.pending && !this.pending.startsWith("<")) html += this.pending;
-    for (let i = this.stack.length - 1; i >= 0; i--) {
-      html += `</${this.stack[i]}>`;
+    if (this.pending && !this.pending.startsWith("<") && this.insideRawText !== "script") {
+      html += this.pending;
+    }
+    for (let i = stack.length - 1; i >= 0; i--) {
+      html += `</${stack[i]}>`;
     }
     return html;
   }

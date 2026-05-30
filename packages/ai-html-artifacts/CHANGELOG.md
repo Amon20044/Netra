@@ -7,6 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Trusted YouTube embeds and inline JavaScript are now explicit opt-ins. The
+  script-capable iframe sandbox omits `allow-same-origin`, and an internal
+  postMessage resize bridge keeps isolated video/script previews auto-sized.
 - HTML-artifact prompt reworked to a **hybrid styling model**: one small shared
   `<style>` design system (box-sizing reset + fluid `clamp()` type/space scale +
   element defaults + `.wrap/.stack/.grid/.row/.card/.scroll-x` utility classes)

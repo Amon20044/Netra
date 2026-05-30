@@ -75,7 +75,7 @@ export class ArtifactBuffer {
 /**
  * Heuristic: is this partial HTML safe enough to drop into an iframe without
  * obvious breakage? We require that we are not in the middle of an open tag,
- * not inside an unterminated `<style>` block, and not mid-way through an HTML
+ * not inside an unterminated `<style>`/`<script>` block, and not mid-way through an HTML
  * entity. This is intentionally conservative — false negatives just mean we
  * wait for the next chunk.
  */
@@ -91,6 +91,11 @@ export function looksRenderable(html: string): boolean {
   const styleOpen = countMatches(html, /<style[\s>]/gi);
   const styleClose = countMatches(html, /<\/style>/gi);
   if (styleOpen !== styleClose) return false;
+
+  // Balanced <script> blocks; partial scripts should never execute.
+  const scriptOpen = countMatches(html, /<script[\s>]/gi);
+  const scriptClose = countMatches(html, /<\/script>/gi);
+  if (scriptOpen !== scriptClose) return false;
 
   // Not mid-entity (e.g. "&amp" without ";").
   const trailingEntity = /&[a-z0-9#]*$/i.test(html);

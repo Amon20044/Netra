@@ -2,7 +2,11 @@ import { sanitizeHtml } from "../sanitizer/sanitizeHtml.js";
 import { cleanArtifactHtml } from "../artifacts/artifactEnvelope.js";
 import type { HtmlArtifactPreviewOptions } from "../types/client.js";
 import type { ArtifactTheme } from "../types/artifact.js";
-import { DEFAULT_SANDBOX, FORBIDDEN_SANDBOX_TOKENS } from "../constants/sandbox.js";
+import {
+  DEFAULT_SANDBOX,
+  FORBIDDEN_SANDBOX_TOKENS,
+  SANDBOX_TOKENS,
+} from "../constants/sandbox.js";
 
 /**
  * Minimal reset injected for the framed (pure artifact) path: margin/box-sizing
@@ -31,6 +35,42 @@ const SCROLLBAR_CSS = `<style>
 *::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb,var(--foreground,var(--fg,#9aa0ab)) 48%,transparent);background-clip:content-box}
 *::-webkit-scrollbar-corner{background:transparent}
 </style>`;
+
+const RESIZE_BRIDGE_SCRIPT = `<script>
+(() => {
+  const type = "netra-artifact:resize";
+  const measure = () => {
+    try {
+      const body = document.body;
+      const root = document.documentElement;
+      if (!body || !root) return;
+      const height = Math.ceil(Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        root.scrollHeight,
+        root.getBoundingClientRect().height
+      ));
+      if (height > 0) parent.postMessage({ type, height }, "*");
+    } catch {}
+  };
+  const start = () => {
+    measure();
+    try {
+      const ro = new ResizeObserver(measure);
+      ro.observe(document.documentElement);
+      if (document.body) ro.observe(document.body);
+    } catch {}
+    setTimeout(measure, 60);
+    setTimeout(measure, 240);
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+  window.addEventListener("load", measure);
+})();
+</script>`;
 
 /**
  * Render a host {@link ArtifactTheme} into a `<style>` block exposing its values
@@ -266,6 +306,8 @@ function normalizeCamouflageDeclaration(
 export interface BuildSrcDocOptions {
   sanitize?: boolean;
   seamless?: boolean;
+  /** Inject a postMessage auto-resize bridge for isolated script-capable frames. */
+  resizeBridge?: boolean;
   /** Force the document + any single full-page wrapper transparent (camouflage). */
   camouflage?: boolean;
   /** Host theme injected as CSS variables + base color/font into the iframe. */
@@ -273,6 +315,7 @@ export interface BuildSrcDocOptions {
   sanitizeOptions?: Pick<
     HtmlArtifactPreviewOptions,
     | "allowForms"
+    | "allowScripts"
     | "allowInlineStyles"
     | "allowStyleTags"
     | "allowSvg"
@@ -290,18 +333,27 @@ export function buildSrcDoc(
   rawHtml: string,
   options: BuildSrcDocOptions = {},
 ): string {
-  const { sanitize = true, seamless = true, camouflage = false, theme, sanitizeOptions } = options;
+  const {
+    sanitize = true,
+    seamless = true,
+    resizeBridge,
+    camouflage = false,
+    theme,
+    sanitizeOptions,
+  } = options;
 
   let html = cleanArtifactHtml(rawHtml ?? "");
   if (sanitize) {
-    html = sanitizeHtml(html, { ...sanitizeOptions, allowScripts: false }).html;
+    html = sanitizeHtml(html, sanitizeOptions).html;
   }
   if (camouflage) {
     html = normalizeCamouflageHtml(html);
   }
 
   const themeStyles = theme && !camouflage ? themeToCss(theme) : "";
-  const injection = `<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}`;
+  const needsResizeBridge =
+    resizeBridge ?? Boolean(sanitizeOptions?.allowScripts || sanitizeOptions?.allowVideoEmbeds);
+  const injection = `<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}${needsResizeBridge ? RESIZE_BRIDGE_SCRIPT : ""}`;
 
   let doc: string;
   if (isFullDocument(html)) {
@@ -314,21 +366,37 @@ export function buildSrcDoc(
 }
 
 /**
- * Resolve the sandbox attribute. An explicit `sandbox` wins; otherwise we build
- * a minimal token set from the flags. Forbidden tokens (notably `allow-scripts`)
- * are stripped no matter what.
+ * Resolve the sandbox attribute. An explicit `sandbox` wins, then still passes
+ * through the safety filter. When scripts or trusted video embeds need script
+ * execution, `allow-same-origin` is removed so generated code cannot run with
+ * the host page's origin.
  */
 export function resolveSandbox(options: {
   sandbox?: string;
   allowForms?: boolean;
+  allowScripts?: boolean;
+  allowVideoEmbeds?: boolean;
 }): string {
   const explicit = options.sandbox;
   if (explicit !== undefined) {
-    return explicit
-      .split(/\s+/)
-      .filter(Boolean)
-      .filter((t) => !FORBIDDEN_SANDBOX_TOKENS.includes(t as never))
-      .join(" ");
+    return normalizeSandboxTokens(explicit.split(/\s+/)).join(" ");
   }
-  return options.allowForms === false ? "" : DEFAULT_SANDBOX;
+  const needsScripts = options.allowScripts || options.allowVideoEmbeds;
+  if (options.allowForms === false && !needsScripts) return "";
+  if (!needsScripts) return DEFAULT_SANDBOX;
+
+  return normalizeSandboxTokens([
+    options.allowForms === false ? "" : SANDBOX_TOKENS.FORMS,
+    SANDBOX_TOKENS.POPUPS,
+    SANDBOX_TOKENS.SCRIPTS,
+  ]).join(" ");
+}
+
+function normalizeSandboxTokens(tokens: string[]): string[] {
+  const filtered = tokens
+    .filter(Boolean)
+    .filter((token) => !FORBIDDEN_SANDBOX_TOKENS.includes(token as never));
+  const unique = Array.from(new Set(filtered));
+  if (!unique.includes(SANDBOX_TOKENS.SCRIPTS)) return unique;
+  return unique.filter((token) => token !== SANDBOX_TOKENS.SAME_ORIGIN);
 }

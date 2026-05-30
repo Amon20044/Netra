@@ -10,7 +10,8 @@ export interface AutoSizeOptions {
  * Auto-size an iframe to its full content height so the artifact never shows an
  * inner scrollbar — the page provides the single scroll. This requires reading
  * the framed document, which works when the sandbox includes `allow-same-origin`
- * (the default here). No scripts run inside the frame, so this stays safe.
+ * (the default static path). Script-enabled previews are isolated without
+ * same-origin, so measurement gracefully falls back to the configured minimum.
  *
  * Measurement is resilient: it re-measures on load, on every content reflow
  * (ResizeObserver), and after web fonts finish loading (which changes height).
@@ -75,6 +76,24 @@ export function useIframeAutoSize(options: AutoSizeOptions = {}) {
       clearTimeout(t2);
     };
   }, [measure]);
+
+  useEffect(() => {
+    if (!enabled || typeof window === "undefined") return;
+
+    const onMessage = (event: MessageEvent) => {
+      const iframe = ref.current;
+      if (!iframe || event.source !== iframe.contentWindow) return;
+      const data = event.data as { type?: unknown; height?: unknown } | null;
+      if (!data || data.type !== "netra-artifact:resize") return;
+      const measured = Number(data.height);
+      if (!Number.isFinite(measured) || measured <= 0) return;
+      const clamped = Math.min(Math.max(Math.ceil(measured), minHeight), maxHeight);
+      setHeight((prev) => (Math.abs(prev - clamped) > 1 ? clamped : prev));
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [enabled, minHeight, maxHeight]);
 
   useEffect(() => {
     return () => observerRef.current?.disconnect();

@@ -65,8 +65,8 @@ export interface HtmlArtifactPreviewOptions {
   /** Explicit sandbox attribute. Overrides the allow* flags if provided. */
   sandbox?: string;
   allowForms?: boolean;
-  /** Scripts are never enabled. */
-  allowScripts?: false;
+  /** Keep inline scripts and use an isolated `allow-scripts` iframe sandbox. Default false. */
+  allowScripts?: boolean;
   allowInlineStyles?: boolean;
   allowStyleTags?: boolean;
   allowSvg?: boolean;

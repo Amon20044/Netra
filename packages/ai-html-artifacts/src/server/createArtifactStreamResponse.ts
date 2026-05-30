@@ -124,6 +124,7 @@ function resolveHtmlConfigForMode(
       // theme and no imposed style profile, so it picks the best design
       // (any palette, light/dark/vivid) per the request.
       styleProfile: seamless ? config.styleProfile : undefined,
+      allowScripts: config.sanitize.allowScripts,
       allowExternalFonts: config.sanitize.allowExternalFonts,
       allowVideoEmbeds: config.sanitize.allowVideoEmbeds,
       allowForms: config.sanitize.allowForms,

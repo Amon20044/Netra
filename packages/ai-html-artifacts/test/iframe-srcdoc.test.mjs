@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildSrcDoc } from "../dist/iframe/index.js";
+import { buildSrcDoc, resolveSandbox } from "../dist/iframe/index.js";
 
 test("camouflage transparentizes the page but keeps inner card surfaces", () => {
   const doc = buildSrcDoc(
@@ -61,4 +61,49 @@ test("normal artifact mode does not inject seamless camouflage styles", () => {
   assert.doesNotMatch(doc, /CAMOUFLAGE/i);
   assert.doesNotMatch(doc, /body>:only-child/);
   assert.doesNotMatch(doc, /color-scheme/);
+});
+
+test("buildSrcDoc keeps inline scripts only when script artifacts are enabled", () => {
+  const input = "<main>Interactive</main><script>window.__artifact = true;</script>";
+
+  assert.doesNotMatch(buildSrcDoc(input), /<script/i);
+
+  const doc = buildSrcDoc(input, {
+    sanitizeOptions: { allowScripts: true },
+  });
+  assert.match(doc, /<script>window\.__artifact = true;<\/script>/);
+});
+
+test("resolveSandbox isolates script-enabled previews", () => {
+  assert.equal(
+    resolveSandbox({ allowScripts: true }),
+    "allow-forms allow-popups allow-scripts",
+  );
+  assert.equal(
+    resolveSandbox({ allowScripts: true, allowForms: false }),
+    "allow-popups allow-scripts",
+  );
+  assert.equal(
+    resolveSandbox({
+      sandbox: "allow-scripts allow-same-origin allow-forms allow-top-navigation",
+    }),
+    "allow-scripts allow-forms",
+  );
+});
+
+test("resolveSandbox lets trusted video embeds play without preserving inline scripts", () => {
+  assert.equal(
+    resolveSandbox({ allowVideoEmbeds: true }),
+    "allow-forms allow-popups allow-scripts",
+  );
+
+  const doc = buildSrcDoc(
+    '<iframe src="https://youtu.be/Fij1aBcl_Ts?t=1m2s"></iframe><script>window.bad = true;</script>',
+    { sanitizeOptions: { allowVideoEmbeds: true, allowScripts: false } },
+  );
+
+  assert.match(doc, /https:\/\/www\.youtube\.com\/embed\/Fij1aBcl_Ts\?start=62/);
+  assert.match(doc, /allowfullscreen/);
+  assert.match(doc, /netra-artifact:resize/);
+  assert.doesNotMatch(doc, /window\.bad|<script>window\.bad/i);
 });

@@ -27,6 +27,8 @@ const ALLOWED_FONT_IMPORT =
   /@import\s+(?:url\()?\s*["']?https:\/\/fonts\.googleapis\.com/i;
 const VIDEO_EMBED_PLACEHOLDER = "\uE000netra-video-embed:";
 const VIDEO_EMBED_END = "\uE001";
+const SCRIPT_PLACEHOLDER = "\uE002netra-script:";
+const SCRIPT_END = "\uE003";
 const YOUTUBE_VIDEO_ID = /^[A-Za-z0-9_-]{6,64}$/;
 const SAFE_YOUTUBE_PARAMS = new Set([
   "autoplay",
@@ -70,8 +72,10 @@ export function sanitizeHtml(
     let html = input;
     const before = html;
 
-    // 1. Scripts — always removed.
-    html = html.replace(SCRIPT_BLOCK, "").replace(SCRIPT_OPEN, "");
+    // 1. Scripts — removed by default; only final inline blocks may be kept
+    // when the caller explicitly opts into script-enabled artifacts.
+    const scripts = opts.allowScripts ? protectAllowedInlineScripts(html) : undefined;
+    html = (scripts?.html ?? html).replace(SCRIPT_BLOCK, "").replace(SCRIPT_OPEN, "");
 
     // 2. Nested browsing contexts & navigation tricks. Trusted YouTube video
     // iframes are normalized when explicitly enabled; everything else is stripped.
@@ -115,6 +119,9 @@ export function sanitizeHtml(
     if (!opts.allowInlineStyles) html = html.replace(INLINE_STYLE_ATTR, "");
     if (!opts.allowSvg) html = html.replace(SVG_BLOCK, "");
     if (!opts.allowForms) html = html.replace(FORM_TAGS, "");
+    if (scripts) {
+      html = restoreAllowedInlineScripts(html, scripts.scripts);
+    }
     if (videoEmbeds) {
       html = restoreTrustedVideoEmbeds(html, videoEmbeds.embeds);
     }
@@ -127,6 +134,46 @@ export function sanitizeHtml(
       failedOpen: true,
     };
   }
+}
+
+function protectAllowedInlineScripts(input: string): {
+  html: string;
+  scripts: string[];
+} {
+  const scripts: string[] = [];
+  const html = input.replace(SCRIPT_BLOCK, (tag) => {
+    const script = normalizeAllowedInlineScript(tag);
+    if (!script) return "";
+    const index = scripts.push(script) - 1;
+    return `${SCRIPT_PLACEHOLDER}${index}${SCRIPT_END}`;
+  });
+  return { html, scripts };
+}
+
+function restoreAllowedInlineScripts(input: string, scripts: string[]): string {
+  return input.replace(
+    new RegExp(`${SCRIPT_PLACEHOLDER}(\\d+)${SCRIPT_END}`, "g"),
+    (_match, index: string) => scripts[Number(index)] ?? "",
+  );
+}
+
+function normalizeAllowedInlineScript(tag: string): string | null {
+  const match = tag.match(/^<script\b([^>]*)>([\s\S]*?)<\/script\s*>$/i);
+  if (!match) return null;
+
+  const attrs = match[1] ?? "";
+  if (/\ssrc\s*=/i.test(attrs) || /\son[a-z]+\s*=/i.test(attrs)) return null;
+
+  const type = readAttribute(`<script${attrs}>`, "type");
+  if (
+    type &&
+    !/^(?:module|text\/javascript|application\/javascript)$/i.test(type.trim())
+  ) {
+    return null;
+  }
+
+  const typeAttr = type?.trim().toLowerCase() === "module" ? ' type="module"' : "";
+  return `<script${typeAttr}>${match[2] ?? ""}</script>`;
 }
 
 function protectTrustedVideoEmbeds(input: string): {

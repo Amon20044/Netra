@@ -98,6 +98,7 @@ export async function POST(req: Request) {
           allowStyleTags: true,
           allowSvg: true,
           allowExternalFonts: false,
+          allowVideoEmbeds: false,
         },
         snapshotIntervalMs: 0,
       },
@@ -212,17 +213,17 @@ type ArtifactStreamEvent =
 
 ## Security
 
-Artifacts are static HTML/CSS:
+Artifacts are static HTML/CSS by default:
 
-- Scripts are stripped
+- Scripts are stripped unless `allowScripts` is explicitly enabled
 - Event handler attributes are stripped
 - Dangerous URLs are stripped
-- Iframes, embeds, object tags, and refresh meta tags are stripped
-- The preview iframe never receives `allow-scripts`
+- Iframes, embeds, object tags, and refresh meta tags are stripped unless `allowVideoEmbeds` keeps a normalized trusted YouTube iframe
+- The preview iframe receives `allow-scripts` only for opt-in inline scripts or trusted video embeds, and that script-capable path omits `allow-same-origin`
 - `allowExternalFonts` only keeps approved Google Fonts hosts
 
-Use Netra for safe previews of generated static HTML, not for executing
-generated application logic.
+Use Netra's default mode for safe previews of generated static HTML. Opt into
+scripts only for artifacts you are comfortable executing in an isolated iframe.
 
 ## Checks
 

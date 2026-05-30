@@ -12,6 +12,7 @@ export function resolveServerConfig(
   options: CreateArtifactStreamResponseOptions,
 ): ResolvedServerConfig {
   const allowForms = options.allowForms ?? true;
+  const allowScripts = options.allowScripts ?? false;
   const allowInlineStyles = options.allowInlineStyles ?? true;
   const allowStyleTags = options.allowStyleTags ?? true;
   const allowSvg = options.allowSvg ?? true;
@@ -22,6 +23,7 @@ export function resolveServerConfig(
     options.htmlSystemPrompt ??
     buildHtmlArtifactPrompt({
       styleProfile: options.styleProfile,
+      allowScripts,
       allowExternalFonts,
       allowVideoEmbeds,
       allowForms,
@@ -44,7 +46,7 @@ export function resolveServerConfig(
     presentation: options.presentation,
     sanitize: {
       allowForms,
-      allowScripts: false,
+      allowScripts,
       allowInlineStyles,
       allowStyleTags,
       allowSvg,
