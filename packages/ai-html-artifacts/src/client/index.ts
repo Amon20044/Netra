@@ -4,6 +4,7 @@ export { useArtifactStream } from "./useArtifactStream.js";
 export { ArtifactChat, type ArtifactChatProps } from "./ArtifactChat.js";
 export { ArtifactMessage, type ArtifactMessageProps } from "./ArtifactMessage.js";
 export { MarkdownMessage, type MarkdownMessageProps } from "./MarkdownMessage.js";
+export { STARTER_PROMPTS, type StarterPrompt } from "./starterPrompts.js";
 
 // Re-export the iframe surface for convenience from the client entry.
 export {

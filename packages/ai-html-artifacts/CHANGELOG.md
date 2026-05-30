@@ -7,6 +7,14 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- **Starter prompt templates.** `STARTER_PROMPTS` (exported from
+  `netra-artifacts/client`) ships 8 prebuilt templates — each a short show
+  `label` plus a rich `prompt` actually sent to the model — covering an HTML
+  artifact, markdown answer, three.js game, generative-UI-from-JSON, image-rich
+  page, YouTube video page, pricing page, and sign-up form. `ArtifactChat`
+  renders them as chips below the composer; each carries per-request `body`
+  overrides (`mode`/`game`/`allowVideoEmbeds`/…) now merged by `sendMessage`'s
+  new second argument. Pass `starterPrompts={[]}` to hide them.
 - **Single-file three.js games.** New `allowModuleImports` sanitize/preview flag
   keeps a `<script type="importmap">` whose targets resolve to a trusted,
   version-pinned ESM CDN (`esm.sh`, `cdn.jsdelivr.net`, `unpkg.com`,

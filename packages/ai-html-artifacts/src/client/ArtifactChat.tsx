@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useArtifactStream } from "./useArtifactStream.js";
 import { ArtifactMessage } from "./ArtifactMessage.js";
+import { STARTER_PROMPTS, type StarterPrompt } from "./starterPrompts.js";
 import type { HtmlArtifactCardProps, UseArtifactStreamOptions } from "../types/client.js";
 
 export interface ArtifactChatProps extends UseArtifactStreamOptions {
@@ -10,6 +11,12 @@ export interface ArtifactChatProps extends UseArtifactStreamOptions {
   emptyState?: React.ReactNode;
   cardProps?: Partial<Omit<HtmlArtifactCardProps, "artifact">>;
   className?: string;
+  /**
+   * Template chips shown below the composer. Defaults to {@link STARTER_PROMPTS}.
+   * Pass `[]` to hide them. Clicking one sends its detailed prompt with its
+   * per-request `body` overrides (mode/game/allowVideoEmbeds/…).
+   */
+  starterPrompts?: StarterPrompt[];
 }
 
 /**
@@ -18,13 +25,27 @@ export interface ArtifactChatProps extends UseArtifactStreamOptions {
  * compose `useArtifactStream` + `ArtifactMessage` yourself for custom layouts.
  */
 export function ArtifactChat(props: ArtifactChatProps) {
-  const { placeholder = "Ask anything, or describe a UI to generate…", emptyState, cardProps, className, ...streamOptions } = props;
+  const {
+    placeholder = "Ask anything, or describe a UI to generate…",
+    emptyState,
+    cardProps,
+    className,
+    starterPrompts = STARTER_PROMPTS,
+    ...streamOptions
+  } = props;
   const { messages, artifacts, status, sendMessage, stop } =
     useArtifactStream(streamOptions);
 
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
   const busy = status === "submitted" || status === "streaming";
+  const showStarters =
+    !busy && messages.length === 0 && starterPrompts.length > 0;
+
+  const runStarter = (p: StarterPrompt) => {
+    setInput("");
+    void sendMessage(p.prompt, p.body);
+  };
 
   React.useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -111,8 +132,55 @@ export function ArtifactChat(props: ArtifactChatProps) {
           </button>
         )}
       </form>
+
+      {showStarters && (
+        <div
+          role="list"
+          aria-label="Starter prompts"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 8,
+            padding: "0 10px 12px",
+          }}
+        >
+          {starterPrompts.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              role="listitem"
+              onClick={() => runStarter(p)}
+              title={p.hint}
+              style={chip()}
+            >
+              <span aria-hidden="true" style={{ fontSize: 15 }}>
+                {p.emoji}
+              </span>
+              <span style={{ fontWeight: 600 }}>{p.label}</span>
+              <span style={{ color: "#9ca3af", fontWeight: 400 }}>· {p.hint}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
+}
+
+function chip(): React.CSSProperties {
+  return {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 7,
+    border: "1px solid rgba(0,0,0,0.12)",
+    borderRadius: 999,
+    padding: "7px 13px",
+    fontSize: 13,
+    lineHeight: 1.2,
+    color: "var(--aha-fg, #1f2430)",
+    background: "rgba(0,0,0,0.02)",
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+  };
 }
 
 function btn(bg: string, disabled = false): React.CSSProperties {

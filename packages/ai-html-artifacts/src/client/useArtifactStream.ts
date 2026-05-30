@@ -105,7 +105,7 @@ export function useArtifactStream(
   }, [stop]);
 
   const sendMessage = React.useCallback(
-    async (text: string) => {
+    async (text: string, bodyOverrides?: Record<string, unknown>) => {
       const trimmed = text.trim();
       if (!trimmed || status === "streaming" || status === "submitted") return;
 
@@ -134,6 +134,7 @@ export function useArtifactStream(
           headers: { "Content-Type": "application/json", ...headers },
           body: JSON.stringify({
             ...body,
+            ...bodyOverrides,
             messages: history.map(({ role, content }) => ({ role, content })),
           }),
         });

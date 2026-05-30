@@ -41,8 +41,15 @@ export interface UseArtifactStreamReturn {
   status: ArtifactStreamStatus;
   mode: ArtifactMode | null;
   error: Error | null;
-  /** Append a user message and start streaming the assistant response. */
-  sendMessage: (text: string) => Promise<void>;
+  /**
+   * Append a user message and start streaming the assistant response.
+   * `bodyOverrides` are merged into the POST body for this request only —
+   * used by starter prompts to request a specific mode/flags (e.g. `game`).
+   */
+  sendMessage: (
+    text: string,
+    bodyOverrides?: Record<string, unknown>,
+  ) => Promise<void>;
   /** Abort any in-flight stream and clear all state. */
   reset: () => void;
   /** Abort the in-flight stream without clearing history. */

@@ -41,14 +41,17 @@ const google = createGoogleGenerativeAI({
 });
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  // Spread the body so per-request fields from the client (mode, game,
+  // allowVideoEmbeds, allowModuleImports) — e.g. those sent by the built-in
+  // starter prompts — are forwarded into the options.
+  const body = await req.json();
   const model = google("gemini-2.5-flash");
 
   return createArtifactStreamResponse({
-    messages,
+    ...body,
     generateTextStream: (args) => streamText({ model, ...args }).textStream,
     generateText: async (args) => (await generateText({ model, ...args })).text,
-    mode: "auto",
+    mode: body.mode ?? "auto",
     snapshotIntervalMs: 0,
     allowExternalFonts: true,
   });
