@@ -13,6 +13,7 @@
     "@ai-sdk/deepseek": "^2.0.35",
     "@ai-sdk/google": "^2",
     "@ai-sdk/openai": "^3.0.66",
+    "@vercel/analytics": "^2.0.1",
     "ai": "^5",
     "dompurify": "^3.4.7",
     "doodle-icons": "^1.1.0",
