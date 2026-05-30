@@ -1,6 +1,11 @@
 # Local-only graphify artifacts — do NOT commit (per graphify team-setup guidance).
-# Tracked & shared: graph.json, graph.html, GRAPH_REPORT.md, .graphify_labels.json
-manifest.json      # mtime-based; breaks after `git clone`, rebuilt locally
-cost.json          # local extraction cost ledger
-cache/             # per-machine AST cache; rebuilt for free by `graphify update .`
-.graphify_root     # absolute machine path, e.g. C:\exp\my-app
+# Shared & tracked: graph.json, graph.html, GRAPH_REPORT.md, .graphify_labels.json
+
+# mtime-based; breaks after `git clone`, rebuilt locally
+manifest.json
+# local extraction cost ledger
+cost.json
+# per-machine AST cache; rebuilt for free by `graphify update .`
+cache/
+# absolute machine path, e.g. C:\exp\my-app
+.graphify_root
