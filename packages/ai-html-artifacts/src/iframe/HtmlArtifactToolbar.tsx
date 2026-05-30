@@ -11,11 +11,13 @@ export interface HtmlArtifactToolbarProps {
   allowDownload?: boolean;
   allowPdf?: boolean;
   allowFullscreen?: boolean;
+  allowRerun?: boolean;
   copied?: boolean;
   onCopy?: () => void;
   onDownload?: () => void;
   onDownloadPdf?: () => void;
   onFullscreen?: () => void;
+  onRerun?: () => void;
   streaming?: boolean;
   /** Show macOS-style window dots on the left. */
   showDots?: boolean;
@@ -47,6 +49,11 @@ const Icon = {
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><path d="M9 15h1.2a1.3 1.3 0 0 0 0-2.6H9V18" /><path d="M15.5 12.4H14V18" /><path d="M14 15.4h1.3" />
     </svg>
   ),
+  rerun: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+    </svg>
+  ),
 };
 
 export function HtmlArtifactToolbar(props: HtmlArtifactToolbarProps) {
@@ -58,11 +65,13 @@ export function HtmlArtifactToolbar(props: HtmlArtifactToolbarProps) {
     allowDownload = true,
     allowPdf = true,
     allowFullscreen = true,
+    allowRerun = true,
     copied = false,
     onCopy,
     onDownload,
     onDownloadPdf,
     onFullscreen,
+    onRerun,
     streaming = false,
     showDots = true,
   } = props;
@@ -92,6 +101,11 @@ export function HtmlArtifactToolbar(props: HtmlArtifactToolbarProps) {
         </button>
       </div>
 
+      {allowRerun && (
+        <button type="button" className="aha-iconbtn" onClick={onRerun} title="Re-run" aria-label="Re-run artifact" disabled={streaming}>
+          {Icon.rerun}
+        </button>
+      )}
       {allowCopy && (
         <button type="button" className="aha-iconbtn" onClick={onCopy} title="Copy HTML" aria-label="Copy HTML">
           {copied ? Icon.check : Icon.copy}

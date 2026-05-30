@@ -43,6 +43,10 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
   const [tab, setTab] = React.useState<ArtifactTab>(defaultTab);
   const [copied, setCopied] = React.useState(false);
   const [fullscreen, setFullscreen] = React.useState(false);
+  // Bumped by the "Re-run" action to force the preview iframe to reload and
+  // re-execute scripts/games from scratch.
+  const [runSignal, setRunSignal] = React.useState(0);
+  const onRerun = React.useCallback(() => setRunSignal((n) => n + 1), []);
 
   const streaming = artifact.status === "streaming";
   const errored = artifact.status === "error";
@@ -139,9 +143,13 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
             theme={theme}
             bare
             options={{ minHeight: 0, ...previewOptions }}
+            reloadSignal={runSignal}
           />
           {showToolbar && !streaming && (
             <div className="aha-seamless-actions">
+              <button type="button" className="aha-iconbtn" onClick={onRerun} title="Re-run" aria-label="Re-run artifact">
+                {RERUN_ICON}
+              </button>
               {allowCopy && (
                 <button type="button" className="aha-iconbtn" onClick={onCopy} title="Copy HTML" aria-label="Copy HTML">
                   {copied ? CHECK_ICON : COPY_ICON}
@@ -170,6 +178,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
               title={artifact.title}
               theme={theme}
               options={{ ...previewOptions, autoResize: false, minHeight: 640, maxHeight: 100000 }}
+              reloadSignal={runSignal}
             />
           </HtmlArtifactModal>
         )}
@@ -199,6 +208,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
             onDownload={onDownload}
             onDownloadPdf={onDownloadPdf}
             onFullscreen={() => setFullscreen(true)}
+            onRerun={onRerun}
           />
         )}
 
@@ -210,6 +220,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
             title={artifact.title}
             theme={theme}
             options={previewOptions}
+            reloadSignal={runSignal}
           />
         ) : (
           <HtmlArtifactCodeView
@@ -237,6 +248,7 @@ export function HtmlArtifactCard(props: HtmlArtifactCardProps) {
               minHeight: 640,
               maxHeight: 100000,
             }}
+            reloadSignal={runSignal}
           />
         </HtmlArtifactModal>
       )}
@@ -257,6 +269,11 @@ const CHECK_ICON = (
 const EXPAND_ICON = (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" /><line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
+  </svg>
+);
+const RERUN_ICON = (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
   </svg>
 );
 const PDF_ICON = (

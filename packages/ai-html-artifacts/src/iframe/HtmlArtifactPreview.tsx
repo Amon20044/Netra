@@ -20,11 +20,16 @@ export interface HtmlArtifactPreviewProps {
   theme?: ArtifactTheme;
   /** Chromeless: transparent wrapper, no surface/skeleton box — for seamless mode. */
   bare?: boolean;
+  /**
+   * Bump this number to force a clean reload of the iframe — re-running scripts
+   * and games from scratch. The initial value is ignored; only changes re-run.
+   */
+  reloadSignal?: number;
 }
 
 export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   useArtifactStyles();
-  const { html, streaming = false, errored = false, title, options, theme, bare = false } = props;
+  const { html, streaming = false, errored = false, title, options, theme, bare = false, reloadSignal } = props;
 
   const opts = React.useMemo(
     () => mergeConfig(DEFAULT_PREVIEW_OPTIONS, options),
@@ -38,6 +43,9 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   });
 
   const [srcDoc, setSrcDoc] = React.useState<string>("");
+  // Bumped by `rerun()` and used as the iframe `key`, so a re-run remounts the
+  // frame and executes scripts/games again from a clean slate.
+  const [runNonce, setRunNonce] = React.useState(0);
 
   // Tracks the last document we rendered and whether the iframe has loaded once.
   // Lets us update the *live* document in place while streaming instead of
@@ -127,6 +135,37 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     });
     paint(doc, !streaming && (opts.allowScripts || opts.allowModuleImports));
   }, [paint, theme, bare]);
+
+  // Force a clean reload of the current document: rebuild it and remount the
+  // iframe (via runNonce) so scripts and games execute again from zero. Used by
+  // the toolbar/seamless "Re-run" button.
+  const rerun = React.useCallback(() => {
+    const { html, opts } = stateRef.current;
+    if (!html) return;
+    const doc = buildSrcDoc(html, {
+      sanitize: opts.sanitize,
+      seamless: true,
+      resizeBridge:
+        opts.allowScripts || opts.allowVideoEmbeds || opts.allowModuleImports,
+      camouflage: bare,
+      theme,
+      sanitizeOptions: opts,
+    });
+    loadedRef.current = false;
+    lastDocRef.current = doc;
+    cleanupNavigationRef.current?.();
+    cleanupNavigationRef.current = null;
+    setSrcDoc(doc);
+    setRunNonce((n) => n + 1);
+  }, [theme, bare]);
+
+  // External re-run trigger: only fire when the signal actually changes.
+  const prevReloadRef = React.useRef(reloadSignal);
+  React.useEffect(() => {
+    if (prevReloadRef.current === reloadSignal) return;
+    prevReloadRef.current = reloadSignal;
+    rerun();
+  }, [reloadSignal, rerun]);
 
   // Schedule a flush, throttled to at most once per `debounceMs` and aligned to
   // an animation frame so rapid SSE deltas don't trigger a render storm.
@@ -223,6 +262,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
       {streaming && !bare && <div className="aha-progress" aria-hidden />}
 
       <iframe
+        key={runNonce}
         ref={iframeRef}
         srcDoc={iframeSrcDoc}
         title={title || "Artifact preview"}
