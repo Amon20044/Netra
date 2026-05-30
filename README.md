@@ -238,6 +238,47 @@ export default function Page() {
 }
 ```
 
+## Examples
+
+The live demo at `/demo` showcases the kinds of responsive
+artifacts Netra is built to stream. Each example is designed to adapt cleanly
+to mobile, tablet, and desktop layouts.
+
+These demo examples include:
+
+- Premium weather, jobs, and travel cards with compact dashboard-style layouts.
+- A dark glassmorphic order-tracking card with a progress timeline and summary panels.
+- A playful game scene rendered as a full-screen interactive canvas.
+- An editorial invoice layout with structured typography and print-friendly spacing.
+- A dark analytics dashboard with KPI cards, charts, and responsive data panels.
+- A CSS Flexbox vs Grid explainer with a skimmable, article-style reading layout.
+
+Premium weather, jobs, and travel cards:
+
+![Premium weather, jobs, and travel cards](public/genui-1.png)
+
+Dark glassmorphic order-tracking card with a progress timeline:
+
+![Glassmorphic order-tracking card](public/genui-2.png)
+
+Full-screen interactive game scene:
+
+![Interactive game scene](public/game.png)
+
+Editorial invoice layout:
+
+![Editorial invoice layout](public/artifact-2.png)
+
+Dark analytics dashboard:
+
+![Dark analytics dashboard](public/artifact-1.png)
+
+CSS Flexbox vs Grid explainer:
+
+![CSS Flexbox vs Grid explainer](public/markdown.png)
+
+All of these examples are responsive.
+
 ## Streaming Protocol
 
 The backend emits Server-Sent Events. Each frame uses `event: artifact` and a
