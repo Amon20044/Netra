@@ -18,14 +18,13 @@ export interface HtmlPromptOptions {
 }
 
 /**
- * The single small shared <style> design system every artifact emits. It holds
- * ONLY what repeats: the box-sizing reset, a fluid clamp() type+space scale, a
- * few element defaults (so children inherit instead of being restyled), and a
- * handful of layout utility classes. Everything else is styled inline. No
- * @media / @keyframes / pseudo-classes — flat rules only, so it streams in one
- * short head tag and survives the seamless (camouflage) CSS normalizer.
+ * The final enhancement <style> every artifact emits at the end of <body>.
+ * Critical layout and visual styling must already be inline on the HTML
+ * elements, so the streamed UI remains usable even before this block arrives.
+ * This block is only for shared reset/utility polish, responsive fixes,
+ * hover/focus states, popovers, scrollbars, pseudo-elements, and light motion.
  */
-const SHARED_STYLE_EXAMPLE = `<style>
+const FINAL_STYLE_EXAMPLE = `<style>
 *,*::before,*::after{box-sizing:border-box}
 html{--s0:clamp(13px,.55vw+11.5px,16px);--s1:clamp(15px,1vw+12px,19px);--h3:clamp(17px,1.2vw+13px,22px);--h2:clamp(22px,2.4vw+14px,40px);--h1:clamp(28px,4vw+12px,56px);--gap:clamp(14px,2.5vw,30px);--pad:clamp(16px,3.5vw,36px);font-size:var(--s0);line-height:1.5}
 h1{font-size:var(--h1);line-height:1.08;margin:0}
@@ -33,6 +32,7 @@ h2{font-size:var(--h2);line-height:1.14;margin:0}
 h3{font-size:var(--h3);line-height:1.2;margin:0}
 p{margin:0;font-size:var(--s1)}
 a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
 img,svg,video{display:block;max-width:100%}
 table{width:100%;border-collapse:collapse}
 .wrap{width:100%;max-width:1200px;margin-inline:auto;padding:var(--pad)}
@@ -41,7 +41,15 @@ table{width:100%;border-collapse:collapse}
 .row{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:center}
 .card{padding:var(--pad);border-radius:var(--radius,16px);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),var(--surface,rgba(255,255,255,.04));border:1px solid var(--border,rgba(255,255,255,.1))}
 .control{min-height:44px;padding:.62em 2.2em .62em .9em;border-radius:calc(var(--radius,16px)*.75);border:1px solid var(--border,rgba(255,255,255,.14));background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));color:var(--fg);font:inherit}
+.control:hover{filter:brightness(1.06)}
+.control:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .scroll-x{overflow-x:auto}
+[popover]{max-width:min(92vw,760px);max-height:85dvh;overflow:auto;border:1px solid var(--border);border-radius:var(--radius,18px);box-shadow:0 28px 80px rgba(0,0,0,.38);background:var(--surface);color:var(--fg);padding:var(--pad)}
+[popover]::backdrop{background:rgba(0,0,0,.5)}
+.scroll-x::-webkit-scrollbar{height:8px}
+.scroll-x::-webkit-scrollbar-thumb{background:var(--border);border-radius:999px}
+@keyframes rise{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:640px){.split{grid-template-columns:1fr!important}.hide-sm{display:none!important}}
 </style>`;
 
 function buildOutputFormat(presentation?: ArtifactPresentation): string {
@@ -53,16 +61,17 @@ A short (1-2 sentence) chat message. Mention the aesthetic direction you chose, 
 </assistant_message>
 
 <html_artifact title="A concise human-readable title">
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" style="background:transparent;margin:0;padding:0;/* declare color/radius tokens here too: --fg,--surface,--border,--muted,--radius,--accent (match the host theme; never paint a page background) */">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>...</title>
-${SHARED_STYLE_EXAMPLE}
 </head>
 <body style="background:transparent;margin:0;color:var(--fg)">
-<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.control/.scroll-x) for structure + inline style="" for per-element specifics. The OUTER wrapper must have NO background of its own. Fully responsive & compact. -->
+<!-- Content first: full semantic UI in visual order. Use inline style="" for every critical layout, spacing, color, surface, and typography choice so the UI still looks good before the final style block arrives. The OUTER wrapper must have NO background of its own. Fully responsive & compact. -->
+${FINAL_STYLE_EXAMPLE}
 </body>
 </html>
 </html_artifact>`;
@@ -75,23 +84,25 @@ A short (1-2 sentence) chat message. Mention the aesthetic direction you chose, 
 </assistant_message>
 
 <html_artifact title="A concise human-readable title">
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" style="margin:0;padding:0;/* declare your color/radius tokens here: --bg,--fg,--surface,--border,--muted,--radius,--accent — pick a deliberate light, dark, or vivid palette; never plain white-on-white */">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>...</title>
-${SHARED_STYLE_EXAMPLE}
 </head>
 <body style="margin:0;background:var(--bg);color:var(--fg)">
-<!-- Content: use the utility classes (.wrap/.stack/.grid/.row/.card/.control/.scroll-x) for structure + inline style="" for per-element specifics. Fully responsive & compact (see rules). -->
+<!-- Content first: full semantic UI in visual order. Use inline style="" for every critical layout, spacing, color, surface, and typography choice so the UI still looks good before the final style block arrives. Fully responsive & compact (see rules). -->
+${FINAL_STYLE_EXAMPLE}
 </body>
 </html>
 </html_artifact>`;
 }
 
 const HARD_RULES = `HARD RULES — the artifact renders in a sandboxed iframe with NO JavaScript:
-- Output a COMPLETE, valid HTML document (<!DOCTYPE html>, <html>, <head>, <body>, meta charset, meta viewport).
+- Output a COMPLETE, well-formed HTML document (<!doctype html>, <html>, <head>, <body>, meta charset, meta viewport).
+- Generate HTML in this order: <!doctype html>, <html lang="en" style="...tokens...">, <head> with only meta tags/title/minimal safety defaults, <body> with the full semantic UI first, then exactly one final <style> block immediately before </body>.
 - You are already in HTML_ARTIFACT mode. ALWAYS emit the <html_artifact> block. Never answer with explanation-only prose, even if the user says "check", "test", "show", "demo", or repeats the request messily.
 - 100% static HTML + CSS. NO JavaScript, NO <script>, NO event handlers (onclick/onload/...), NO javascript: URLs, NO external JS.
 - NO iframes except the trusted YouTube embed pattern described in VIDEO EMBEDS when video embeds are enabled and the user supplied a video link.
@@ -103,44 +114,47 @@ const HARD_RULES = `HARD RULES — the artifact renders in a sandboxed iframe wi
 - Semantic HTML and accessible labels (label/for, alt text, aria where helpful). Maintain strong color contrast.`;
 
 function buildStylingRule(): string {
-  return `STYLING MODEL — ONE tiny shared <style> design system + inline content (read carefully):
-You get EXACTLY ONE small <style> block, in <head>. Put ONLY the shared, repeated rules there and style everything else inline. This keeps output token-light (you never repeat the same 8 declarations on every card) and visually consistent, while the body still streams and paints element-by-element.
+  return `STYLING MODEL - body-first HTML + critical inline CSS + one final enhancement <style>:
+You get EXACTLY ONE <style> block, and it goes as the LAST child of <body>, immediately before </body>. Do not put CSS in <head>. The full semantic UI must appear before that final style block.
 
-PUT IN THE <style> (keep it ~16 short lines; flat rules only):
-- Reset: *,*::before,*::after{box-sizing:border-box}.
-- A fluid type + space SCALE as variables on html, each a single clamp() so text/space SHRINK on phones and grow on desktop automatically — this is how one document is compact on mobile and comfortable on desktop with no breakpoints:
-  html{--s0:clamp(13px,.55vw+11.5px,16px);--s1:clamp(15px,1vw+12px,19px);--h3:clamp(17px,1.2vw+13px,22px);--h2:clamp(22px,2.4vw+14px,40px);--h1:clamp(28px,4vw+12px,56px);--gap:clamp(14px,2.5vw,30px);--pad:clamp(16px,3.5vw,36px);font-size:var(--s0);line-height:1.5}
-- Element defaults via INHERITANCE so you don't restyle every node: h1/h2/h3 sized from --h*, p{margin:0;font-size:var(--s1)}, a{color:inherit}, table{width:100%;border-collapse:collapse}, img,svg,video{display:block;max-width:100%}.
-- A FEW reusable layout utility classes (classes WORK now — there is a stylesheet): .wrap (max-width + centered + --pad), .stack (column + --gap), .grid (auto-fit repeat(auto-fit,minmax(min(100%,220px),1fr)) + --gap), .row (flex-wrap + --gap), .card (--pad + radius + surface + border), .control (polished select/input/filter button base), .scroll-x (overflow-x:auto).
+HEAD CONTENT:
+- <head> contains only meta tags, <title>, and minimal safety defaults such as <meta name="referrer" content="strict-origin-when-cross-origin" />.
+- No large CSS, no script, no preload framework, no CDN stylesheet in <head>.
 
-DECLARE COLOR/RADIUS TOKENS INLINE on <html style="--bg:…;--fg:…;--surface:…;--border:…;--muted:…;--radius:…;--accent:…"> (the <html> tag streams first AND lets the host theme apply). The <style> scale + utilities reference these via var().
+INLINE CRITICAL CSS (mandatory):
+- Every important element must carry enough inline style="" to render correctly before the final style block arrives: layout display, grid/flex columns, gap, padding, margin, color, background/surface, border, radius, shadow, typography, chart dimensions, aspect-ratio, and overflow behavior.
+- Declare color/radius/spacing tokens inline on <html style="--bg:...;--fg:...;--surface:...;--border:...;--muted:...;--radius:...;--accent:..."> so they stream before everything else.
+- You may still add semantic classes like class="wrap stack grid card control split scroll-x", but the classes are enhancement hooks only. Never rely on class CSS for the initial usable layout.
 
-STYLE EVERYTHING ELSE INLINE: per-element specifics — exact colors, font-weight, one-off sizes, SVG attributes, individual backgrounds, the actual stat value, a single card's accent. Use the utility classes for structure (class="grid"/"stack"/"card"/"row"/"wrap"/"control"/"scroll-x"), then add inline style="" only for what is unique to THAT element.
+FINAL <style> CONTENT (enhancement only):
+- Reset and shared defaults: box-sizing, fluid type/spacing variables, h1/h2/h3/p/a/table/media defaults.
+- Responsive CSS and edge-case fixes: @media breakpoints, phone-specific stacking, long-word handling, scroll containers, print-safe table/chart fixes.
+- Interaction polish: :hover, :focus-visible, :active, popover/backdrop styling, native <details>/<summary> polish.
+- Allowed light CSS motion: small @keyframes/animation for non-critical decorative polish only. The page must still look good if animations never run.
+- Pseudo-elements and scrollbar styling are allowed here for polish only: ::before, ::after, ::marker, ::backdrop, ::-webkit-scrollbar.
 
-THIRD TIER — optional @media breakpoints (use SPARINGLY, only for true LAYOUT shifts the clamp scale cannot express). The clamp scale already handles fluid type + spacing, so reach for @media ONLY to RESTRUCTURE at a real breakpoint — e.g. collapse a 2-column split to stacked, drop a decorative side column, or change a grid's min track. Put any @media rules INSIDE the single shared <style> (it stays the ONLY <style> block). The artifact is measured by the iframe's own width, so use width queries (e.g. @media(max-width:560px){.split{grid-template-columns:1fr}}) and keep to 1-2 of them. Tier order: (1) inline per-element specifics → (2) shared clamp scale + utility classes → (3) @media only for structural shifts.
+STILL FORBIDDEN:
+- More than one <style> block.
+- JavaScript, <script>, onclick/onload/event handlers, javascript: URLs, external JS, arbitrary external CSS.
+- @font-face, @import, @supports, @container unless explicitly requested by a higher-priority config.
+- Bare browser-default controls. Every visible select/button/input/filter must have inline styling plus class="control" or equivalent, min-height >=44px, visible surface/border, readable font, and comfortable padding.
 
-STILL FORBIDDEN (none survive the streaming + camouflage layer — never emit them):
-- More than one <style> block; any <style> beyond the single shared design system.
-- @keyframes, @font-face, @supports, @container.
-- Pseudo-classes/elements: :hover, :focus, :active, ::before, ::after, ::marker (no stylesheet re-runs mid-stream).
-- javascript: and external stylesheets. For navs use real anchor links and native controls; never use onclick.
-- Bare browser-default controls. NEVER emit naked <select>, <button>, <input>, or filter controls that look like plain OS widgets (tiny rectangular default boxes). Every control must use class="control" or equivalent inline styling, with a visible surface, border, spacing, readable font, and >=44px hit area. For select arrows, place a small text glyph (▼) in an adjacent span inside a position:relative wrapper; do not use CSS data-URI arrows.
-
-CONCRETE PATTERN (auto-fit grid of stat cards — reflows 4-up → 1-up by itself, compact on phones):
-<div class="grid">
-  <div class="card"><div style="font-size:13px;letter-spacing:.04em;color:var(--muted)">Revenue</div><div style="font-size:var(--h2);font-weight:700">$48.9K</div><div style="font-size:13px;color:#34d399">▲ 4.2%</div></div>
+CONCRETE PATTERN (works before the final style block, then gets enhanced):
+<div class="grid" style="display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+  <div class="card" style="padding:var(--pad);border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);box-shadow:0 18px 45px rgba(0,0,0,.18)">
+    <div style="font-size:13px;letter-spacing:.04em;color:var(--muted)">Revenue</div>
+    <div style="font-size:var(--h2);font-weight:700">$48.9K</div>
+    <div style="font-size:13px;color:#34d399">Up 4.2%</div>
+  </div>
 </div>
-Structure comes from the class; only the unique bits are inline.
 
-CONCRETE CONTROL PATTERN (filters/selects — polished, not browser-default):
-<div class="row" style="--gap:10px">
+CONCRETE CONTROL PATTERN:
+<div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
   <label style="position:relative;display:inline-flex;align-items:center">
     <span style="position:absolute;left:-9999px">Time range</span>
-    <select class="control" style="appearance:none;-webkit-appearance:none;min-width:132px"><option>30 Days</option><option>90 Days</option></select>
-    <span aria-hidden="true" style="position:absolute;right:12px;color:var(--muted);pointer-events:none">▼</span>
+    <select class="control" style="appearance:none;-webkit-appearance:none;min-width:132px;min-height:44px;padding:.62em 2.2em .62em .9em;border-radius:calc(var(--radius)*.75);border:1px solid var(--border);background:var(--surface);color:var(--fg);font:inherit"><option>30 Days</option><option>90 Days</option></select>
+    <span aria-hidden="true" style="position:absolute;right:12px;color:var(--muted);pointer-events:none">v</span>
   </label>
-  <button class="control" type="button" style="padding-right:.9em">All Assets (5)</button>
-  <button class="control" type="button" style="padding-right:.9em">All Segments</button>
 </div>`;
 }
 
@@ -148,7 +162,7 @@ const DESIGN_DIRECTION = `DESIGN DIRECTION — make it genuinely beautiful, not 
 
 1. COMMIT TO A BOLD, COHESIVE AESTHETIC. Pick ONE clear direction that fits the content and execute it precisely. Examples to draw from (do not always pick the same one — vary across generations): editorial/magazine, refined luxury, brutalist/raw, retro-futuristic, organic/natural, soft pastel, industrial/utilitarian, art-deco/geometric, dark premium, warm minimal. Intentionality beats intensity.
 
-2. DESIGN TOKENS FIRST. Declare your color/radius tokens INLINE on <html style="--bg:...;--fg:...;--accent:...;--surface:...;--border:...;--radius:..."> (they stream first and let the host theme apply); the shared <style> holds only the reset, the clamp scale, element defaults, and utility classes. Reference tokens everywhere via var(). A dominant color + 1-2 sharp accents, a spacing scale, radii, shadows. Pick light OR dark deliberately; do not default to white.
+2. DESIGN TOKENS FIRST. Declare your color/radius tokens INLINE on <html style="--bg:...;--fg:...;--accent:...;--surface:...;--border:...;--radius:..."> (they stream first and let the host theme apply). Reference tokens everywhere via var(). A dominant color + 1-2 sharp accents, a spacing scale, radii, shadows. Pick light OR dark deliberately; do not default to white.
 
 3. ANTI-SLOP — NEVER do these:
    - NO purple/violet gradients on white (the #1 AI cliché).
@@ -160,7 +174,7 @@ const DESIGN_DIRECTION = `DESIGN DIRECTION — make it genuinely beautiful, not 
 
 5. DEPTH & ATMOSPHERE. Don't settle for flat solid fills. Add tasteful depth: layered subtle gradients or gradient meshes (radial-gradient), soft grain/noise via SVG data-URI background ON ITS OWN ELEMENT (never inside a style attribute — see hard rules), fine 1px hairlines, dramatic-but-tasteful shadows, glassmorphism only where it earns it. Keep it refined.
 
-6. MOTION. CSS animation (@keyframes) and hover need stylesheet features that are off-limits here (flat rules only) — DO NOT rely on them. Win with strong STATIC craft: confident type scale, layered depth, gradients, shadows, precise spacing.
+6. MOTION. CSS animation, hover, and focus states may live only in the final enhancement <style>. They are polish, not the foundation. Win first with strong static craft: confident type scale, layered depth, gradients, shadows, precise spacing.
 
 7. REAL CONTENT. Use realistic, specific, precomputed data (names, numbers, dates, copy). Never lorem ipsum, never "Item 1 / Item 2".
 
@@ -169,11 +183,11 @@ ACCORDIONS: native <details><summary>…</summary>…</details>, styled inline.`
 
 function buildFontRule(allowExternalFonts: boolean): string {
   if (allowExternalFonts) {
-    return `TYPOGRAPHY — use DISTINCTIVE fonts (this is what separates premium from slop):
-- Load fonts from Google Fonts only, via <link> in <head> (e.g. <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=...&display=swap" rel="stylesheet">). Other external resources are blocked.
-- Pair a CHARACTERFUL display/heading font with a clean, readable body font. Forbidden as primary fonts: Inter, Roboto, Arial, plain system stacks.
-- Strong, varied pairings to consider (pick one that matches the aesthetic; vary across generations): "Fraunces" + "Inter Tight"; "Clash Display"-style → use "Bricolage Grotesque" + "Newsreader"; "Space Grotesk" + "Spline Sans" (use sparingly); "Instrument Serif" + "Geist"; "Libre Caslon Display" + "Public Sans"; "Sora" + "IBM Plex Sans"; "DM Serif Display" + "DM Sans"; "Syne" + "Manrope".
-- LIMIT to AT MOST 3 font styles total per artifact (e.g. one display + one body, each in up to ~2 weights). Pick ONE pairing and commit; do not scatter many families/weights. Apply font-family inline (or set it once on a heading/body element). The clamp() scale already handles sizing.
+    return `TYPOGRAPHY — use DISTINCTIVE type without delaying body-first rendering:
+- Keep the head clean by default: do not add Google Fonts links unless the user explicitly requests a named external font/brand font. If you do use one, it is the only exception to the "meta/title only" head rule and must be Google Fonts only.
+- Prefer expressive local stacks and inline font-family choices that render immediately. Forbidden as primary fonts: plain Arial/Roboto-only typography or generic system defaults with no design intent.
+- Strong local directions to consider: editorial serif display + compact sans fallback, geometric sans headings + humanist body, condensed display labels + readable sans body.
+- LIMIT to AT MOST 3 font styles total per artifact (e.g. one display feel + one body, each in up to ~2 weights). Pick ONE pairing and commit; do not scatter many families/weights. Apply font-family inline on body/heading wrappers. The clamp() scale already handles sizing.
 - Always include a robust fallback in font-family (serif/sans-serif).`;
   }
   return `TYPOGRAPHY: external fonts are disabled — build character through scale, weight, letter-spacing, and small-caps using this system stack only (at most 3 distinct text styles total):\nfont-family: ${SYSTEM_FONT_STACK};`;
@@ -221,7 +235,7 @@ function buildThemeRule(theme?: ArtifactTheme, presentation?: ArtifactPresentati
   if (presentation === "seamless") {
     return `HOST THEME — this artifact is embedded INSIDE a host application, not shown standalone. Match the host's visual system precisely so it looks native and consistent. Put these host values directly into the <html style="..."> custom properties and stay strictly within this palette — do NOT introduce clashing or unrelated colors:
 - ${tokens.join("\n- ")}${theme.notes ? `\n- brand notes: ${theme.notes}` : ""}
-Reference them through var() in the shared <style> and inline (e.g. style="color:var(--foreground);border-color:var(--border)"). Do not add a second <style> block.`;
+Reference them through var() inline and in the final enhancement <style> (e.g. style="color:var(--foreground);border-color:var(--border)"). Do not add a second <style> block.`;
   }
 
   return `HOST THEME — this artifact is embedded INSIDE a host application, not shown standalone. Match the host's visual system precisely so it looks native and consistent. Set these exact values as custom properties on <html style="..."> and stay strictly within this palette — do NOT introduce clashing or unrelated colors:
@@ -234,7 +248,7 @@ function buildPresentationRule(presentation?: ArtifactPresentation): string {
   return `SEAMLESS / EMBEDDED RENDERING (critical) — this artifact is dropped directly into the page flow as if it were native chat content:
 - If the user asks to test/check/show "camouflage", "transparent background", "generative UI", or "all combinations", create a rich visual showcase of multiple UI combinations inside the transparent shell. Do not explain the property; demonstrate it visually.
 - TRANSPARENT background everywhere at the top level: html{background:transparent} and body{background:transparent;margin:0}. NEVER paint a page/background color, white sheet, or gradient on html or body.
-- Styling = the ONE shared <style> design system (reset + clamp scale + element defaults + utilities) plus inline per-element styling, exactly as in the styling rule. 1-2 @media breakpoints inside that one <style> are allowed for genuine layout shifts; no @keyframes/:hover.
+- Styling = critical inline per-element styling first, then the ONE final enhancement <style> at the end of <body>, exactly as in the styling rule. @media, hover/focus, pseudo-elements, popover styling, scrollbar polish, and light @keyframes belong only in that final block.
 - Do NOT wrap the whole artifact in an outer card/sheet/panel/frame/border/box-shadow/"window". The single outermost element must have NO background of its own — the host surface shows through. (Inner .card sections for actual content are fine and encouraged.)
 - This is a DARK host UI with a TRANSPARENT page. The page and the single outermost wrapper stay transparent (the host shows through), but every DATA CARD / PANEL MUST have its own clearly-visible surface — NEVER leave cards or sections floating on the bare background. Give cards a subtle FILLED surface or soft gradient plus a 1px hairline border for depth and readability, e.g. background:linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025));border:1px solid var(--border) — or an elevated var(--surface). Keep light text on these dark card surfaces. Card surfaces are REQUIRED for visibility; only the page itself is transparent — vary fill strength by importance (hero/primary cards a touch stronger).
 - Keep it compact and content-sized: no sticky/fixed bars, no min-height:100vh, no full-viewport hero. Occupy only the height the content needs and flow inline.`;
@@ -284,16 +298,17 @@ function buildVideoRule(allowVideoEmbeds: boolean): string {
 }
 
 const STREAMING_RULE = `STREAM-FRIENDLY OUTPUT (so the UI paints instantly and never blocks) — the artifact renders progressively as you stream it:
-- Keep <head> TINY: <meta> tags, an optional single Google Fonts <link>, and the ONE small shared <style> design system (reset + clamp scale + element defaults + a few utilities, plus at most 1-2 @media breakpoints; ~20 lines max). Put NOTHING else in <head> — no second/large CSS block.
-- Everything beyond that shared system is inline on body elements, so each element paints the moment its tokens arrive. This is the main reason content styling is inline.
-- Write the body TOP-TO-BOTTOM in visual order, most important content first (header → key content → details), so the very first streamed tokens already render something meaningful.
-- Declare color/radius tokens once on <html style="--…"> (it streams first, before <head>), then reference via var() in the <style> and inline below.`;
+- Keep <head> TINY: meta charset, viewport, referrer safety, title, and nothing else unless a named external font is explicitly requested. Put no CSS framework and no large style block in <head>.
+- Write the <body> TOP-TO-BOTTOM in visual order, most important content first (header -> key content -> details), before the final style block.
+- Put critical rendering CSS inline on the body elements themselves, so each element paints correctly as soon as its tokens arrive.
+- Declare color/radius/spacing tokens once on <html style="--..."> (it streams first, before <head>), then reference via var() inline and in the final <style>.
+- Put exactly one final <style> block immediately before </body>. Treat it as enhancement CSS for responsive fixes, hover/focus, animations, pseudo-elements, popovers, scrollbars, and edge cases. The page must still look good if that block is missing.`;
 
 const RESPONSIVE_RULE = `FORCE RESPONSIVE & COMPACT — the artifact MUST look perfect at any width (the viewer previews it at phone / tablet / desktop), deliberately COMPACT on phones (smaller type, tighter padding) and comfortable on desktop, with NO horizontal page overflow:
-- Size ALL type and spacing from the shared clamp() scale (--s0/--s1/--h1/--h2/--h3/--gap/--pad). Do NOT hardcode large px font-sizes — they look huge and broken on phones. If you truly need a one-off size, still use clamp(min,preferred,max) with a small phone floor (e.g. clamp(13px,…,…)).
-- Layout via the utilities: .grid (auto-fit reflow many-up → 1-up), .row (flex-wrap for rows/navs), .stack (vertical gap). Never fixed px container widths; use max-width + min(100%,…). Use gap for rhythm, not margins.
+- Size ALL type and spacing from the inline clamp() scale (--s0/--s1/--h1/--h2/--h3/--gap/--pad). Do NOT hardcode large px font-sizes — they look huge and broken on phones. If you truly need a one-off size, still use clamp(min,preferred,max) with a small phone floor (e.g. clamp(13px,…,…)).
+- Layout must work inline before the final style block: put display:grid/flex, gap, flex-wrap, grid-template-columns, max-width, width:min(100%,...), and overflow behavior directly on the important layout elements. Classes like .grid/.row/.stack are allowed as enhancement hooks, not as the only layout source.
 - NEVER overflow horizontally: long words → overflow-wrap:break-word; wide tables/timelines/charts/carousels → wrap in a .scroll-x box so THAT scrolls, not the page.
-- Media: img/svg/video → max-width:100%; height:auto; display:block (already in the shared style). Reserve space with aspect-ratio.
+- Media: img/svg/video → inline style="display:block;max-width:100%;height:auto". Reserve space with aspect-ratio.
 - Tap targets ≥ 44px. Use 100dvh/100svh (never 100vh) only if a full-height region is truly needed; prefer content height.
 - Result: a dense, readable phone layout that reflows to a confident desktop composition — automatically, no breakpoints unless needed. Use wrapping/scrolling .row nav or native <details><summary> menu disclosure for compact navigation.`;
 
