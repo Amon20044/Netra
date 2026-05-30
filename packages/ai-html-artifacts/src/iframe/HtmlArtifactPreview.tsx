@@ -167,22 +167,21 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
     rerun();
   }, [reloadSignal, rerun]);
 
-  // Auto-refresh when the artifact (re)enters the viewport — re-runs scripts/
-  // games and re-measures the height, which also recovers any frame that
-  // collapsed while off-screen. Skips the initial appearance and streaming.
+  // Auto-refresh EVERY time the artifact enters the viewport — including the
+  // first appearance and when an older chat is opened — so every iframe re-runs
+  // its scripts/games and re-measures height (recovers any collapsed/stale
+  // frame). Only the false→true transition fires, and never while streaming.
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     const el = containerRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
     let wasVisible = false;
-    let first = true;
     const io = new IntersectionObserver(
       (entries) => {
         const visible = entries.some((e) => e.isIntersecting);
-        if (visible && !wasVisible && !first && !stateRef.current.streaming) {
+        if (visible && !wasVisible && !stateRef.current.streaming) {
           rerun();
         }
-        first = false;
         wasVisible = visible;
       },
       { threshold: 0.01 },
