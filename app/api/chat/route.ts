@@ -101,6 +101,7 @@ export async function POST(req: Request) {
       visualComplexity: 'rich',
     },
     allowExternalFonts: true,
+    allowVideoEmbeds: true,
     temperature: 0.7,
     snapshotIntervalMs: 0,
   });

@@ -16,6 +16,10 @@ test("classifyByRules routes standalone visual requests to artifact", () => {
   assert.equal(classifyByRules("Create an invoice for my client").mode, "artifact");
   assert.equal(classifyByRules("Make a contact form").mode, "artifact");
   assert.equal(classifyByRules("Design a dashboard with stat cards").mode, "artifact");
+  assert.equal(
+    classifyByRules("Make a cinematic YouTube video player for https://youtu.be/Fij1aBcl_Ts").mode,
+    "artifact",
+  );
 });
 
 test("classifyByRules routes inline native UI requests to generative_ui", () => {

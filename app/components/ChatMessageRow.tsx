@@ -25,6 +25,8 @@ const CARD_PROPS: Omit<HtmlArtifactCardProps, "artifact"> = {
     debounceMs: 0,
     allowStyleTags: true,
     allowInlineStyles: true,
+    allowVideoEmbeds: true,
+    sandbox: "allow-forms allow-same-origin allow-popups",
   },
 };
 

@@ -125,6 +125,7 @@ function resolveHtmlConfigForMode(
       // (any palette, light/dark/vivid) per the request.
       styleProfile: seamless ? config.styleProfile : undefined,
       allowExternalFonts: config.sanitize.allowExternalFonts,
+      allowVideoEmbeds: config.sanitize.allowVideoEmbeds,
       allowForms: config.sanitize.allowForms,
       theme: seamless ? config.theme : undefined,
       presentation,

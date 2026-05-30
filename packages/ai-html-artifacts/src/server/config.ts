@@ -16,12 +16,14 @@ export function resolveServerConfig(
   const allowStyleTags = options.allowStyleTags ?? true;
   const allowSvg = options.allowSvg ?? true;
   const allowExternalFonts = options.allowExternalFonts ?? false;
+  const allowVideoEmbeds = options.allowVideoEmbeds ?? false;
 
   const htmlSystemPrompt =
     options.htmlSystemPrompt ??
     buildHtmlArtifactPrompt({
       styleProfile: options.styleProfile,
       allowExternalFonts,
+      allowVideoEmbeds,
       allowForms,
       theme: options.theme,
       presentation: options.presentation,
@@ -47,6 +49,7 @@ export function resolveServerConfig(
       allowStyleTags,
       allowSvg,
       allowExternalFonts,
+      allowVideoEmbeds,
     },
     temperature: options.temperature,
     snapshotIntervalMs:

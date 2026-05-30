@@ -103,6 +103,7 @@ export interface CreateArtifactStreamResponseOptions {
   allowStyleTags?: boolean;
   allowSvg?: boolean;
   allowExternalFonts?: boolean;
+  allowVideoEmbeds?: boolean;
 
   temperature?: number;
 
@@ -138,6 +139,7 @@ export interface ResolvedServerConfig {
     allowStyleTags: boolean;
     allowSvg: boolean;
     allowExternalFonts: boolean;
+    allowVideoEmbeds: boolean;
   };
   temperature?: number;
   snapshotIntervalMs: number;

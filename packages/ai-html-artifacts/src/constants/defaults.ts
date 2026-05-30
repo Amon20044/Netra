@@ -16,6 +16,7 @@ export const DEFAULT_SANITIZE_OPTIONS: Required<SanitizeOptions> = {
   allowStyleTags: true,
   allowSvg: true,
   allowExternalFonts: false,
+  allowVideoEmbeds: false,
 };
 
 /** Preview defaults for the iframe card. */
@@ -27,6 +28,7 @@ export const DEFAULT_PREVIEW_OPTIONS: Required<HtmlArtifactPreviewOptions> = {
   allowStyleTags: true,
   allowSvg: true,
   allowExternalFonts: false,
+  allowVideoEmbeds: false,
   sanitize: true,
   seamless: true,
   minHeight: 420,

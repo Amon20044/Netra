@@ -71,6 +71,7 @@ export interface HtmlArtifactPreviewOptions {
   allowStyleTags?: boolean;
   allowSvg?: boolean;
   allowExternalFonts?: boolean;
+  allowVideoEmbeds?: boolean;
   /** Run the sanitizer before writing srcDoc. Default true. */
   sanitize?: boolean;
   /** Remove iframe chrome so it blends into the card. Default true. */

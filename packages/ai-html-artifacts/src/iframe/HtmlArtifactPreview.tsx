@@ -44,6 +44,7 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   // reassigning `srcDoc` (which fully reloads the frame and flashes blank).
   const lastDocRef = React.useRef<string>("");
   const loadedRef = React.useRef(false);
+  const cleanupNavigationRef = React.useRef<(() => void) | null>(null);
 
   // One persistent parser for the whole stream: each frame feeds only the new
   // tail (O(n) total) instead of re-parsing the full accumulated HTML (O(n²)).
@@ -65,7 +66,9 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   const handleLoad = React.useCallback(() => {
     loadedRef.current = true;
     onLoad();
-  }, [onLoad]);
+    cleanupNavigationRef.current?.();
+    cleanupNavigationRef.current = attachIframeHashNavigation(iframeRef.current);
+  }, [iframeRef, onLoad]);
 
   // Commit a built document to the frame: patch the live DOM in place once the
   // frame has loaded (no reload, no flash), else seed it via `srcDoc`.
@@ -142,6 +145,8 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
       lastDocRef.current = "";
       loadedRef.current = false;
       projectorRef.current?.reset();
+      cleanupNavigationRef.current?.();
+      cleanupNavigationRef.current = null;
       cancelScheduled(schedRef.current);
       return;
     }
@@ -155,7 +160,13 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
   }, [html, streaming, opts, flush, schedule]);
 
   // Cancel any pending paint on unmount.
-  React.useEffect(() => () => cancelScheduled(schedRef.current), []);
+  React.useEffect(
+    () => () => {
+      cleanupNavigationRef.current?.();
+      cancelScheduled(schedRef.current);
+    },
+    [],
+  );
 
   const sandbox = React.useMemo(() => resolveSandbox(opts), [opts]);
 
@@ -252,6 +263,83 @@ function cancelScheduled(sched: {
   if (sched.timer != null) clearTimeout(sched.timer);
   sched.raf = null;
   sched.timer = null;
+}
+
+function attachIframeHashNavigation(
+  iframe: HTMLIFrameElement | null,
+): () => void {
+  const doc = iframe?.contentDocument;
+  if (!iframe || !doc) return () => {};
+
+  const onClick = (event: MouseEvent) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    const target = event.target instanceof Element ? event.target : null;
+    const anchor = target?.closest("a[href]") as HTMLAnchorElement | null;
+    const hash = anchor ? getSameDocumentHash(anchor, doc) : null;
+    if (!hash) return;
+
+    const destination = findHashDestination(doc, hash);
+    if (!destination) return;
+
+    event.preventDefault();
+    const iframeTop = iframe.getBoundingClientRect().top;
+    const destinationTop =
+      destination === doc.documentElement
+        ? 0
+        : destination.getBoundingClientRect().top;
+    const y = window.scrollY + iframeTop + destinationTop - 12;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+  };
+
+  doc.addEventListener("click", onClick);
+  return () => doc.removeEventListener("click", onClick);
+}
+
+function getSameDocumentHash(anchor: HTMLAnchorElement, doc: Document): string | null {
+  const raw = anchor.getAttribute("href");
+  if (!raw) return null;
+  if (raw.startsWith("#")) return raw;
+
+  try {
+    const target = new URL(anchor.href);
+    const current = new URL(doc.location.href);
+    if (
+      target.hash &&
+      target.origin === current.origin &&
+      target.pathname === current.pathname &&
+      target.search === current.search
+    ) {
+      return target.hash;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function findHashDestination(doc: Document, hash: string): Element | null {
+  if (hash === "#") return doc.documentElement;
+  const id = safeDecodeURIComponent(hash.slice(1));
+  if (!id) return doc.documentElement;
+  return doc.getElementById(id) ?? doc.getElementsByName(id)[0] ?? null;
+}
+
+function safeDecodeURIComponent(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
 }
 
 /**

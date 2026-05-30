@@ -61,3 +61,19 @@ test("allowExternalFonts keeps Google Fonts but strips other external CSS", () =
   assert.match(html, /fonts\.gstatic\.com/);
   assert.ok(!/evil\.test/.test(html));
 });
+
+test("allowVideoEmbeds keeps trusted YouTube iframes only when enabled", () => {
+  const input =
+    '<iframe src="https://www.youtube.com/watch?v=Fij1aBcl_Ts&t=1m2s" onload="steal()" allow="bad"></iframe>' +
+    '<iframe src="https://evil.test/embed/x"></iframe>';
+
+  const blocked = sanitizeHtml(input);
+  assert.ok(!/<iframe/i.test(blocked.html));
+
+  const { html } = sanitizeHtml(input, { allowVideoEmbeds: true });
+  assert.match(html, /<iframe/i);
+  assert.match(html, /https:\/\/www\.youtube\.com\/embed\/Fij1aBcl_Ts\?start=62/);
+  assert.match(html, /referrerpolicy="strict-origin-when-cross-origin"/);
+  assert.match(html, /allowfullscreen/);
+  assert.ok(!/onload|evil\.test|allow="bad"/i.test(html));
+});

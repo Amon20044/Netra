@@ -26,6 +26,7 @@ Choose "artifact" when a visual, standalone document/page adds real value:
 - email/newsletter templates
 - profile/business cards, onboarding screens
 - comparison cards, timelines, funnels, galleries
+- video/youtube player embeds when the user supplies or asks for a video link
 - CSS/SVG charts (bar, line, donut, progress) when the user wants a visual
 
 Choose "generative_ui" when the user specifically wants UI that should feel native/inline in the host app:

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  />
+
+  <title>Cinematic Video Player</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(56, 189, 248, 0.14), transparent 35%),
+        radial-gradient(circle at 80% 90%, rgba(168, 85, 247, 0.16), transparent 40%),
+        #05050a;
+      color: #f8fafc;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .video-shell {
+      width: min(100%, 980px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 16px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+      box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .video-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 8px 8px 16px;
+    }
+
+    .video-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #ef4444;
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.9);
+      flex: 0 0 auto;
+    }
+
+    .video-title h1 {
+      margin: 0;
+      font-size: clamp(18px, 2.4vw, 28px);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #000;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 8px 4px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .watch-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .watch-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+      }
+
+      .video-shell {
+        border-radius: 22px;
+        padding: 10px;
+      }
+
+      .video-header,
+      .video-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .video-frame {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="video-shell">
+    <header class="video-header">
+      <div class="video-title">
+        <span class="live-dot"></span>
+        <h1>Cinematic Video Player</h1>
+      </div>
+
+      <div class="badge">YouTube Embed</div>
+    </header>
+
+    <section class="video-frame" aria-label="Embedded YouTube video">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/Fij1aBcl_Ts?si=gswvQCP_vFdW59qA"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+    <footer class="video-footer">
+      <span>Embedded with strict referrer policy.</span>
+      <a
+        class="watch-link"
+        href="https://www.youtube.com/watch?v=Fij1aBcl_Ts"
+        target="_blank"
+        rel="noopener noreferrer">
+        Watch on YouTube →
+      </a>
+    </footer>
+  </main>
+</body>
+</html>

@@ -9,6 +9,7 @@ import type {
 export interface HtmlPromptOptions {
   styleProfile?: ArtifactStyleProfile;
   allowExternalFonts?: boolean;
+  allowVideoEmbeds?: boolean;
   allowForms?: boolean;
   /** Host theme to match exactly (colours, radius, font). */
   theme?: ArtifactTheme;
@@ -93,6 +94,7 @@ const HARD_RULES = `HARD RULES — the artifact renders in a sandboxed iframe wi
 - Output a COMPLETE, valid HTML document (<!DOCTYPE html>, <html>, <head>, <body>, meta charset, meta viewport).
 - You are already in HTML_ARTIFACT mode. ALWAYS emit the <html_artifact> block. Never answer with explanation-only prose, even if the user says "check", "test", "show", "demo", or repeats the request messily.
 - 100% static HTML + CSS. NO JavaScript, NO <script>, NO event handlers (onclick/onload/...), NO javascript: URLs, NO external JS.
+- NO iframes except the trusted YouTube embed pattern described in VIDEO EMBEDS when video embeds are enabled and the user supplied a video link.
 - NO markdown code fences. NO prose outside <assistant_message>. NO placeholders ("data will load here") — PRECOMPUTE and write every value directly into the HTML.
 - Reset body margins (body{margin:0}). Content flows in normal TOP-TO-BOTTOM document order and is fully responsive.
 - NO position:sticky and NO position:fixed, and no full-page overlays. Inside the iframe — and especially in embedded/seamless mode where backgrounds are forced transparent — a sticky/fixed bar ghosts over the content as it scrolls or detaches from layout. Keep headers and navs in the normal flow.
@@ -121,7 +123,7 @@ STILL FORBIDDEN (none survive the streaming + camouflage layer — never emit th
 - More than one <style> block; any <style> beyond the single shared design system.
 - @keyframes, @font-face, @supports, @container.
 - Pseudo-classes/elements: :hover, :focus, :active, ::before, ::after, ::marker (no stylesheet re-runs mid-stream).
-- javascript:, external stylesheets, a click-toggle "burger" menu. For navs use a single wrapping/scrolling .row.
+- javascript: and external stylesheets. For navs use real anchor links and native controls; never use onclick.
 - Bare browser-default controls. NEVER emit naked <select>, <button>, <input>, or filter controls that look like plain OS widgets (tiny rectangular default boxes). Every control must use class="control" or equivalent inline styling, with a visible surface, border, spacing, readable font, and >=44px hit area. For select arrows, place a small text glyph (▼) in an adjacent span inside a position:relative wrapper; do not use CSS data-URI arrows.
 
 CONCRETE PATTERN (auto-fit grid of stat cards — reflows 4-up → 1-up by itself, compact on phones):
@@ -256,6 +258,31 @@ const IMAGES_RULE = `IMAGES — when the design needs a photo/illustration (hero
 - Always responsive + shift-free: style="display:block;width:100%;height:auto;object-fit:cover" and set aspect-ratio (e.g. aspect-ratio:16/9 or 1/1). Give every image meaningful alt text.
 - Do NOT hotlink any other image host; only picsum.photos.`;
 
+const CLICKABLES_RULE = `CLICKABLES / NAVIGATION — make requested links, navbars, sidebars, menus, accordions, and section jumps actually work without JavaScript:
+- In-page nav MUST use real hash anchors: <a href="#features">Features</a> and matching section ids: <section id="features">...</section>. The iframe host intercepts these hash links and scrolls the outer page to the section, so this works even in auto-sized previews.
+- Header/nav items should link to real sections or external URLs. Do not emit decorative dead buttons. If something is clickable, it needs a real href, a native form action, native disclosure behavior, or a native popover target.
+- Hamburger/sidebar/menu toggles must use native <details><summary>Menu</summary>...</details> or always-visible responsive nav. Style the summary as the hamburger button. Do not use onclick, scripts, or fake buttons for toggles.
+- Accordions/disclosures use <details><summary>...</summary>...</details> ONLY for compact inline disclosure/FAQ content. Do not use an accordion as a fake modal.
+- When a card/list row/table row can have vast data, previews, expanded analytics, full description, or "more details", use a hidden native modal/sheet with the HTML Popover API, not an accordion and not JavaScript: <button class="control" popovertarget="details-panel">More details</button><div id="details-panel" popover>...</div>.
+- Popover modals must feel like real detail views: include a clear title, the expanded content, and a prominent Back/Close control pinned visually at the top-left or top-right inside the modal, e.g. <button class="control" popovertarget="details-panel" popovertargetaction="hide">Back</button>. The trigger and close button must target the same popover id.
+- Style popovers as polished modal/sheet surfaces (max-width:min(92vw,760px), max-height:85dvh, overflow:auto, border, radius, shadow, strong contrast). Keep all modal content in normal flow inside the popover; no script, no onclick, no fake disabled controls.
+- Never show a "More", "Open", "Menu", "Filter", "Preview", or "View details" control that cannot actually open/navigate/reveal something.
+- External links use target="_blank" rel="noopener noreferrer".`;
+
+function buildVideoRule(allowVideoEmbeds: boolean): string {
+  if (!allowVideoEmbeds) {
+    return `VIDEO LINKS: if the user supplies a video link, do NOT create an iframe. Render a polished link/thumbnail-style card with a clear "Watch video" external link instead.`;
+  }
+
+  return `VIDEO EMBEDS — if the user supplies a YouTube video link, make it actually playable inside the artifact/UI:
+- Supported inputs: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/shorts/ID, youtube.com/embed/ID. Convert them to the embed URL form: https://www.youtube.com/embed/ID. Preserve only safe playback params when useful (start, rel, controls, autoplay, mute, playsinline).
+- Use exactly one trusted <iframe> for the player, inside a responsive wrapper with aspect-ratio:16/9, overflow:hidden, a black background, and polished radius/shadow matching the design.
+- The iframe MUST include: title, src, loading="lazy", referrerpolicy="strict-origin-when-cross-origin", allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share", and allowfullscreen.
+- Also include <meta name="referrer" content="strict-origin-when-cross-origin" /> in <head> when rendering a video artifact.
+- Include a visible fallback link to the original YouTube URL with target="_blank" and rel="noopener noreferrer".
+- Never use arbitrary iframes, Vimeo, direct script embeds, <script>, or pasted embed code from third-party sites. If the link is not a supported YouTube URL, render the fallback link card only.`;
+}
+
 const STREAMING_RULE = `STREAM-FRIENDLY OUTPUT (so the UI paints instantly and never blocks) — the artifact renders progressively as you stream it:
 - Keep <head> TINY: <meta> tags, an optional single Google Fonts <link>, and the ONE small shared <style> design system (reset + clamp scale + element defaults + a few utilities, plus at most 1-2 @media breakpoints; ~20 lines max). Put NOTHING else in <head> — no second/large CSS block.
 - Everything beyond that shared system is inline on body elements, so each element paints the moment its tokens arrive. This is the main reason content styling is inline.
@@ -268,13 +295,14 @@ const RESPONSIVE_RULE = `FORCE RESPONSIVE & COMPACT — the artifact MUST look p
 - NEVER overflow horizontally: long words → overflow-wrap:break-word; wide tables/timelines/charts/carousels → wrap in a .scroll-x box so THAT scrolls, not the page.
 - Media: img/svg/video → max-width:100%; height:auto; display:block (already in the shared style). Reserve space with aspect-ratio.
 - Tap targets ≥ 44px. Use 100dvh/100svh (never 100vh) only if a full-height region is truly needed; prefer content height.
-- Result: a dense, readable phone layout that reflows to a confident desktop composition — automatically, no breakpoints, no burger toggle (use a wrapping/scrolling .row nav instead).`;
+- Result: a dense, readable phone layout that reflows to a confident desktop composition — automatically, no breakpoints unless needed. Use wrapping/scrolling .row nav or native <details><summary> menu disclosure for compact navigation.`;
 
 /** Build the HTML-artifact system prompt, tuned by style profile and flags. */
 export function buildHtmlArtifactPrompt(options: HtmlPromptOptions = {}): string {
   const {
     styleProfile,
     allowExternalFonts = false,
+    allowVideoEmbeds = false,
     allowForms = true,
     theme,
     presentation,
@@ -293,7 +321,11 @@ export function buildHtmlArtifactPrompt(options: HtmlPromptOptions = {}): string
     "",
     RESPONSIVE_RULE,
     "",
+    CLICKABLES_RULE,
+    "",
     IMAGES_RULE,
+    "",
+    buildVideoRule(allowVideoEmbeds),
     "",
     DESIGN_DIRECTION,
     "",

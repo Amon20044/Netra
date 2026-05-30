@@ -15,6 +15,12 @@ export interface SanitizeOptions {
   allowSvg?: boolean;
   /** Permit `@import`/external font + stylesheet links. Off by default. */
   allowExternalFonts?: boolean;
+  /**
+   * Keep trusted video embeds. Currently this is intentionally narrow:
+   * YouTube/youtu.be URLs are normalized to youtube.com/embed/* and all other
+   * nested browsing contexts are stripped.
+   */
+  allowVideoEmbeds?: boolean;
 }
 
 /** Mode resolution strategy for the server helper. */

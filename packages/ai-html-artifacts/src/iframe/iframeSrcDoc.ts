@@ -277,6 +277,7 @@ export interface BuildSrcDocOptions {
     | "allowStyleTags"
     | "allowSvg"
     | "allowExternalFonts"
+    | "allowVideoEmbeds"
   >;
 }
 
