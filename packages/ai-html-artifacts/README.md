@@ -743,6 +743,88 @@ npm run build
 npm test
 ```
 
+### Continuing this work with an AI assistant (graphify memory layer)
+
+This repo ships a [**graphify**](https://github.com/safishamsi/graphify) knowledge
+graph at `graphify-out/` — a queryable map of the whole project (every function,
+type, and cross-file relationship). If you're using an AI coding assistant
+(Claude Code, Codex, Cursor, Gemini CLI, OpenCode, Copilot, Aider, …) to pick up
+the work, point it at the graph instead of grepping blindly: it lands on the
+right files in one hop.
+
+> The PyPI package is **`graphifyy`** (double-y); the CLI command is still
+> **`graphify`**. Code extraction is 100% local (tree-sitter AST) and costs **zero
+> API tokens** — no keys needed.
+
+**One copy-paste block per OS** — installs `uv`, installs graphify, registers the
+assistant skill, installs auto-update git hooks, and builds the graph:
+
+<details open>
+<summary><b>macOS</b></summary>
+
+```bash
+brew install uv                          # or: curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install graphifyy                # puts `graphify` on PATH automatically
+graphify install                         # register the /graphify skill (Claude Code)
+graphify hook install                    # auto-rebuild the graph on every commit (free)
+graphify update .                        # build graphify-out/ now
+```
+</details>
+
+<details>
+<summary><b>Debian / Ubuntu</b></summary>
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh    # install uv (or: sudo apt install pipx && pipx install graphifyy)
+uv tool install graphifyy
+graphify install
+graphify hook install
+graphify update .
+```
+</details>
+
+<details>
+<summary><b>Windows (PowerShell)</b></summary>
+
+```powershell
+winget install astral-sh.uv                # or: irm https://astral.sh/uv/install.ps1 | iex
+uv tool install graphifyy
+graphify install --platform windows        # Windows variant of the Claude Code skill
+graphify hook install
+graphify update .
+# NOTE: in your assistant, call it as `graphify .` — NOT `/graphify .`
+#       (PowerShell treats a leading slash as a path).
+```
+</details>
+
+**Then drive it from your assistant** (or the terminal):
+
+```bash
+graphify query "how does createArtifactStreamResponse classify and stream?"
+graphify path "useArtifactStream" "streamHtmlArtifactFromTextStream"
+graphify explain "PredictiveHtmlParser"
+graphify update .          # refresh after you change code (AST-only, no API cost)
+```
+
+**Using a different assistant?** Swap the skill registration — everything else is
+identical:
+
+| Assistant | Register skill |
+| --- | --- |
+| Claude Code (mac/Linux) | `graphify install` |
+| Claude Code (Windows) | `graphify install --platform windows` |
+| Codex | `graphify install --platform codex` *(also set `multi_agent = true` under `[features]` in `~/.codex/config.toml`)* |
+| Cursor | `graphify cursor install` |
+| Gemini CLI | `graphify install --platform gemini` |
+| OpenCode | `graphify install --platform opencode` |
+| GitHub Copilot CLI | `graphify install --platform copilot` |
+| Aider | `graphify install --platform aider` |
+
+The graph is committed to the repo, so after a `git clone` your assistant has the
+map immediately — just rebuild the local cache once with `graphify update .`
+(`graphify-out/manifest.json` and `cache/` are intentionally git-ignored as they're
+machine-local). Prereqs: **Python 3.10+** and **uv** (or `pipx`).
+
 > Don't give your users normal textual output with zero UI. Generate any data
 > into beautiful layouts, dynamic dashboards, and immersive experiences — on the
 > fly, with any model. **Don't stream Markdown. Use Netra.**
