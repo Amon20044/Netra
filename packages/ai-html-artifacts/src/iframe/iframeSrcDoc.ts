@@ -61,8 +61,10 @@ const RESIZE_BRIDGE_SCRIPT = `<script>
       ro.observe(document.documentElement);
       if (document.body) ro.observe(document.body);
     } catch {}
-    setTimeout(measure, 60);
-    setTimeout(measure, 240);
+    // Late layout settles after the final <style>, web fonts and images: keep
+    // re-measuring for a short window so the host locks to the final height.
+    [60, 240, 600, 1200].forEach((ms) => setTimeout(measure, ms));
+    try { document.fonts && document.fonts.ready.then(measure); } catch {}
   };
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", start, { once: true });
@@ -384,7 +386,12 @@ export function buildSrcDoc(
         sanitizeOptions?.allowVideoEmbeds ||
         sanitizeOptions?.allowModuleImports,
     );
-  const cspMeta = sanitizeOptions?.allowModuleImports ? buildModuleCspMeta() : "";
+  // Only games (documents with a trusted importmap) get the strict module CSP —
+  // a normal artifact must not be constrained by it. The importmap has already
+  // survived sanitize at this point, so its presence reliably marks a game.
+  const hasImportmap = /<script\b[^>]*\btype\s*=\s*["']?importmap/i.test(html);
+  const cspMeta =
+    sanitizeOptions?.allowModuleImports && hasImportmap ? buildModuleCspMeta() : "";
   const injection = `${cspMeta}<base target="_blank" />${SCROLLBAR_CSS}${seamless && !camouflage ? SEAMLESS_BASE : ""}${themeStyles}${needsResizeBridge ? RESIZE_BRIDGE_SCRIPT : ""}`;
 
   let doc: string;

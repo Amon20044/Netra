@@ -164,10 +164,25 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
       // Authoritative final document: paint immediately, skip the throttle.
       cancelScheduled(schedRef.current);
       flush();
-      return;
+      // The final <style> block streams LAST (the hybrid model puts the shared
+      // design system at the end of <body>), and fonts/images settle a beat
+      // after the last token — all of which change the laid-out height. Re-run
+      // the measurement across a few frames so the iframe locks to the FINAL
+      // styled height instead of a mid-stream (unstyled) estimate.
+      const raf =
+        typeof requestAnimationFrame !== "undefined"
+          ? requestAnimationFrame(measure)
+          : null;
+      const timers = [120, 360, 800].map((ms) => setTimeout(measure, ms));
+      return () => {
+        if (raf != null && typeof cancelAnimationFrame !== "undefined") {
+          cancelAnimationFrame(raf);
+        }
+        timers.forEach(clearTimeout);
+      };
     }
     schedule();
-  }, [html, streaming, opts, flush, schedule]);
+  }, [html, streaming, opts, flush, schedule, measure]);
 
   // Cancel any pending paint on unmount.
   React.useEffect(
@@ -199,7 +214,10 @@ export function HtmlArtifactPreview(props: HtmlArtifactPreviewProps) {
         maxHeight: opts.autoResize ? undefined : opts.maxHeight,
         overflow: opts.autoResize ? "hidden" : "auto",
         transition: "height 0.15s ease-out",
-        height: opts.autoResize ? height : undefined,
+        // Auto-resize: track the measured content height. Fixed mode (e.g. the
+        // fullscreen modal): fill the parent so the artifact uses the whole
+        // screen instead of collapsing to minHeight.
+        height: opts.autoResize ? height : "100%",
       }}
     >
       {streaming && !bare && <div className="aha-progress" aria-hidden />}

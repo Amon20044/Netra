@@ -113,6 +113,15 @@ test("game frames get allow-scripts (no same-origin), a CSP, and a kept importma
   assert.match(doc, /netra-artifact:resize/);
 });
 
+test("no module CSP is injected for a normal artifact even when allowModuleImports is on", () => {
+  // The demo enables allowModuleImports globally; a non-game artifact (no
+  // importmap) must NOT be constrained by the strict game CSP.
+  const doc = buildSrcDoc("<main><h1>Dashboard</h1></main>", {
+    sanitizeOptions: { allowModuleImports: true, allowScripts: true },
+  });
+  assert.doesNotMatch(doc, /Content-Security-Policy/);
+});
+
 test("resolveSandbox lets trusted video embeds play without preserving inline scripts", () => {
   assert.equal(
     resolveSandbox({ allowVideoEmbeds: true }),

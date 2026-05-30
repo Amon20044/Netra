@@ -33,9 +33,17 @@ test("generative-UI starter embeds valid prebuilt JSON", () => {
   assert.ok(Array.isArray(data.shipment.steps) && data.items.length === 2);
 });
 
-test("video starter embeds the provided YouTube URLs with referrer guidance", () => {
+test("video starter includes the provided YouTube URLs", () => {
   const video = STARTER_PROMPTS.find((p) => p.id === "video-gallery");
   assert.match(video.prompt, /youtube\.com\/embed\/dQw4w9WgXcQ/);
   assert.match(video.prompt, /youtube\.com\/embed\/glXx2r3ePcs/);
-  assert.match(video.prompt, /referrerpolicy="strict-origin-when-cross-origin"/);
+});
+
+test("prompts read as natural language, not technical specs", () => {
+  // Guard against regressing to code-speak in the user-facing prompts.
+  const technical = /referrerpolicy|picsum\.photos|aspect-ratio|inline SVG|<iframe|importmap|MeshToon|clamp\(/i;
+  for (const p of STARTER_PROMPTS) {
+    if (p.id === "video-gallery" || p.id === "genui-order") continue; // carry user-provided URLs/JSON
+    assert.ok(!technical.test(p.prompt), `${p.id} should avoid technical jargon`);
+  }
 });

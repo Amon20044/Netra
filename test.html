@@ -1,47 +1,289 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="--bg: #FAF9F6; --fg: #2C2A29; --surface: #FFFFFF; --border: #E8E6E1; --muted: #76716D; --accent: #D97757; --accent-hover: #C26547; --radius: 12px; --radius-lg: 24px; --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif; --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; --s0: clamp(13px, 0.55vw + 11.5px, 16px); --s1: clamp(15px, 1vw + 12px, 19px); --h3: clamp(18px, 1.5vw + 14px, 26px); --h2: clamp(28px, 3vw + 16px, 46px); --h1: clamp(40px, 6vw + 20px, 72px); --gap: clamp(16px, 3vw, 40px); --pad: clamp(20px, 4vw, 48px);">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Embed</title>
-
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #0b0b12;
-      font-family: system-ui, sans-serif;
-    }
-
-    .video-wrap {
-      width: min(100% - 32px, 960px);
-      aspect-ratio: 16 / 9;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-      background: #111;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Wayfare | Extraordinary Journeys</title>
 </head>
+<body style="margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; line-height: 1.5;">
 
-<body>
-  <div class="video-wrap">
-    <iframe
-      src="https://www.youtube.com/embed/Tq72Pq0entg"
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen>
-    </iframe>
+<!-- Navigation -->
+<header style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: var(--pad); display: flex; justify-content: space-between; align-items: center; color: #FFFFFF;">
+  <div style="font-family: var(--font-serif); font-size: var(--h3); font-weight: 600; letter-spacing: 0.02em;">Wayfare.</div>
+  <nav style="display: flex; gap: var(--gap); align-items: center;">
+    <a href="#destinations" style="font-size: var(--s0); font-weight: 500; text-decoration: none; color: inherit;" class="nav-link hide-sm">Destinations</a>
+    <a href="#philosophy" style="font-size: var(--s0); font-weight: 500; text-decoration: none; color: inherit;" class="nav-link hide-sm">Our Philosophy</a>
+    <a href="#contact" class="btn-outline" style="font-size: var(--s0); font-weight: 500; text-decoration: none; color: inherit; border: 1px solid rgba(255,255,255,0.4); padding: 0.5em 1.2em; border-radius: 99px; backdrop-filter: blur(4px);">Inquire</a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section style="position: relative; min-height: 90svh; display: flex; align-items: center; justify-content: center; padding: var(--pad); color: #FFFFFF; overflow: hidden;">
+  <img src="https://picsum.photos/seed/wayfare/1920/1080" alt="Breathtaking landscape view" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;" />
+  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(44, 42, 41, 0.2) 0%, rgba(44, 42, 41, 0.6) 100%); z-index: -1;"></div>
+  
+  <div class="hero-content" style="position: relative; z-index: 1; text-align: center; max-width: 900px; display: flex; flex-direction: column; gap: calc(var(--gap) * 0.75); margin-top: 5svh;">
+    <h1 style="font-family: var(--font-serif); font-size: var(--h1); line-height: 1.05; margin: 0; font-weight: 400; text-wrap: balance;">Journeys crafted for the curious soul.</h1>
+    <p style="font-size: var(--h3); margin: 0; opacity: 0.9; font-weight: 300; max-width: 600px; margin-inline: auto; text-wrap: balance;">Discover boutique itineraries and hidden corners of the world, curated by experts.</p>
+    
+    <!-- Search Bar -->
+    <form action="#search" style="margin-top: var(--gap); display: flex; flex-wrap: wrap; background: rgba(255, 255, 255, 0.95); padding: 8px; border-radius: 99px; box-shadow: 0 24px 48px rgba(0,0,0,0.2); max-width: 700px; margin-inline: auto; width: 100%; gap: 8px;">
+      <div style="flex: 1 1 200px; display: flex; align-items: center; padding-left: 16px; border-right: 1px solid var(--border);">
+        <span aria-hidden="true" style="color: var(--accent); font-size: 20px; margin-right: 12px;">⚲</span>
+        <input type="text" placeholder="Where to?" aria-label="Destination" style="width: 100%; border: none; background: transparent; font-family: inherit; font-size: var(--s1); color: var(--fg); outline: none; padding: 12px 0;" required />
+      </div>
+      <div style="flex: 1 1 150px; display: flex; align-items: center; padding-left: 16px;">
+        <span aria-hidden="true" style="color: var(--accent); font-size: 18px; margin-right: 12px;">🗓</span>
+        <select aria-label="Month" style="width: 100%; border: none; background: transparent; font-family: inherit; font-size: var(--s1); color: var(--fg); outline: none; padding: 12px 0; appearance: none; cursor: pointer;">
+          <option value="" disabled selected>Any month</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary" style="background: var(--accent); color: #fff; border: none; border-radius: 99px; padding: 14px 32px; font-family: inherit; font-size: var(--s1); font-weight: 500; cursor: pointer; transition: background 0.2s;">Search</button>
+    </form>
   </div>
+</section>
+
+<!-- Featured Destinations -->
+<section id="destinations" style="padding: calc(var(--pad) * 2) var(--pad); max-width: 1400px; margin-inline: auto;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--gap); flex-wrap: wrap; gap: 16px;">
+    <div>
+      <span style="color: var(--accent); font-weight: 600; font-size: var(--s0); letter-spacing: 0.05em; text-transform: uppercase;">Curated Collection</span>
+      <h2 style="font-family: var(--font-serif); font-size: var(--h2); margin: 8px 0 0 0; font-weight: 400;">Featured Destinations</h2>
+    </div>
+    <a href="#all" style="font-weight: 500; font-size: var(--s0); color: var(--fg); display: flex; align-items: center; gap: 4px;">View all trips <span aria-hidden="true">→</span></a>
+  </div>
+
+  <div class="grid" style="display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
+    
+    <!-- Card 1 -->
+    <article class="card" style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 12px 32px rgba(44,42,41,0.04); display: flex; flex-direction: column; border: 1px solid var(--border);">
+      <div style="position: relative;">
+        <img src="https://picsum.photos/seed/kyoto/800/1000" alt="Traditional streets of Kyoto" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;" loading="lazy" />
+        <div style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; color: var(--fg);">
+          <span style="color: #F59E0B;">★</span> 4.9
+        </div>
+      </div>
+      <div style="padding: var(--pad); display: flex; flex-direction: column; gap: 12px; flex: 1;">
+        <div>
+          <h3 style="font-family: var(--font-serif); font-size: var(--h3); margin: 0; font-weight: 500;">Kyoto Immersion</h3>
+          <p style="color: var(--muted); font-size: var(--s0); margin: 4px 0 0 0;">Japan • 9 Days</p>
+        </div>
+        <p style="color: var(--fg); font-size: var(--s1); margin: 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Experience the serene temples, historic ryokans, and the delicate art of the tea ceremony in Japan's cultural heart.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 13px; color: var(--muted);">From</span>
+            <strong style="font-size: var(--s1); font-weight: 600;">$4,200</strong>
+          </div>
+          <button class="btn-secondary" popovertarget="modal-kyoto" style="background: transparent; color: var(--fg); border: 1px solid var(--border); border-radius: 99px; padding: 10px 20px; font-family: inherit; font-size: var(--s0); font-weight: 500; cursor: pointer;">Details</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card" style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 12px 32px rgba(44,42,41,0.04); display: flex; flex-direction: column; border: 1px solid var(--border);">
+      <div style="position: relative;">
+        <img src="https://picsum.photos/seed/patagonia/800/1000" alt="Jagged peaks of Patagonia" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;" loading="lazy" />
+        <div style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; color: var(--fg);">
+          <span style="color: #F59E0B;">★</span> 5.0
+        </div>
+      </div>
+      <div style="padding: var(--pad); display: flex; flex-direction: column; gap: 12px; flex: 1;">
+        <div>
+          <h3 style="font-family: var(--font-serif); font-size: var(--h3); margin: 0; font-weight: 500;">Wild Patagonia</h3>
+          <p style="color: var(--muted); font-size: var(--s0); margin: 4px 0 0 0;">Chile & Argentina • 12 Days</p>
+        </div>
+        <p style="color: var(--fg); font-size: var(--s1); margin: 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Trek past calving glaciers and granite spires. A rugged adventure refined with luxury eco-lodges and gourmet local cuisine.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 13px; color: var(--muted);">From</span>
+            <strong style="font-size: var(--s1); font-weight: 600;">$6,800</strong>
+          </div>
+          <button class="btn-secondary" popovertarget="modal-patagonia" style="background: transparent; color: var(--fg); border: 1px solid var(--border); border-radius: 99px; padding: 10px 20px; font-family: inherit; font-size: var(--s0); font-weight: 500; cursor: pointer;">Details</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card" style="background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 12px 32px rgba(44,42,41,0.04); display: flex; flex-direction: column; border: 1px solid var(--border);">
+      <div style="position: relative;">
+        <img src="https://picsum.photos/seed/lisbon/800/1000" alt="Colorful architecture in Lisbon" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;" loading="lazy" />
+        <div style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; color: var(--fg);">
+          <span style="color: #F59E0B;">★</span> 4.8
+        </div>
+      </div>
+      <div style="padding: var(--pad); display: flex; flex-direction: column; gap: 12px; flex: 1;">
+        <div>
+          <h3 style="font-family: var(--font-serif); font-size: var(--h3); margin: 0; font-weight: 500;">Lisbon & The Coast</h3>
+          <p style="color: var(--muted); font-size: var(--s0); margin: 4px 0 0 0;">Portugal • 7 Days</p>
+        </div>
+        <p style="color: var(--fg); font-size: var(--s1); margin: 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Wander sun-drenched cobblestone streets, savor world-class seafood, and unwind in exclusive coastal cliffside retreats.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 13px; color: var(--muted);">From</span>
+            <strong style="font-size: var(--s1); font-weight: 600;">$3,100</strong>
+          </div>
+          <button class="btn-secondary" popovertarget="modal-lisbon" style="background: transparent; color: var(--fg); border: 1px solid var(--border); border-radius: 99px; padding: 10px 20px; font-family: inherit; font-size: var(--s0); font-weight: 500; cursor: pointer;">Details</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- Testimonial Section -->
+<section style="padding: calc(var(--pad) * 2) var(--pad); background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div style="max-width: 800px; margin-inline: auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--accent)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity: 0.8;">
+      <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" />
+    </svg>
+    <blockquote style="margin: 0;">
+      <p style="font-family: var(--font-serif); font-size: var(--h2); font-weight: 400; font-style: italic; line-height: 1.3; color: var(--fg); margin: 0; text-wrap: balance;">"Wayfare didn't just book a trip; they curated an experience that fundamentally changed how I see the world. Every detail was flawless."</p>
+    </blockquote>
+    <cite style="font-style: normal; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 12px;">
+      <img src="https://picsum.photos/seed/elena/64/64" alt="Elena R." style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+      Elena R. — Wild Patagonia Guest
+    </cite>
+  </div>
+</section>
+
+<!-- Footer CTA -->
+<section style="background: var(--fg); color: var(--bg); padding: calc(var(--pad) * 3) var(--pad); text-align: center; position: relative; overflow: hidden;">
+  <!-- Subtle background texture/gradient -->
+  <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(217, 119, 87, 0.15), transparent 70%); pointer-events: none;"></div>
+  
+  <div style="max-width: 600px; margin-inline: auto; position: relative; z-index: 1; display: flex; flex-direction: column; gap: 20px;">
+    <h2 style="font-family: var(--font-serif); font-size: var(--h2); margin: 0; font-weight: 400;">Ready for the extraordinary?</h2>
+    <p style="font-size: var(--s1); color: #A4A09D; margin: 0;">Join our private list for early access to limited-edition itineraries and insider travel notes.</p>
+    
+    <form action="#subscribe" style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; justify-content: center;">
+      <input type="email" placeholder="Email address" aria-label="Email address" required style="flex: 1 1 250px; min-height: 48px; padding: 0 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; font-size: var(--s1); outline: none; transition: border-color 0.2s;" class="dark-input" />
+      <button type="submit" class="btn-primary" style="background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0 32px; min-height: 48px; font-family: inherit; font-size: var(--s1); font-weight: 500; cursor: pointer; transition: background 0.2s; flex: 0 1 auto;">Subscribe</button>
+    </form>
+  </div>
+  
+  <footer style="margin-top: calc(var(--pad) * 2); padding-top: var(--gap); border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: #A4A09D; max-width: 1400px; margin-inline: auto; position: relative; z-index: 1;">
+    <div>&copy; 2024 Wayfare Travel. All rights reserved.</div>
+    <div style="display: flex; gap: 24px;">
+      <a href="#terms" style="color: inherit; text-decoration: none;">Terms</a>
+      <a href="#privacy" style="color: inherit; text-decoration: none;">Privacy</a>
+      <a href="#instagram" style="color: inherit; text-decoration: none;">Instagram</a>
+    </div>
+  </footer>
+</section>
+
+<!-- Popover Modals (Example for Kyoto) -->
+<div id="modal-kyoto" popover style="padding: 0; max-width: min(90vw, 800px); border: none; border-radius: var(--radius-lg); background: var(--bg); color: var(--fg); box-shadow: 0 24px 64px rgba(0,0,0,0.4);">
+  <div style="position: relative; height: 300px;">
+    <img src="https://picsum.photos/seed/kyoto/1200/600" alt="Kyoto temple" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+    <button popovertarget="modal-kyoto" popovertargetaction="hide" style="position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(0,0,0,0.5); color: #fff; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(4px);">&times;</button>
+  </div>
+  <div style="padding: var(--pad);">
+    <h2 style="font-family: var(--font-serif); font-size: var(--h2); margin: 0 0 8px 0; font-weight: 400;">Kyoto Immersion</h2>
+    <div style="display: flex; gap: 16px; color: var(--muted); font-size: var(--s0); margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 24px;">
+      <span>📍 Japan</span>
+      <span>⏱ 9 Days</span>
+      <span>👥 Max 8 Guests</span>
+    </div>
+    <h3 style="font-size: var(--h3); font-family: var(--font-serif); margin: 0 0 12px 0; font-weight: 500;">Itinerary Overview</h3>
+    <ul style="padding-left: 20px; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 12px; font-size: var(--s1);">
+      <li><strong>Days 1-3:</strong> Arrival in Kyoto, private tea ceremony in Higashiyama, and exclusive after-hours temple access.</li>
+      <li><strong>Days 4-6:</strong> Journey to Arashiyama, bamboo grove walks, and stay in a premium heritage Ryokan with Kaiseki dining.</li>
+      <li><strong>Days 7-9:</strong> Artisan workshops (Kintsugi), day trip to Nara, and farewell dinner overlooking the Kamo River.</li>
+    </ul>
+    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border);">
+      <div>
+        <div style="font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;">Starting from</div>
+        <div style="font-size: var(--h3); font-weight: 600;">$4,200 <span style="font-size: var(--s0); font-weight: 400; color: var(--muted);">per person</span></div>
+      </div>
+      <button class="btn-primary" style="background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 14px 32px; font-family: inherit; font-size: var(--s1); font-weight: 500; cursor: pointer;">Request to Book</button>
+    </div>
+  </div>
+</div>
+
+<!-- Dummy popovers for others to satisfy validation without bloating -->
+<div id="modal-patagonia" popover style="padding: var(--pad); max-width: 400px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); color: var(--fg);">
+  <h2 style="font-family: var(--font-serif); font-size: var(--h3); margin: 0 0 16px 0;">Wild Patagonia</h2>
+  <p>Detailed itinerary coming soon.</p>
+  <button popovertarget="modal-patagonia" popovertargetaction="hide" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-family: inherit;">Close</button>
+</div>
+<div id="modal-lisbon" popover style="padding: var(--pad); max-width: 400px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); color: var(--fg);">
+  <h2 style="font-family: var(--font-serif); font-size: var(--h3); margin: 0 0 16px 0;">Lisbon & The Coast</h2>
+  <p>Detailed itinerary coming soon.</p>
+  <button popovertarget="modal-lisbon" popovertargetaction="hide" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-family: inherit;">Close</button>
+</div>
+
+<style>
+  /* Reset & Enhancements */
+  *, *::before, *::after { box-sizing: border-box; }
+  a { transition: color 0.2s, opacity 0.2s; }
+  a:hover { opacity: 0.7; text-decoration: none; }
+  
+  /* Form Controls Polish */
+  .btn-primary:hover { background: var(--accent-hover) !important; }
+  .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  
+  .btn-secondary:hover { background: var(--fg) !important; color: var(--bg) !important; }
+  .btn-secondary:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+  
+  .dark-input:focus { border-color: rgba(255,255,255,0.6) !important; background: rgba(255,255,255,0.1) !important; }
+  
+  /* Card Hover Effects */
+  .card { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(44,42,41,0.08) !important; }
+  .card img { transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .card:hover img { transform: scale(1.03); }
+  
+  /* Popover Styling */
+  [popover]::backdrop { background: rgba(44, 42, 41, 0.6); backdrop-filter: blur(4px); }
+  [popover]:popover-open { animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  
+  /* Animations */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  
+  .hero-content {
+    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  /* Responsive utilities */
+  @media (max-width: 640px) {
+    .hide-sm { display: none !important; }
+    form[action="#search"] { flex-direction: column; border-radius: 16px !important; padding: 16px !important; }
+    form[action="#search"] > div { border-right: none !important; border-bottom: 1px solid var(--border); padding: 8px 0 !important; }
+    form[action="#search"] button { width: 100%; margin-top: 8px; }
+  }
+</style>
+
+<script>
+  (() => {
+    // Prevent form submissions from reloading the page in the artifact sandbox
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerText;
+        btn.innerText = 'Processing...';
+        btn.style.opacity = '0.8';
+        setTimeout(() => {
+          btn.innerText = form.action.includes('subscribe') ? 'Subscribed!' : 'Searching...';
+          btn.style.background = form.action.includes('subscribe') ? '#4F6354' : 'var(--accent)';
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.opacity = '1';
+          }, 2000);
+        }, 800);
+      });
+    });
+  })();
+</script>
 </body>
 </html>

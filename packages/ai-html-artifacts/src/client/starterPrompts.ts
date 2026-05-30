@@ -1,8 +1,10 @@
 /**
  * Prebuilt starter prompts shown below the composer. Each has a short `label`
  * (the chip the user sees) and a rich `prompt` (the detailed message actually
- * sent to the model). `body` carries per-request overrides merged into the POST
- * body by `sendMessage` — e.g. `{ game: true }` or `{ mode: "generative_ui" }`.
+ * sent to the model). The prompts are written in a natural, human voice —
+ * describing the desired RESULT, not implementation — so users never feel they
+ * need to know any technical details. `body` carries per-request overrides
+ * merged into the POST body by `sendMessage` (e.g. `{ game: true }`).
  *
  * NOTE: for the `body` overrides to take effect, the server route must forward
  * those fields into `createArtifactStreamResponse` options, e.g.:
@@ -17,7 +19,7 @@ export interface StarterPrompt {
   hint: string;
   /** Leading glyph for the chip. */
   emoji: string;
-  /** The full, detailed message sent to the chat. */
+  /** The full, natural-language message sent to the chat. */
   prompt: string;
   /** Per-request body overrides merged into the POST body for this prompt. */
   body?: Record<string, unknown>;
@@ -49,8 +51,8 @@ const ORDER_JSON = JSON.stringify(
       ],
     },
     items: [
-      { name: "Aurora Wireless Headphones", qty: 1, price: 248.0, image: "headphones" },
-      { name: "USB-C Braided Cable (2m)", qty: 2, price: 19.0, image: "cable" },
+      { name: "Aurora Wireless Headphones", qty: 1, price: 248.0 },
+      { name: "USB-C Braided Cable (2m)", qty: 2, price: 19.0 },
     ],
     totals: { subtotal: 286.0, shipping: 0, tax: 22.88, total: 308.88, currency: "USD" },
   },
@@ -62,79 +64,77 @@ export const STARTER_PROMPTS: StarterPrompt[] = [
   {
     id: "artifact-dashboard",
     label: "Analytics dashboard",
-    hint: "Rich HTML artifact",
+    hint: "A polished stats dashboard",
     emoji: "📊",
     body: { mode: "artifact" },
     prompt:
-      "Design a polished dark-mode SaaS analytics dashboard as a single self-contained HTML artifact. Include: a top bar with product name, a time-range selector, and a search; a row of 4 KPI cards (Revenue $48.9K +4.2%, Active Users 12,480 +1.8%, Churn 1.9% -0.3%, MRR $61.2K +5.1%) each with a tiny inline sparkline; a large area/line chart of revenue over 12 months drawn with inline SVG; a donut chart of traffic sources; and a recent-transactions table with status pills. Use a confident accent color, soft gradients, hairline borders, generous spacing, and precomputed realistic numbers. Make it fully responsive and compact on phones.",
+      "I run a small software company and I want a slick analytics dashboard to show off how we're doing. Up top, give me the headline numbers — revenue, active users, churn and monthly recurring revenue — each with a little sense of whether it's going up or down. Underneath, I'd love a big chart of revenue growing over the past year, a breakdown of where our traffic comes from, and a neat table of the latest sign-ups or transactions. Make it look premium and dark, the kind of screen a startup would screenshot and be proud of.",
   },
   {
     id: "markdown-explainer",
     label: "Explain a concept",
-    hint: "Formatted markdown answer",
+    hint: "A clear written explainer",
     emoji: "📝",
     body: { mode: "markdown" },
     prompt:
-      "Explain how CSS Flexbox vs CSS Grid differ and when to use each. Answer in well-structured markdown: a short intro, an H2 for each, bullet lists of strengths, a comparison table (axis, alignment, use case), a fenced ```css code block showing a holy-grail layout with Grid, and a final 'rule of thumb' callout. Keep it practical and skimmable.",
+      "Explain the difference between Flexbox and CSS Grid like you're patiently teaching a junior developer who's a little confused. Keep it friendly and practical — when should I reach for one over the other? Walk me through each, give me a simple side-by-side comparison, show a tiny example or two, and finish with an easy rule of thumb I'll actually remember.",
   },
   {
     id: "game-runner",
     label: "Make a 3D game",
-    hint: "Playable three.js game",
+    hint: "A playable cartoon game",
     emoji: "🎮",
     body: { game: true },
     prompt:
-      "Build a complete, playable single-file three.js endless-runner game. The player is a glowing cube on a neon grid lane that auto-runs forward; left/right (A/D or arrows, plus on-screen touch buttons) dodges oncoming obstacles, space jumps. Spawn obstacles and floating score orbs with object pooling, speed up over time, and detect collisions. Show a DOM HUD with score, a start menu, pause (Esc/P), and a game-over screen with restart. Use ACES tone mapping, ambient + directional light, a deliberate synthwave palette, screen-shake on hit, and a fixed-timestep loop. Make it genuinely fun.",
+      "Make me a fun little 3D game I can play right here in the browser. I'm picturing something bright and cartoonish — I control a bouncy little character and zip around a colorful world collecting glowing things while my score climbs and it slowly gets trickier. Give it a cheerful, toy-like look with a soft glow, a friendly start screen, a score counter, and the ability to pause and start over. Make it genuinely fun to mess around with for a minute.",
   },
   {
     id: "genui-order",
-    label: "Render this JSON",
-    hint: "Generative UI from data",
+    label: "Turn data into a card",
+    hint: "Generative UI from your data",
     emoji: "🧩",
     body: { mode: "generative_ui" },
     prompt:
-      "Render this order-tracking data as a beautiful, embedded generative-UI component (seamless, transparent page — it sits inline in a dark chat). Show a header with order id and an 'Out for delivery' status pill, a horizontal stepper for the shipment steps (completed vs pending), the item list with quantities and prices (use small picsum thumbnails keyed off the image field), the carrier + tracking number, and a totals summary. Cards must have their own visible surface. Here is the data:\n\n```json\n" +
+      "I've got the details of a customer's order and I'd love it turned into a clean, friendly order-tracking card — the kind of thing the customer would see when they check 'where's my stuff'. Show how far along the delivery is, what they bought, and what it all came to, and make it feel calm and reassuring. Here's the order:\n\n```json\n" +
       ORDER_JSON +
       "\n```",
   },
   {
     id: "image-landing",
     label: "Travel landing page",
-    hint: "Image-rich design",
+    hint: "A beautiful homepage",
     emoji: "🖼️",
     body: { mode: "artifact" },
     prompt:
-      "Create a striking landing page for a boutique travel company called 'Wayfare' as a single HTML artifact. Full-bleed hero with a background photo (use https://picsum.photos/seed/wayfare/1920/1080), overlaid headline, subtext and a search-trip bar; a 3-up 'Featured destinations' card grid with different seeded picsum images (seed per card: kyoto, patagonia, lisbon), price-from labels and ratings; a testimonial; and a footer CTA. Editorial typography, warm palette, rounded cards, tasteful shadows. Every image responsive with aspect-ratio and alt text. Fully responsive.",
+      "Design a gorgeous homepage for a boutique travel company called Wayfare that plans dreamy, once-in-a-lifetime trips for people. I want a big, beautiful opening image with an inviting headline and a little 'where do you want to go?' search. Below that, show a few featured destinations as elegant cards with photos, a starting price and a rating, then a glowing quote from a happy traveler, and end with a warm invitation to join their list. Make the whole thing feel editorial, warm and high-end — like flipping through a luxury travel magazine.",
   },
   {
     id: "video-gallery",
     label: "Video watch page",
-    hint: "YouTube embeds",
+    hint: "A streaming-style page",
     emoji: "▶️",
     body: { mode: "artifact", allowVideoEmbeds: true },
     prompt:
-      "Build a YouTube-style watch page as a single HTML artifact. A large primary player at the top embedding " +
-      VIDEO_URLS[0] +
-      ", with a title, channel row, and action buttons; then a 'Up next' list on the side/below with the remaining videos as clickable thumbnail cards that each embed their player in a responsive 16:9 wrapper. Embed these: " +
-      VIDEO_URLS.slice(1).join(" , ") +
-      ". Every iframe must use referrerpolicy=\"strict-origin-when-cross-origin\", loading=\"lazy\", allowfullscreen, and a black rounded wrapper. Dark UI, clean spacing, fully responsive.",
+      "Build me a video watch page like a streaming site. Put one big main video player at the top with its title and the channel underneath, and a list of more videos down the side (or below on a phone) as clickable thumbnails I can play. Use these videos — the first one as the main player and the rest in the 'up next' list:\n" +
+      VIDEO_URLS.map((u) => `- ${u}`).join("\n") +
+      "\nMake it clean and dark like a real video site.",
   },
   {
     id: "pricing",
-    label: "SaaS pricing page",
-    hint: "Conversion-focused design",
+    label: "Pricing page",
+    hint: "Plans that convert",
     emoji: "💳",
     body: { mode: "artifact" },
     prompt:
-      "Design a modern 3-tier SaaS pricing section as a single HTML artifact: Starter $0, Pro $24/mo (highlighted 'Most popular' with a glow/badge and scale), and Scale $79/mo. Each card: price, billing note, a feature checklist with check icons, and a CTA button. Add a monthly/annual toggle (native, CSS-only or simple), a feature-comparison table below, and an FAQ using native <details>. Premium dark aesthetic, one accent color, strong hierarchy, accessible contrast, responsive (cards stack on mobile).",
+      "I need a pricing page for my app with three plans — a free Starter to get people in the door, a Pro plan that's the one I really want most people to choose, and a bigger Scale plan for serious teams. Show what's included in each, make the Pro one clearly stand out as the popular pick, let people switch between paying monthly or yearly, and pop a short FAQ at the bottom for the usual questions. Make it modern and trustworthy so people feel confident hitting subscribe.",
   },
   {
     id: "signup-form",
-    label: "Sign-up form",
-    hint: "Polished form UI",
+    label: "Sign-up screen",
+    hint: "A welcoming form",
     emoji: "✍️",
     body: { mode: "artifact", allowForms: true },
     prompt:
-      "Create a beautiful centered sign-up card as a single HTML artifact: brand mark, heading, social sign-in buttons (Google/GitHub with inline SVG icons), an 'or' divider, then fields for full name, email, and password with a visible strength hint, a terms checkbox, and a primary 'Create account' button, plus a 'Sign in' link. Style inputs with clear labels, comfortable padding, ≥44px targets, focus rings, and helpful inline validation styling (error/success states via CSS). Glassy card on a soft gradient background, fully responsive.",
+      "Create a beautiful sign-up screen for a modern app that feels genuinely welcoming. I'd like a clean card with the logo, quick options to continue with Google or GitHub, then the usual fields — name, email, and a password with a little hint about how strong it is — an agree-to-the-terms checkbox, and a big friendly 'Create account' button, with a small 'already have an account? sign in' link. Keep it soft, polished and inviting, sitting on a gentle gradient background.",
   },
 ];
