@@ -1,0 +1,2352 @@
+{
+  "C:\\exp\\my-app\\doodle-icons.d.ts": {
+    "mtime": 1780055395.0356128,
+    "ast_hash": "d37cb1a08fdad84c1cceee15d833eb47",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\eslint.config.mjs": {
+    "mtime": 1780012052.2632625,
+    "ast_hash": "ad26ffcb8df51cae0ee0838e7eda465d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\next.config.ts": {
+    "mtime": 1780102839.0641608,
+    "ast_hash": "f9636c859ee6208b3e6ce711ad8bb612",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\package.json": {
+    "mtime": 1780178462.3355863,
+    "ast_hash": "18f8e2cde4e079dbca0bdf18c9e6b1f8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\postcss.config.mjs": {
+    "mtime": 1779994266.5139098,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\skills-lock.json": {
+    "mtime": 1780052947.2333572,
+    "ast_hash": "1c28bc9d4877f3edd03eab58748b7305",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\tsconfig.json": {
+    "mtime": 1780076218.1539478,
+    "ast_hash": "37f7bc738aaaeff59d20996d6388a94b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.claude\\settings.json": {
+    "mtime": 1780178196.8332133,
+    "ast_hash": "5d6ecd96cf065b16e8bb9fbf5d7d8f0d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\layout.tsx": {
+    "mtime": 1780147770.7798593,
+    "ast_hash": "39e5caf362caea0ee48c49739d64b2c8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\page.tsx": {
+    "mtime": 1780054091.7050529,
+    "ast_hash": "712e44bfb1fc58023e70a5fc8c2cbda1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\api\\chat\\route.ts": {
+    "mtime": 1780133000.142625,
+    "ast_hash": "9f0cf14b26502a9ee0fcfbeb6d5d6190",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\api\\test-key\\route.ts": {
+    "mtime": 1780012052.258741,
+    "ast_hash": "6b54009b2dba34c13a2aa993688f9c4c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\AuroraBackground.tsx": {
+    "mtime": 1780053277.0142865,
+    "ast_hash": "a63e23fc3c6ccf59bf84fffeab0bb1c8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\ChatExperience.tsx": {
+    "mtime": 1780094168.7122777,
+    "ast_hash": "9ac27a8f00ef2d0f4d17713aaadaaf30",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\ChatMessageRow.tsx": {
+    "mtime": 1780133037.732085,
+    "ast_hash": "a8d53605c56749f8f3e24bd98db7d43f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\Composer.tsx": {
+    "mtime": 1780053322.766707,
+    "ast_hash": "5be60a8ce8506062f38c50dcc48f86a2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\Landing.tsx": {
+    "mtime": 1780101931.909904,
+    "ast_hash": "a651b6e14c319b98dd78576fa56b5120",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\LiveChat.tsx": {
+    "mtime": 1780132962.5197773,
+    "ast_hash": "d405c4ea26cb48919e057e3f9084b5e1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\Markdown.tsx": {
+    "mtime": 1780012052.2602525,
+    "ast_hash": "fa3df22c64ad33257100431341e00fbc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\NetraLogo.tsx": {
+    "mtime": 1780057191.4463503,
+    "ast_hash": "047c2955115b3f8a653ca5116f99e257",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\ProviderModal.tsx": {
+    "mtime": 1780091980.2100806,
+    "ast_hash": "a90cdf2828782e63fe502a2989c61335",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\Sidebar.tsx": {
+    "mtime": 1780101940.9620502,
+    "ast_hash": "d45f2e84ff9df829fe9c2566095ea77a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\StaticChat.tsx": {
+    "mtime": 1780094161.0749114,
+    "ast_hash": "173dd0a63ecde09f30fd182ae0959803",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\components\\ThinkingLoader.tsx": {
+    "mtime": 1780072003.9601557,
+    "ast_hash": "b32ad93fcd344751d09febd495d80ad4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\demo\\page.tsx": {
+    "mtime": 1780053481.0679443,
+    "ast_hash": "23281880098a8939fbf0ebf7d88df9d8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\lib\\sessions.ts": {
+    "mtime": 1780075126.135117,
+    "ast_hash": "6e15e1c76f3b642a73ea7f4887bdac9f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\lib\\theme.ts": {
+    "mtime": 1780091117.795842,
+    "ast_hash": "15340e67fc7024322a6baedb1658b853",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\package.json": {
+    "mtime": 1780178364.0824614,
+    "ast_hash": "0536c985f6dba5ce504b813611811c71",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\tsconfig.cjs.json": {
+    "mtime": 1780076208.2284544,
+    "ast_hash": "ecb34cfd91a3516457c1c0d604efe1de",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\tsconfig.json": {
+    "mtime": 1780076208.2294538,
+    "ast_hash": "a64372c92a2bf4877577976482953371",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\algorithmic-art\\templates\\generator_template.js": {
+    "mtime": 1780076207.5593789,
+    "ast_hash": "949696fa952c33b9ac59bee0bba62a6e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\accept_changes.py": {
+    "mtime": 1780076207.8115823,
+    "ast_hash": "58d44be98abc604b52fdb68fc322cd16",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\comment.py": {
+    "mtime": 1780076207.8145826,
+    "ast_hash": "52688ed8793095f0617d69719a3c2d18",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\__init__.py": {
+    "mtime": 1780076207.8105824,
+    "ast_hash": "81051bcc2cf1bedf378224b0a93e2877",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\pack.py": {
+    "mtime": 1780076207.8206222,
+    "ast_hash": "79be6f4705be6ca9492c4b0cc9cca058",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\soffice.py": {
+    "mtime": 1780076207.868999,
+    "ast_hash": "a4442517404db3ae6649229ce5650274",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\unpack.py": {
+    "mtime": 1780076207.8699987,
+    "ast_hash": "397d8b9cc4c16d0053867498c7c7dbbe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validate.py": {
+    "mtime": 1780076207.8699987,
+    "ast_hash": "7e746acaec414859d2e701165bddcc02",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\helpers\\merge_runs.py": {
+    "mtime": 1780076207.8181674,
+    "ast_hash": "1f9d90a0dcd7f822927df3617fbef62a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\helpers\\simplify_redlines.py": {
+    "mtime": 1780076207.8191743,
+    "ast_hash": "0f15f15eaf43a2baa3a4825945b363a3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\helpers\\__init__.py": {
+    "mtime": 1780076207.8167405,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validators\\base.py": {
+    "mtime": 1780076207.8744278,
+    "ast_hash": "cbcea40d3009c588b90abccba6e007f3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validators\\docx.py": {
+    "mtime": 1780076207.8749392,
+    "ast_hash": "c0f7ee1e21599e4b51353a586d47c564",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validators\\pptx.py": {
+    "mtime": 1780076207.87595,
+    "ast_hash": "d4b5ac129e40b5142d1f8c8a6e8b3275",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validators\\redlining.py": {
+    "mtime": 1780076207.8769472,
+    "ast_hash": "b9bf89b9bb6a413071c7b27d2741e41b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\scripts\\office\\validators\\__init__.py": {
+    "mtime": 1780076207.873114,
+    "ast_hash": "6ae13697412ab8c9b99b3268b717970b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\scripts\\connections.py": {
+    "mtime": 1780076207.9052262,
+    "ast_hash": "1606c9917623cc43787353d2cd8731ff",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\scripts\\evaluation.py": {
+    "mtime": 1780076207.9061348,
+    "ast_hash": "1a26a79489e2ae76029ec68b32065e61",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\check_bounding_boxes.py": {
+    "mtime": 1780076207.9142356,
+    "ast_hash": "9ab55fc4cd2082641fdebda3866371ac",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\check_fillable_fields.py": {
+    "mtime": 1780076207.9152346,
+    "ast_hash": "28e26c214bee178c166cbfcc1cae017a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\convert_pdf_to_images.py": {
+    "mtime": 1780076207.916235,
+    "ast_hash": "3291b3cb048d3cbb081aeea0a4f82e70",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\create_validation_image.py": {
+    "mtime": 1780076207.9172351,
+    "ast_hash": "7c0fae6c2839e189e7f47b9e266d305e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\extract_form_field_info.py": {
+    "mtime": 1780076207.9182355,
+    "ast_hash": "285308f8690e16404562d2fdea8cf5e9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\extract_form_structure.py": {
+    "mtime": 1780076207.9192364,
+    "ast_hash": "5b1297993e80415376ee17a72ba5c573",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\fill_fillable_fields.py": {
+    "mtime": 1780076207.9202366,
+    "ast_hash": "88e38e501f0b4ed7b8476883aaf28879",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\scripts\\fill_pdf_form_with_annotations.py": {
+    "mtime": 1780076207.9212377,
+    "ast_hash": "55e4b1777a927ecf556a554e6ed1d69c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\add_slide.py": {
+    "mtime": 1780076207.9268625,
+    "ast_hash": "2311b4bbefaae43aeb81697009cbfaf6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\clean.py": {
+    "mtime": 1780076207.927862,
+    "ast_hash": "c6f4a722921a1c54cfbcb18a83853991",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\thumbnail.py": {
+    "mtime": 1780076207.984471,
+    "ast_hash": "77c26992c7576268dadc62de322c9050",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\__init__.py": {
+    "mtime": 1780076207.9258606,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\pack.py": {
+    "mtime": 1780076207.9328632,
+    "ast_hash": "79be6f4705be6ca9492c4b0cc9cca058",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\soffice.py": {
+    "mtime": 1780076207.976584,
+    "ast_hash": "a4442517404db3ae6649229ce5650274",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\unpack.py": {
+    "mtime": 1780076207.9777615,
+    "ast_hash": "397d8b9cc4c16d0053867498c7c7dbbe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validate.py": {
+    "mtime": 1780076207.9777615,
+    "ast_hash": "7e746acaec414859d2e701165bddcc02",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\helpers\\merge_runs.py": {
+    "mtime": 1780076207.9308815,
+    "ast_hash": "1f9d90a0dcd7f822927df3617fbef62a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\helpers\\simplify_redlines.py": {
+    "mtime": 1780076207.931867,
+    "ast_hash": "0f15f15eaf43a2baa3a4825945b363a3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\helpers\\__init__.py": {
+    "mtime": 1780076207.9298635,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validators\\base.py": {
+    "mtime": 1780076207.9807956,
+    "ast_hash": "cbcea40d3009c588b90abccba6e007f3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validators\\docx.py": {
+    "mtime": 1780076207.9824142,
+    "ast_hash": "c0f7ee1e21599e4b51353a586d47c564",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validators\\pptx.py": {
+    "mtime": 1780076207.982921,
+    "ast_hash": "d4b5ac129e40b5142d1f8c8a6e8b3275",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validators\\redlining.py": {
+    "mtime": 1780076207.9834638,
+    "ast_hash": "b9bf89b9bb6a413071c7b27d2741e41b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\scripts\\office\\validators\\__init__.py": {
+    "mtime": 1780076207.9797935,
+    "ast_hash": "6ae13697412ab8c9b99b3268b717970b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\eval-viewer\\generate_review.py": {
+    "mtime": 1780076207.9954865,
+    "ast_hash": "3ec67448bf48beb2ce336e8a050e4618",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\aggregate_benchmark.py": {
+    "mtime": 1780076208.0010178,
+    "ast_hash": "341cc9da943bb8515f22774f3fb1f151",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\generate_report.py": {
+    "mtime": 1780076208.0020344,
+    "ast_hash": "e103b279b5aeb66bdc6360b2882f7461",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\improve_description.py": {
+    "mtime": 1780076208.0030346,
+    "ast_hash": "90f7eca93679d893581c64f5ad408e63",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\package_skill.py": {
+    "mtime": 1780076208.0040333,
+    "ast_hash": "b3e2d0f02bd130c6865edaeb13042f71",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\quick_validate.py": {
+    "mtime": 1780076208.005034,
+    "ast_hash": "1c14726b2f21750beffe0bef97c7f8d9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\run_eval.py": {
+    "mtime": 1780076208.005034,
+    "ast_hash": "561ec9772f276cb1bea459e477f03fd9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\run_loop.py": {
+    "mtime": 1780076208.0070355,
+    "ast_hash": "8d7f8fc75b5b06df80837f05dcd33445",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\utils.py": {
+    "mtime": 1780076208.0070355,
+    "ast_hash": "77d0ec8142dfb2f06f5d150c4beaf333",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\scripts\\__init__.py": {
+    "mtime": 1780076207.9994864,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\core\\easing.py": {
+    "mtime": 1780076208.0110605,
+    "ast_hash": "d0b0a78a93df4d5e964a12f90e338862",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\core\\frame_composer.py": {
+    "mtime": 1780076208.0120878,
+    "ast_hash": "a6e7f76d71dfd1bacc6aaa238a2b183a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\core\\gif_builder.py": {
+    "mtime": 1780076208.0130582,
+    "ast_hash": "a3c7adf7aaed39e7f8776b6091fe796a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\core\\validators.py": {
+    "mtime": 1780076208.0140615,
+    "ast_hash": "e79b9df4862e61918398c9dfd58d8b7f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\web-artifacts-builder\\scripts\\bundle-artifact.sh": {
+    "mtime": 1780076208.0315404,
+    "ast_hash": "aafca1265de43b30ae5ef7eebf5ffc33",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\web-artifacts-builder\\scripts\\init-artifact.sh": {
+    "mtime": 1780076208.0315404,
+    "ast_hash": "b1830b29bdc89f5f249dc99ec73cc43b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\examples\\console_logging.py": {
+    "mtime": 1780076208.0372586,
+    "ast_hash": "7166d10f96ff246e0529038e6885d0ff",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\examples\\element_discovery.py": {
+    "mtime": 1780076208.0372586,
+    "ast_hash": "5282fba5ef350f26c2145e5cfaa76fc9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\examples\\static_html_automation.py": {
+    "mtime": 1780076208.0389323,
+    "ast_hash": "ed829df858c7c0adf2b6b35e33643215",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\scripts\\with_server.py": {
+    "mtime": 1780076208.0399463,
+    "ast_hash": "01c7c8d2b96019e3f88f18bb945d2abe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\recalc.py": {
+    "mtime": 1780076208.1060116,
+    "ast_hash": "cd35c71302128d7a753db750ddbad401",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\pack.py": {
+    "mtime": 1780076208.0487962,
+    "ast_hash": "79be6f4705be6ca9492c4b0cc9cca058",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\soffice.py": {
+    "mtime": 1780076208.0960364,
+    "ast_hash": "a4442517404db3ae6649229ce5650274",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\unpack.py": {
+    "mtime": 1780076208.097033,
+    "ast_hash": "397d8b9cc4c16d0053867498c7c7dbbe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validate.py": {
+    "mtime": 1780076208.0980358,
+    "ast_hash": "7e746acaec414859d2e701165bddcc02",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\helpers\\merge_runs.py": {
+    "mtime": 1780076208.0463138,
+    "ast_hash": "1f9d90a0dcd7f822927df3617fbef62a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\helpers\\simplify_redlines.py": {
+    "mtime": 1780076208.0477886,
+    "ast_hash": "0f15f15eaf43a2baa3a4825945b363a3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\helpers\\__init__.py": {
+    "mtime": 1780076208.0463138,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validators\\base.py": {
+    "mtime": 1780076208.1003437,
+    "ast_hash": "cbcea40d3009c588b90abccba6e007f3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validators\\docx.py": {
+    "mtime": 1780076208.1029515,
+    "ast_hash": "c0f7ee1e21599e4b51353a586d47c564",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validators\\pptx.py": {
+    "mtime": 1780076208.1039958,
+    "ast_hash": "d4b5ac129e40b5142d1f8c8a6e8b3275",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validators\\redlining.py": {
+    "mtime": 1780076208.1050029,
+    "ast_hash": "b9bf89b9bb6a413071c7b27d2741e41b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\scripts\\office\\validators\\__init__.py": {
+    "mtime": 1780076208.0990334,
+    "ast_hash": "6ae13697412ab8c9b99b3268b717970b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client.js": {
+    "mtime": 1780178395.4718974,
+    "ast_hash": "d36b8ed9a7bc1d1da64197c0edc3b3dc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\index.js": {
+    "mtime": 1780178395.5411446,
+    "ast_hash": "075f01e91e250a673489566becf20967",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\package.json": {
+    "mtime": 1780178395.5884326,
+    "ast_hash": "df9ffc6aa3f78a5491736d441c4258a8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server.js": {
+    "mtime": 1780178395.560223,
+    "ast_hash": "bd8aba0a3c430af09b7a541cf9bb1bcd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\artifacts\\artifactEnvelope.js": {
+    "mtime": 1780178395.3796458,
+    "ast_hash": "fbe526ad7a5d98a53f31e3788157e73e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\artifacts\\artifactStatus.js": {
+    "mtime": 1780178395.4984055,
+    "ast_hash": "4f006e193a182415c4e2e154a057b5fd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\artifacts\\artifactStore.js": {
+    "mtime": 1780178395.5024056,
+    "ast_hash": "304d568ed6b06e94568667a1c859634a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\artifacts\\htmlArtifact.js": {
+    "mtime": 1780178395.5004058,
+    "ast_hash": "2f54743f918497954254b8e7bb466343",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\artifacts\\index.js": {
+    "mtime": 1780178395.5034056,
+    "ast_hash": "5e34145a68fd7babc2948726a7c9e460",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\circuit-breaker\\circuitBreaker.js": {
+    "mtime": 1780178395.5295272,
+    "ast_hash": "7229a95c2e9ac542866718321cd6450f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\circuit-breaker\\index.js": {
+    "mtime": 1780178395.5305302,
+    "ast_hash": "60f139da0283d3847f213a87401b9975",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\circuit-breaker\\memoryCircuitStore.js": {
+    "mtime": 1780178395.5270247,
+    "ast_hash": "51af9eb31389b2c3c0afc94a26a52f87",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\classifier\\classifierPrompt.js": {
+    "mtime": 1780178395.5260246,
+    "ast_hash": "82dbceec37ebb477f7687d7bb247973a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\classifier\\classifyMode.js": {
+    "mtime": 1780178395.5431447,
+    "ast_hash": "b364b15e65a2cb8de3f482068535187c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\classifier\\index.js": {
+    "mtime": 1780178395.557223,
+    "ast_hash": "b68f4199902b7069d6577c00b570cea8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\classifier\\rules.js": {
+    "mtime": 1780178395.5240252,
+    "ast_hash": "d7e8f52ec1217f5d0154ee26f5044d69",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\ArtifactChat.js": {
+    "mtime": 1780178395.4658976,
+    "ast_hash": "b7adcaf2a1056b108561088f53b53f07",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\ArtifactMessage.js": {
+    "mtime": 1780178395.460586,
+    "ast_hash": "d07e1836dbb94007c25cb9a35c357613",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\index.js": {
+    "mtime": 1780178395.4708974,
+    "ast_hash": "a15032ed25cb044c1e70eaa2076fc9a6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\MarkdownMessage.js": {
+    "mtime": 1780178395.3666427,
+    "ast_hash": "4fcd15bce9dd0967150966f90817d3a3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\starterPrompts.js": {
+    "mtime": 1780178395.4618945,
+    "ast_hash": "c9e4bccbd74b33fc34b2ff5539a45d91",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\client\\useArtifactStream.js": {
+    "mtime": 1780178395.3583875,
+    "ast_hash": "685c5e4fcd22f4c3c29f726867a66e2e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\constants\\defaults.js": {
+    "mtime": 1780178395.3971517,
+    "ast_hash": "5e1d9f02926b10431a98ab0fcc2f89ca",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\constants\\events.js": {
+    "mtime": 1780178395.4859004,
+    "ast_hash": "b536455c59e579e6a970a81065515d78",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\constants\\index.js": {
+    "mtime": 1780178395.5044055,
+    "ast_hash": "7f951c24e9ec764385e8293f681d6b9d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\constants\\sandbox.js": {
+    "mtime": 1780178395.3946493,
+    "ast_hash": "c7db07fadc546b9d93d30655e7f2c6ec",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\constants\\trustedCdnHosts.js": {
+    "mtime": 1780178395.404874,
+    "ast_hash": "98d69a07c942367e04a14565be05fd2a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\createArtifactResponse.js": {
+    "mtime": 1780178395.5371416,
+    "ast_hash": "baee1536350b8314ab6a54ae9a03d751",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\createArtifactStream.js": {
+    "mtime": 1780178395.5355332,
+    "ast_hash": "c069a5a41d4a6d7d63f299511fbce5b3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\createIds.js": {
+    "mtime": 1780178395.3481767,
+    "ast_hash": "fa949036bbd74a0845b2d5a99485e66d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\index.js": {
+    "mtime": 1780178395.5391448,
+    "ast_hash": "1a483de8506be10721b0a7c766137010",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\lifecycle.js": {
+    "mtime": 1780178395.5335336,
+    "ast_hash": "e24a3c32d4086ad4dd590804f7162cee",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\core\\parseArtifactEnvelope.js": {
+    "mtime": 1780178395.5381448,
+    "ast_hash": "3fcc12fa049f9c0b31c2f06889c27852",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\errors\\ArtifactParseError.js": {
+    "mtime": 1780178395.5100222,
+    "ast_hash": "9cab819d26c830a98ef01d3c4336acfb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\errors\\ClassificationError.js": {
+    "mtime": 1780178395.5120225,
+    "ast_hash": "39f422beb437094926ee0802e6f1919b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\errors\\index.js": {
+    "mtime": 1780178395.514022,
+    "ast_hash": "0f6bc826600c0228bbb4ee1985798ceb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\errors\\StreamError.js": {
+    "mtime": 1780178395.5110223,
+    "ast_hash": "99e0e1e7ef5d464224a3416b7376b0cb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\HtmlArtifactCard.js": {
+    "mtime": 1780178395.4580834,
+    "ast_hash": "cc4626a141cb655eaa8e83ad19017264",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\HtmlArtifactCodeView.js": {
+    "mtime": 1780178395.4455664,
+    "ast_hash": "36648bde86b1bffc9356db2ff639723a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\HtmlArtifactModal.js": {
+    "mtime": 1780178395.4500723,
+    "ast_hash": "849c4df5bdc5edfffdba6bf1066c1276",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\HtmlArtifactPreview.js": {
+    "mtime": 1780178395.437566,
+    "ast_hash": "613c68c1115da28c7f301a594de9eb3d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\HtmlArtifactToolbar.js": {
+    "mtime": 1780178395.3716462,
+    "ast_hash": "f172aedd34e10f5e68efad409b278d45",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\iframeSizing.js": {
+    "mtime": 1780178395.4228742,
+    "ast_hash": "fa49b55e80267ffab56153a8b6617d9f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\iframeSrcDoc.js": {
+    "mtime": 1780178395.418874,
+    "ast_hash": "2c292ef7574feb43af4598b400b7beea",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\index.js": {
+    "mtime": 1780178395.4688976,
+    "ast_hash": "a221faba8a53c12c1f20e390995bd9fc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\iframe\\styles.js": {
+    "mtime": 1780178395.3726459,
+    "ast_hash": "2809cc39e75dddfe7657d35d658929e3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\prompts\\htmlArtifactPrompt.js": {
+    "mtime": 1780178395.5210247,
+    "ast_hash": "d25c0a4f1e6d212ed948392335b15c71",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\prompts\\index.js": {
+    "mtime": 1780178395.5220246,
+    "ast_hash": "1d0967a4fdc6c89de7b6ca926fc8b418",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\prompts\\markdownPrompt.js": {
+    "mtime": 1780178395.5160246,
+    "ast_hash": "3548438f9df4fe42b306392f23f6c054",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\prompts\\systemPrompt.js": {
+    "mtime": 1780178395.515025,
+    "ast_hash": "dfdc197659210232919e89c8650d1f03",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\prompts\\threejsGamePrompt.js": {
+    "mtime": 1780178395.5180247,
+    "ast_hash": "c570842d9ae294d0eed2a3bc2028dce3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\sanitizer\\dangerousPatterns.js": {
+    "mtime": 1780178395.4028738,
+    "ast_hash": "e6d02bd0270ce95790ed2508b667f189",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\sanitizer\\index.js": {
+    "mtime": 1780178395.4939005,
+    "ast_hash": "93291d8e317b35f3311f067e8e57f5bd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\sanitizer\\sanitizeConfig.js": {
+    "mtime": 1780178395.399874,
+    "ast_hash": "cfe1139d247d0516067679349f9e1ba1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\sanitizer\\sanitizeHtml.js": {
+    "mtime": 1780178395.4118738,
+    "ast_hash": "8e563c839575daaae48d30abe350b29a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\config.js": {
+    "mtime": 1780178395.5461445,
+    "ast_hash": "b0b1cae7886f5e3cc3313fa00803e5df",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\createArtifactStreamResponse.js": {
+    "mtime": 1780178395.5552232,
+    "ast_hash": "441cbefac208604a41bb9447dfb37da2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\createHtmlArtifactStream.js": {
+    "mtime": 1780178395.5506501,
+    "ast_hash": "74f79da532cde2c2dcd317e4aeadebc6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\createMarkdownStream.js": {
+    "mtime": 1780178395.5532203,
+    "ast_hash": "6cf1ee9b2bb81bd809e8cf6978e3f179",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\createSseResponse.js": {
+    "mtime": 1780178395.5486498,
+    "ast_hash": "e9c4f7c05a68e204d020649e19825ecd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\server\\index.js": {
+    "mtime": 1780178395.5592232,
+    "ast_hash": "7bb885c0ecde373af2ddd6d0db72c422",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\assembleDocument.js": {
+    "mtime": 1780178395.3926494,
+    "ast_hash": "d78a7c9bce431aa0801760ad67a78aa7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\buffering.js": {
+    "mtime": 1780178395.4889002,
+    "ast_hash": "0699f859dce7ddc785658dab0f348d98",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\debounce.js": {
+    "mtime": 1780178395.4909005,
+    "ast_hash": "aeef0235cf007c66903b0f3753cd5e66",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\decoder.js": {
+    "mtime": 1780178395.3406706,
+    "ast_hash": "e235ec88e827f354ce607888870ea184",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\encoder.js": {
+    "mtime": 1780178395.4869006,
+    "ast_hash": "22e14232bc609d9ac2f395a2369be49d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\events.js": {
+    "mtime": 1780178395.333021,
+    "ast_hash": "798ff5c1740b2f5d1baaf88a4a51b690",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\index.js": {
+    "mtime": 1780178395.4919007,
+    "ast_hash": "ad51fc196f455d446831105eedb5640a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\predictiveHtmlParser.js": {
+    "mtime": 1780178395.3886497,
+    "ast_hash": "9976aa78c90a95058785da0f7222769b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\stream\\sse.js": {
+    "mtime": 1780178395.3446708,
+    "ast_hash": "78d503bf50048f4b1f975d7742ea313e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\artifact.js": {
+    "mtime": 1780178395.35087,
+    "ast_hash": "d2716a56baad469e89aec1662053b0f4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\client.js": {
+    "mtime": 1780178395.352375,
+    "ast_hash": "211d26a8a64803e5b7480fa9240a0f75",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\config.js": {
+    "mtime": 1780178395.393649,
+    "ast_hash": "171d2bda7b2ca93616a0633f16f340cc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\errors.js": {
+    "mtime": 1780178395.4829001,
+    "ast_hash": "ddaeef5b47b694c7173ba0ec92543714",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\index.js": {
+    "mtime": 1780178395.4839005,
+    "ast_hash": "44f563df0ac933d2621ef2a305a1acdc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\server.js": {
+    "mtime": 1780178395.4768977,
+    "ast_hash": "57b820c22b1d5554cb97360fa3121b37",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\types\\stream.js": {
+    "mtime": 1780178395.3225138,
+    "ast_hash": "cd4963ad31b52cd0e1817830045ae8aa",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\index.js": {
+    "mtime": 1780178395.5080223,
+    "ast_hash": "9f9262344a27852db7a293560167e2f4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\invariant.js": {
+    "mtime": 1780178395.5054054,
+    "ast_hash": "02c75d5f00cfa840072a158038fc9015",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\isBrowser.js": {
+    "mtime": 1780178395.5060194,
+    "ast_hash": "c3393d16e33e96d63dcedc48c907e760",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\mergeConfig.js": {
+    "mtime": 1780178395.3978708,
+    "ast_hash": "12c8a36bdc4ee2df5d8eb62724cf73d0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\noop.js": {
+    "mtime": 1780178395.5070226,
+    "ast_hash": "870b0db5c44632a625f704b14665dc34",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\dist-cjs\\utils\\safeJsonParse.js": {
+    "mtime": 1780178395.3175142,
+    "ast_hash": "652a7c47dd99576367f800489fbacbd3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\package.json": {
+    "mtime": 1780087475.2130246,
+    "ast_hash": "f58f50db6e8cc797477a835f21eb6730",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\app\\page.tsx": {
+    "mtime": 1780076208.1138492,
+    "ast_hash": "d27b4f3e97374194d90393c912947e42",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\app\\api\\chat\\route.ts": {
+    "mtime": 1780076208.1125908,
+    "ast_hash": "ffe31899f6ee3755a292269b187ecb1b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\components\\ArtifactPanel.tsx": {
+    "mtime": 1780076208.114913,
+    "ast_hash": "1c90eac1ef70b63124d0bcb9c2d70c1f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\components\\ChatDemo.tsx": {
+    "mtime": 1780076208.1161075,
+    "ast_hash": "9e6fcedbf616375ca977b89a0ef084fd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\examples\\next-app\\components\\MessageList.tsx": {
+    "mtime": 1780076208.1173346,
+    "ast_hash": "0edbf252a55c71521ab1d842af0ef9d2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client.ts": {
+    "mtime": 1780076208.135287,
+    "ast_hash": "f4449d4535f9e8a6fe67ce5f338801a8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\index.ts": {
+    "mtime": 1780076208.1714737,
+    "ast_hash": "cd69161f21a6f4bbb3b58be7ecc9ac96",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server.ts": {
+    "mtime": 1780076208.1835687,
+    "ast_hash": "283b88dde882ab8af5b5426618936b40",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\artifacts\\artifactEnvelope.ts": {
+    "mtime": 1780076208.12296,
+    "ast_hash": "c8e7122f10bd92c15df14ad52f5d71d2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\artifacts\\artifactStatus.ts": {
+    "mtime": 1780076208.1239662,
+    "ast_hash": "35f19dbf80780840230916d243b378f9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\artifacts\\artifactStore.ts": {
+    "mtime": 1780076208.124603,
+    "ast_hash": "e6b1d32783c8d828c4bd7e4ea0f11798",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\artifacts\\htmlArtifact.ts": {
+    "mtime": 1780095458.3889337,
+    "ast_hash": "038542606ea2dad07232c15507bd4d8f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\artifacts\\index.ts": {
+    "mtime": 1780076208.1260605,
+    "ast_hash": "eaabc4667cdaeb66a0ed8bf7da2260c7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\circuit-breaker\\circuitBreaker.ts": {
+    "mtime": 1780076208.127506,
+    "ast_hash": "1fbd5982af9932c3d5b15e815759fc64",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\circuit-breaker\\index.ts": {
+    "mtime": 1780076208.1286292,
+    "ast_hash": "be2bc97e39ddde2aefd8dd3b85bd88c7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\circuit-breaker\\memoryCircuitStore.ts": {
+    "mtime": 1780076208.129637,
+    "ast_hash": "bec469db31d60776af7bbedfb4064525",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\classifier\\classifierPrompt.ts": {
+    "mtime": 1780099524.3126664,
+    "ast_hash": "d0260885ef38d70a5c97e040acf7df36",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\classifier\\classifyMode.ts": {
+    "mtime": 1780076208.1321197,
+    "ast_hash": "423c89bd2d7d7b4f103b52bc4e017fd9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\classifier\\index.ts": {
+    "mtime": 1780076208.1341078,
+    "ast_hash": "a5b77be0c78789063f48e9caae8358d0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\classifier\\rules.ts": {
+    "mtime": 1780099516.699699,
+    "ast_hash": "a64322f8b4c9616d1436b8f5243da26a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\ArtifactChat.tsx": {
+    "mtime": 1780132539.8458414,
+    "ast_hash": "370075ff806c2affc89f2db275852652",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\ArtifactMessage.tsx": {
+    "mtime": 1780095498.1690044,
+    "ast_hash": "c6fd41475fe381e0646134b77a71f31f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\index.ts": {
+    "mtime": 1780132547.7570992,
+    "ast_hash": "2a41b18164e4c1be9891c137f09bc747",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\MarkdownMessage.tsx": {
+    "mtime": 1780076208.1399746,
+    "ast_hash": "786ef07d81d09a650a73e3ef47c5ca00",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\starterPrompts.ts": {
+    "mtime": 1780134916.3039184,
+    "ast_hash": "9656ce31a5238be4acaf5e2a37efc2b3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\client\\useArtifactStream.ts": {
+    "mtime": 1780132509.7419927,
+    "ast_hash": "bcdf9611362c1dbac40d4fb1cafc9a3f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\constants\\defaults.ts": {
+    "mtime": 1780130791.1198237,
+    "ast_hash": "b822c1688388fb4b449674789835ed4f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\constants\\events.ts": {
+    "mtime": 1780076208.145136,
+    "ast_hash": "e94d415edb91ccb1d062405e182a0d75",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\constants\\index.ts": {
+    "mtime": 1780130832.2753553,
+    "ast_hash": "d99c69e686747626ea67e905ec8c8a48",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\constants\\sandbox.ts": {
+    "mtime": 1780102368.8805017,
+    "ast_hash": "6ed18067fbaf4d3cf0818e5c681dd954",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\constants\\trustedCdnHosts.ts": {
+    "mtime": 1780130826.3639123,
+    "ast_hash": "f2d51ba8967248b57d7b6c7eb19f01ab",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\createArtifactResponse.ts": {
+    "mtime": 1780076208.1497777,
+    "ast_hash": "0cb73b2e8b1d5b41946f0243356f4c42",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\createArtifactStream.ts": {
+    "mtime": 1780076208.1507907,
+    "ast_hash": "a56640700be08c25283f9c736436e879",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\createIds.ts": {
+    "mtime": 1780076208.151778,
+    "ast_hash": "f36f9d40e2db02571758ff1a2f219e64",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\index.ts": {
+    "mtime": 1780076208.1527772,
+    "ast_hash": "7aaef7778d82029e3789f534a4adc6a9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\lifecycle.ts": {
+    "mtime": 1780095594.5833216,
+    "ast_hash": "c71c9f5d964e0b3f909d513d8cf8dbbe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\core\\parseArtifactEnvelope.ts": {
+    "mtime": 1780076208.1549852,
+    "ast_hash": "c387126b4a695145a7271bf2274d4677",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\errors\\ArtifactParseError.ts": {
+    "mtime": 1780076208.156108,
+    "ast_hash": "7430f1c60965df4350b7431479c73be9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\errors\\ClassificationError.ts": {
+    "mtime": 1780076208.157581,
+    "ast_hash": "b97b412a9044cbda2420a2864bd651bb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\errors\\index.ts": {
+    "mtime": 1780076208.15905,
+    "ast_hash": "86b93a1b4235fc5d9f88a5313a31a912",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\errors\\StreamError.ts": {
+    "mtime": 1780076208.157581,
+    "ast_hash": "0558b3b47264f06d79d4a36c348e40d4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\HtmlArtifactCard.tsx": {
+    "mtime": 1780136064.629819,
+    "ast_hash": "afe9d062119b48bea43dbce10b25737e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\HtmlArtifactCodeView.tsx": {
+    "mtime": 1780076208.1625464,
+    "ast_hash": "381ca9550c997d02b6cd39ec60d24948",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\HtmlArtifactModal.tsx": {
+    "mtime": 1780136051.3329668,
+    "ast_hash": "9612a516b0f58a2b8331624de1317689",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\HtmlArtifactPreview.tsx": {
+    "mtime": 1780136470.5180645,
+    "ast_hash": "429af4fbd792f08da91efa72016b6441",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\HtmlArtifactToolbar.tsx": {
+    "mtime": 1780135234.9259255,
+    "ast_hash": "3b0cece58ff9f2f35d7fc49255620459",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\iframeSizing.ts": {
+    "mtime": 1780135881.6263433,
+    "ast_hash": "16aa26a10838ad41b8f61e07b1d9f02a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\iframeSrcDoc.ts": {
+    "mtime": 1780134524.9394877,
+    "ast_hash": "9ede51cd62bfdfe3c5ba6b5d9c987f8d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\index.ts": {
+    "mtime": 1780076208.1691134,
+    "ast_hash": "eece0072a560c4f85f273e9fcb6afd17",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\iframe\\styles.ts": {
+    "mtime": 1780136026.5664237,
+    "ast_hash": "50ce9a1f8be1cf7507abd952a7893bb5",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\prompts\\htmlArtifactPrompt.ts": {
+    "mtime": 1780134255.0708039,
+    "ast_hash": "42712e36beb7a8076e10d4faa2d6b538",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\prompts\\index.ts": {
+    "mtime": 1780131212.824455,
+    "ast_hash": "574532785b076553284f444079808270",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\prompts\\markdownPrompt.ts": {
+    "mtime": 1780076208.176589,
+    "ast_hash": "5d308c473d0613b7218f43bfb01eaa24",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\prompts\\systemPrompt.ts": {
+    "mtime": 1780076208.1775887,
+    "ast_hash": "b5a68354d96f554a6a944258056ddb83",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\prompts\\threejsGamePrompt.ts": {
+    "mtime": 1780136107.8961487,
+    "ast_hash": "7bec476bcc3c5a1069726df1de42144c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\sanitizer\\dangerousPatterns.ts": {
+    "mtime": 1780102426.7762153,
+    "ast_hash": "42e48b72cd34dd2f628bc0f15770147c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\sanitizer\\index.ts": {
+    "mtime": 1780076208.1796958,
+    "ast_hash": "90a60edfff46750c14d99dbdac9f781a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\sanitizer\\sanitizeConfig.ts": {
+    "mtime": 1780101573.1936512,
+    "ast_hash": "87739c3b3ed08d340a99d90212c2cdbd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\sanitizer\\sanitizeHtml.ts": {
+    "mtime": 1780130964.807467,
+    "ast_hash": "110d57a435cef4954d4939f26c2524c2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\config.ts": {
+    "mtime": 1780131257.0745978,
+    "ast_hash": "901b6254592bb8c685c03cfae6131944",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\createArtifactStreamResponse.ts": {
+    "mtime": 1780131262.4937923,
+    "ast_hash": "b18eff22fad9f48e1e6d5ef786a0c755",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\createHtmlArtifactStream.ts": {
+    "mtime": 1780095483.5259259,
+    "ast_hash": "1851d83ceb64de65deac287ac8cfdf7c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\createMarkdownStream.ts": {
+    "mtime": 1780076208.1888564,
+    "ast_hash": "012202a6c9c8d34ee0b2aad550b5f6b8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\createSseResponse.ts": {
+    "mtime": 1780076208.1898584,
+    "ast_hash": "9a2e2452bc607b42b23ca54bed2b9317",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\server\\index.ts": {
+    "mtime": 1780076208.1908596,
+    "ast_hash": "cd0b55b335919a5ef0d414ec215acfac",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\assembleDocument.ts": {
+    "mtime": 1780076208.1918557,
+    "ast_hash": "7acdcd70ef73b6f7e4741149f9ae12c2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\buffering.ts": {
+    "mtime": 1780101882.5912454,
+    "ast_hash": "5ec4f1b7001186b742a4f5080c2faf3f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\debounce.ts": {
+    "mtime": 1780076208.1940134,
+    "ast_hash": "97695f45a70aef501009598de5eb25ae",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\decoder.ts": {
+    "mtime": 1780076208.1958556,
+    "ast_hash": "22087c5b3ea35cabfb26fc19ddddc12f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\encoder.ts": {
+    "mtime": 1780076208.196864,
+    "ast_hash": "d25e197b849f1b5fd53264f6fc01c68a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\events.ts": {
+    "mtime": 1780095469.4828777,
+    "ast_hash": "ae1765d851e739aeedd1fadfa588ded5",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\index.ts": {
+    "mtime": 1780076208.1988728,
+    "ast_hash": "74f40152a0f5047d4538826ec05413b2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\predictiveHtmlParser.ts": {
+    "mtime": 1780101870.8316214,
+    "ast_hash": "bdceb9a5849ee6381bc8a4f0cd79506c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\stream\\sse.ts": {
+    "mtime": 1780076208.2013712,
+    "ast_hash": "939b0f9a9c7d851edd6d63492d34d711",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\artifact.ts": {
+    "mtime": 1780095451.8548129,
+    "ast_hash": "8944023641678e64e7f3057d40d885d9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\client.ts": {
+    "mtime": 1780132501.3679368,
+    "ast_hash": "6f283fd1ff1fd9f775e3b3eb878b1a9b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\config.ts": {
+    "mtime": 1780130779.38806,
+    "ast_hash": "2dd177084af06df80568a09bc9ac8dd6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\errors.ts": {
+    "mtime": 1780076208.2058663,
+    "ast_hash": "c7f1948c1b4e37c6f04bc666689b64c5",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\index.ts": {
+    "mtime": 1780076208.206851,
+    "ast_hash": "3feeffc8051bfd81acae28fa3ce5a444",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\server.ts": {
+    "mtime": 1780131247.6713073,
+    "ast_hash": "7e45266d66f14a0dbf026f008b55de51",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\types\\stream.ts": {
+    "mtime": 1780095598.2948508,
+    "ast_hash": "a982ad293bb39c0d43e01dd6d1e1e626",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\index.ts": {
+    "mtime": 1780076208.21002,
+    "ast_hash": "81c351060605f43f92a344a60db3c006",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\invariant.ts": {
+    "mtime": 1780076208.2121127,
+    "ast_hash": "9d3b2fa4fa011e92ca3821080ee88c5e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\isBrowser.ts": {
+    "mtime": 1780076208.213031,
+    "ast_hash": "7b774fc3c2d835579a5d9dc00dec937c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\mergeConfig.ts": {
+    "mtime": 1780076208.2140298,
+    "ast_hash": "0b3a0f91eaa1b3636b3331c9adc7d689",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\noop.ts": {
+    "mtime": 1780076208.2150283,
+    "ast_hash": "cc944ae1eb1950e0e29404714f1b98e9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\src\\utils\\safeJsonParse.ts": {
+    "mtime": 1780076208.2160318,
+    "ast_hash": "41d2f4ced2c6bff802819b97ee5a3c44",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\assemble.test.mjs": {
+    "mtime": 1780076208.2170281,
+    "ast_hash": "60df704a2cae5b9e6544971a7d21557e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\buffering.test.mjs": {
+    "mtime": 1780102483.6012375,
+    "ast_hash": "65514e11c7bb3b69d1178319ec289deb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\classifier.test.mjs": {
+    "mtime": 1780099546.3371212,
+    "ast_hash": "61d702fd6a4e421d11f739fdfbf0d4d5",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\comprehensive-matrix.test.mjs": {
+    "mtime": 1780076208.2200284,
+    "ast_hash": "46a604b660ed07f27b00cc0e4077679b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\envelope.test.mjs": {
+    "mtime": 1780076208.2210288,
+    "ast_hash": "eb3dd85499d77c99742d59dbed1da236",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\iframe-srcdoc.test.mjs": {
+    "mtime": 1780134285.2212968,
+    "ast_hash": "56ea810f9ca1c4eaedb42a03ef96616f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\predictive-parser.test.mjs": {
+    "mtime": 1780102493.060801,
+    "ast_hash": "00e19e46e91066a5bed935dfb0ae40f6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\prompt.test.mjs": {
+    "mtime": 1780102453.322439,
+    "ast_hash": "f98a81ca1c4077fafd2d9ebce6652a52",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\provider-agnostic.test.mjs": {
+    "mtime": 1780095518.3887017,
+    "ast_hash": "3f49c70ffb175c0bdc240d708a5c0d74",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\sanitizer.test.mjs": {
+    "mtime": 1780131317.81132,
+    "ast_hash": "da252121883b1dbef2649e863e2d63cf",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\sse.test.mjs": {
+    "mtime": 1780076208.2284544,
+    "ast_hash": "19d25e647f83076834633a206f93349b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\test\\starter-prompts.test.mjs": {
+    "mtime": 1780134933.3290257,
+    "ast_hash": "b2134ae2e95b6ee9ba540af3aa1424d3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\AGENTS.md": {
+    "mtime": 1779994319.3464122,
+    "ast_hash": "9e09241799026ac05be315a2f0b50055",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\CLAUDE.md": {
+    "mtime": 1780178196.8318856,
+    "ast_hash": "b0517ee048d45b5cd5463430230eb52f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\README.md": {
+    "mtime": 1780147355.4042015,
+    "ast_hash": "b974079cbee5489e817a2808cb8e8b9d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\test.html": {
+    "mtime": 1780134107.6626327,
+    "ast_hash": "138fd7fb96a70fac2916a3da48c807d6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-core\\SKILL.md": {
+    "mtime": 1780052929.0362077,
+    "ast_hash": "442e31452152be4115b904fad0fa5487",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-frameworks\\SKILL.md": {
+    "mtime": 1780052929.0372105,
+    "ast_hash": "fbd4d542ae797fbe3a6eb34682b7d93f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-performance\\SKILL.md": {
+    "mtime": 1780052929.0382066,
+    "ast_hash": "70536cc5c8f8c017be0a4ed8104b9845",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-plugins\\SKILL.md": {
+    "mtime": 1780052929.0382066,
+    "ast_hash": "466d8913c840ca9b1d2abdecde473e2c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-react\\SKILL.md": {
+    "mtime": 1780052929.039562,
+    "ast_hash": "daa3ecc330a1ab075aab9475824af231",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-scrolltrigger\\SKILL.md": {
+    "mtime": 1780052929.0405748,
+    "ast_hash": "9aa0d62e6b138cee09bafe595da0319f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-timeline\\SKILL.md": {
+    "mtime": 1780052929.04122,
+    "ast_hash": "07da4abbe71ed29f1babd34be3b960b3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.agents\\skills\\gsap-utils\\SKILL.md": {
+    "mtime": 1780052929.042236,
+    "ast_hash": "ef6b75ec2464a7d95a7bb5cfa88cfa79",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.claude\\CLAUDE.md": {
+    "mtime": 1780178196.8308861,
+    "ast_hash": "817fe671013b35ae0bc9301dfe449a87",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\.claude\\skills\\graphify\\SKILL.md": {
+    "mtime": 1780178196.8288867,
+    "ast_hash": "e065bdafac4ca689ffd4e353ffd71160",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\CHANGELOG.md": {
+    "mtime": 1780132610.3531215,
+    "ast_hash": "bd44b7f44b06d3a05cd63e911e2bf63d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\README.md": {
+    "mtime": 1780176314.8239505,
+    "ast_hash": "93a9de9c24baae7f1de31038670f68bf",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\algorithmic-art\\LICENSE.txt": {
+    "mtime": 1780076207.5569143,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\algorithmic-art\\SKILL.md": {
+    "mtime": 1780076207.557916,
+    "ast_hash": "f11d383f0629547e91afb1eece7b3996",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\algorithmic-art\\templates\\viewer.html": {
+    "mtime": 1780076207.5605578,
+    "ast_hash": "ecb8ab7b293bc9e74bef130133260638",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\brand-guidelines\\LICENSE.txt": {
+    "mtime": 1780076207.562588,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\brand-guidelines\\SKILL.md": {
+    "mtime": 1780076207.56359,
+    "ast_hash": "102fdf2bc10ece32dd7a14fa75d0f435",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\LICENSE.txt": {
+    "mtime": 1780076207.5657108,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\SKILL.md": {
+    "mtime": 1780076207.5667884,
+    "ast_hash": "ec1c1087246e1007eb075b8a846e7180",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\ArsenalSC-OFL.txt": {
+    "mtime": 1780076207.568799,
+    "ast_hash": "055bd399651c728b58127489b203a607",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\BigShoulders-OFL.txt": {
+    "mtime": 1780076207.5759127,
+    "ast_hash": "b0ec6188dddb41bf5044b09a7491debc",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Boldonse-OFL.txt": {
+    "mtime": 1780076207.5797365,
+    "ast_hash": "854766d78df004c93bb082be848947b9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\BricolageGrotesque-OFL.txt": {
+    "mtime": 1780076207.5868125,
+    "ast_hash": "bd05ea51cf13ec198f9133c1f1f64da0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\CrimsonPro-OFL.txt": {
+    "mtime": 1780076207.595311,
+    "ast_hash": "333ff51d7c275eb19f486ec9abbf21af",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\DMMono-OFL.txt": {
+    "mtime": 1780076207.598338,
+    "ast_hash": "b03164427c6f0defd4796fd3f3fb0cf4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\EricaOne-OFL.txt": {
+    "mtime": 1780076207.6026516,
+    "ast_hash": "9ad51b36a93965acb98cf1c652c60970",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\GeistMono-OFL.txt": {
+    "mtime": 1780076207.6066499,
+    "ast_hash": "f07afc995766b888767e16ae8d119901",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Gloock-OFL.txt": {
+    "mtime": 1780076207.6107605,
+    "ast_hash": "3fcad5713c9b110fddef500d051ac585",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\IBMPlexMono-OFL.txt": {
+    "mtime": 1780076207.6167562,
+    "ast_hash": "992dcb568e1ffac11f740ee2fa1f028b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\InstrumentSans-OFL.txt": {
+    "mtime": 1780076207.6454263,
+    "ast_hash": "030a9e886b4fe2e1720b5db020eca3ad",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Italiana-OFL.txt": {
+    "mtime": 1780076207.6535811,
+    "ast_hash": "4447ac843a769071814ae5cab23693ec",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\JetBrainsMono-OFL.txt": {
+    "mtime": 1780076207.6591551,
+    "ast_hash": "d91d325d953444833285afa3b119e0fa",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Jura-OFL.txt": {
+    "mtime": 1780076207.6691675,
+    "ast_hash": "5aaa855638a6f50828766d1e9c876f4c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\LibreBaskerville-OFL.txt": {
+    "mtime": 1780076207.6701705,
+    "ast_hash": "585261c25563d76996884860f128bcf1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Lora-OFL.txt": {
+    "mtime": 1780076207.684242,
+    "ast_hash": "65d41d82ac358216fb2707da15c1d3fb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\NationalPark-OFL.txt": {
+    "mtime": 1780076207.689865,
+    "ast_hash": "367777dbf9fa1d1ef152fd06b5e08fc6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\NothingYouCouldDo-OFL.txt": {
+    "mtime": 1780076207.6928666,
+    "ast_hash": "42a7c035f1ddb3fcda7ddf746519b017",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Outfit-OFL.txt": {
+    "mtime": 1780076207.6984732,
+    "ast_hash": "af9efd1ed592546b9477763b02d684c1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\PixelifySans-OFL.txt": {
+    "mtime": 1780076207.7020586,
+    "ast_hash": "24ba91e15992e8bbd5a20db081d4d92f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\PoiretOne-OFL.txt": {
+    "mtime": 1780076207.7035797,
+    "ast_hash": "3d4cab0d7b79e053c1a40dab710bfc95",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\RedHatMono-OFL.txt": {
+    "mtime": 1780076207.7085972,
+    "ast_hash": "ef29b840f660a62db32c43d71a7280c0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Silkscreen-OFL.txt": {
+    "mtime": 1780076207.7112927,
+    "ast_hash": "6bd21d8f9817d19bb012997a9726d968",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\SmoochSans-OFL.txt": {
+    "mtime": 1780076207.7162993,
+    "ast_hash": "79208bd389da9f263bc0b3d79aaaa3f6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\Tektur-OFL.txt": {
+    "mtime": 1780076207.7192934,
+    "ast_hash": "5bf5c4d52bb660a0b29f6ca8d1d5b892",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\WorkSans-OFL.txt": {
+    "mtime": 1780076207.731493,
+    "ast_hash": "e5dd6bfc16fb9c9713dce1e02d877c90",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\canvas-design\\canvas-fonts\\YoungSerif-OFL.txt": {
+    "mtime": 1780076207.7364912,
+    "ast_hash": "016f9e9ecf329086639c0e1b542bf9a6",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\LICENSE.txt": {
+    "mtime": 1780076207.7412674,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\SKILL.md": {
+    "mtime": 1780076207.7422807,
+    "ast_hash": "06ec1be39c56d19c0745d168e21d26ea",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\csharp\\claude-api.md": {
+    "mtime": 1780076207.74528,
+    "ast_hash": "8be8d0d41c4ce7b8a1e3026ee984ff9d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\curl\\examples.md": {
+    "mtime": 1780076207.7462883,
+    "ast_hash": "5affcb470dbb946170b0767e9fbaf046",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\curl\\managed-agents.md": {
+    "mtime": 1780076207.74728,
+    "ast_hash": "456adee669f8886429a4cc7527a38f90",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\go\\claude-api.md": {
+    "mtime": 1780076207.748621,
+    "ast_hash": "82d15f3caadf110ecf2c50b9fae3b07c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\go\\managed-agents\\README.md": {
+    "mtime": 1780076207.7499528,
+    "ast_hash": "d91bb62e57a6731e921bbf3148b2dd20",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\java\\claude-api.md": {
+    "mtime": 1780076207.7510264,
+    "ast_hash": "3d0f8bbdeac57788e5c91cd40e11f2c7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\java\\managed-agents\\README.md": {
+    "mtime": 1780076207.7531579,
+    "ast_hash": "816f8faa24a1f3924ba4e2c655cfc52d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\php\\claude-api.md": {
+    "mtime": 1780076207.755115,
+    "ast_hash": "6f2748c09b3bca059647050961f4c58d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\php\\managed-agents\\README.md": {
+    "mtime": 1780076207.7570536,
+    "ast_hash": "5d28efe6e7f40a31f078b6420247338f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\claude-api\\batches.md": {
+    "mtime": 1780076207.7590365,
+    "ast_hash": "1af879cf6acb94925a67e3d63b8a8999",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\claude-api\\files-api.md": {
+    "mtime": 1780076207.7600422,
+    "ast_hash": "a01b603977f1d3baecfe0ad025116176",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\claude-api\\README.md": {
+    "mtime": 1780076207.7580361,
+    "ast_hash": "e959aa36d822663c4e9942279bf69321",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\claude-api\\streaming.md": {
+    "mtime": 1780076207.7612772,
+    "ast_hash": "95ff7f4cfb98293082f539739f348964",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\claude-api\\tool-use.md": {
+    "mtime": 1780076207.7623582,
+    "ast_hash": "67075d1948b34d976e8069dac521fb52",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\python\\managed-agents\\README.md": {
+    "mtime": 1780076207.764515,
+    "ast_hash": "23aa781abcf22b70f24d39aa8db5122d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\ruby\\claude-api.md": {
+    "mtime": 1780076207.765544,
+    "ast_hash": "26344f2ae067ac5dc6e77b09670568bd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\ruby\\managed-agents\\README.md": {
+    "mtime": 1780076207.767578,
+    "ast_hash": "8e7314b0f4f99c0fbf3fc5723cb619f0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\agent-design.md": {
+    "mtime": 1780076207.7685966,
+    "ast_hash": "7fb74ec0fd1ba453a4ece66261f26a6e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\error-codes.md": {
+    "mtime": 1780076207.7695415,
+    "ast_hash": "5fd795eb7a1e86a3b84b4941d93ec74c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\live-sources.md": {
+    "mtime": 1780076207.7705982,
+    "ast_hash": "96ce27f3e55a00fb77257272b5c8f8c8",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-api-reference.md": {
+    "mtime": 1780076207.771685,
+    "ast_hash": "04d6f0ac2d77e9938a80def63f1d2c39",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-client-patterns.md": {
+    "mtime": 1780076207.7727156,
+    "ast_hash": "d37f48b54486387eca705028aac1a56e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-core.md": {
+    "mtime": 1780076207.7746997,
+    "ast_hash": "a1642fb8aae7dd17581191a14ca4dbb0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-environments.md": {
+    "mtime": 1780076207.7756948,
+    "ast_hash": "a8f43b020c0e9d5b300b1641e699ed8d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-events.md": {
+    "mtime": 1780076207.7756948,
+    "ast_hash": "f5b4de2032a32f8d681c8ce01afeefb9",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-memory.md": {
+    "mtime": 1780076207.777111,
+    "ast_hash": "cf063ff02e235d9df12cbe3f748dad01",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-multiagent.md": {
+    "mtime": 1780076207.7786505,
+    "ast_hash": "1cdae4a88094c921e4796173ba625758",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-onboarding.md": {
+    "mtime": 1780076207.7796607,
+    "ast_hash": "334b26e6a4364ae5a2b95c005ab3dfaf",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-outcomes.md": {
+    "mtime": 1780076207.7808087,
+    "ast_hash": "de6ff6bb5910b82c8b0a265c12d40c94",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-overview.md": {
+    "mtime": 1780076207.781868,
+    "ast_hash": "d9f5cb1fdb76660eac732b2599acdc3f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-self-hosted-sandboxes.md": {
+    "mtime": 1780076207.7828214,
+    "ast_hash": "3b6bdfe27c7c28dc9b0f63fe03407eeb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-tools.md": {
+    "mtime": 1780076207.7838204,
+    "ast_hash": "d2e053e0c8825c695dd98a163b0ad2de",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\managed-agents-webhooks.md": {
+    "mtime": 1780076207.7849526,
+    "ast_hash": "f7fef42c88e2ce7b1b5101ea73e95fae",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\model-migration.md": {
+    "mtime": 1780076207.786856,
+    "ast_hash": "268310bee7689ea0b097fda719e08044",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\models.md": {
+    "mtime": 1780076207.7897546,
+    "ast_hash": "cccf59f280cac79f9fce88e668aa5e3f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\prompt-caching.md": {
+    "mtime": 1780076207.7912636,
+    "ast_hash": "8edc804a243aaa1bb42fa71b35df01ea",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\shared\\tool-use-concepts.md": {
+    "mtime": 1780076207.7928998,
+    "ast_hash": "5923205d07b7db67144f5f9e5b6770f2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\claude-api\\batches.md": {
+    "mtime": 1780076207.7969,
+    "ast_hash": "389b835fa2e211fe5485075a65a5afb3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\claude-api\\files-api.md": {
+    "mtime": 1780076207.7978995,
+    "ast_hash": "ae80dbefe5165f644a3546f0e2406c14",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\claude-api\\README.md": {
+    "mtime": 1780076207.795902,
+    "ast_hash": "b227167e9a241bfce3b18ee12ca15aed",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\claude-api\\streaming.md": {
+    "mtime": 1780076207.798899,
+    "ast_hash": "12abc9d1edbb9ceefffc331259cff3da",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\claude-api\\tool-use.md": {
+    "mtime": 1780076207.799949,
+    "ast_hash": "eecf45e484d8221f66d1325ceb707719",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\claude-api\\typescript\\managed-agents\\README.md": {
+    "mtime": 1780076207.801965,
+    "ast_hash": "092d955889b9887b95b51381238523f1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\doc-coauthoring\\SKILL.md": {
+    "mtime": 1780076207.8045633,
+    "ast_hash": "448f6cbc107dea2926a16012c9b994c0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\LICENSE.txt": {
+    "mtime": 1780076207.8065715,
+    "ast_hash": "03077c38ac09b5515927eb4d5cf12484",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\docx\\SKILL.md": {
+    "mtime": 1780076207.8085747,
+    "ast_hash": "b896f8b16dd45347a52118288fbe9e06",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\frontend-design\\LICENSE.txt": {
+    "mtime": 1780076207.8846405,
+    "ast_hash": "29256199be2a609aac596980ffc11996",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\frontend-design\\SKILL.md": {
+    "mtime": 1780076207.885645,
+    "ast_hash": "400c8b8231420f30b48aed0a6f37df9f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\html-practices\\SKILL.md": {
+    "mtime": 1780094018.5240023,
+    "ast_hash": "34f7fa0161de14c577f330ed4bbfacb0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\LICENSE.txt": {
+    "mtime": 1780076207.8891575,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\SKILL.md": {
+    "mtime": 1780076207.8906603,
+    "ast_hash": "71f265f56df2c640d8487a11662ad100",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\examples\\3p-updates.md": {
+    "mtime": 1780076207.8926735,
+    "ast_hash": "2527d29b082eb0ad7a8f7e0b40505cc2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\examples\\company-newsletter.md": {
+    "mtime": 1780076207.893675,
+    "ast_hash": "fc73c156d851e5da9be6a75b73872233",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\examples\\faq-answers.md": {
+    "mtime": 1780076207.8947394,
+    "ast_hash": "a432e0062aca8e1f32ef5823a250a420",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\internal-comms\\examples\\general-comms.md": {
+    "mtime": 1780076207.8957455,
+    "ast_hash": "e7df9737d246ee8d0d8058612b94dfff",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\LICENSE.txt": {
+    "mtime": 1780076207.8967462,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\SKILL.md": {
+    "mtime": 1780076207.8984387,
+    "ast_hash": "9905c569b29714bfaa92f0caabc231fd",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\reference\\evaluation.md": {
+    "mtime": 1780076207.899924,
+    "ast_hash": "c20f36eb6a9e8f0e7bdbe625a54f4396",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\reference\\mcp_best_practices.md": {
+    "mtime": 1780076207.9009316,
+    "ast_hash": "40b4b4097253fe25a37bc1cd8c8e4728",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\reference\\node_mcp_server.md": {
+    "mtime": 1780076207.902127,
+    "ast_hash": "a25cf11720e6f4e956aeb3e02e0aa651",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\reference\\python_mcp_server.md": {
+    "mtime": 1780076207.9031353,
+    "ast_hash": "b6e242e5cf7bc8d30abc7bbd4d9a21ec",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\mcp-builder\\scripts\\requirements.txt": {
+    "mtime": 1780076207.9082212,
+    "ast_hash": "6b5eb2873ee0dd7a24a96d89cced5c38",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\forms.md": {
+    "mtime": 1780076207.9122434,
+    "ast_hash": "6e2413286cceefab10fab9cd1cb59c97",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\LICENSE.txt": {
+    "mtime": 1780076207.9092276,
+    "ast_hash": "03077c38ac09b5515927eb4d5cf12484",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\reference.md": {
+    "mtime": 1780076207.9132392,
+    "ast_hash": "e648d10ba8cb9629ed12312b6da4279e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pdf\\SKILL.md": {
+    "mtime": 1780076207.9102352,
+    "ast_hash": "8609b5c38f8cc19061b2a459080b5b43",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\editing.md": {
+    "mtime": 1780076207.9242332,
+    "ast_hash": "33876e66c94438d1e0dd297bd1adef1e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\LICENSE.txt": {
+    "mtime": 1780076207.9222345,
+    "ast_hash": "03077c38ac09b5515927eb4d5cf12484",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\pptxgenjs.md": {
+    "mtime": 1780076207.9248548,
+    "ast_hash": "954ae9672dcf717aed943d1009f1c53a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\pptx\\SKILL.md": {
+    "mtime": 1780076207.9232352,
+    "ast_hash": "5b9da5ed820b9eca927d9909531ac867",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\LICENSE.txt": {
+    "mtime": 1780076207.9864707,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\SKILL.md": {
+    "mtime": 1780076207.9885118,
+    "ast_hash": "26aa26467de6ecf13ce7047858007335",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\agents\\analyzer.md": {
+    "mtime": 1780076207.989528,
+    "ast_hash": "60ccb8eaf4baa1284f3d5833ae0992bb",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\agents\\comparator.md": {
+    "mtime": 1780076207.9905107,
+    "ast_hash": "142cb6a33c43956ad89e328a6a0bcc24",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\agents\\grader.md": {
+    "mtime": 1780076207.9921565,
+    "ast_hash": "a20d81caedc41baa552eee0dedfad071",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\assets\\eval_review.html": {
+    "mtime": 1780076207.9931684,
+    "ast_hash": "b4ec70f8062506594d13a550e9128205",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\eval-viewer\\viewer.html": {
+    "mtime": 1780076207.9965117,
+    "ast_hash": "1bfb666af186113482785fd24c69b342",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\skill-creator\\references\\schemas.md": {
+    "mtime": 1780076207.9985611,
+    "ast_hash": "914dfa3b885881574e14b406d8c23465",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\LICENSE.txt": {
+    "mtime": 1780076208.0090556,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\requirements.txt": {
+    "mtime": 1780076208.0150585,
+    "ast_hash": "6e878621a62eaf95713eb5b7c8e3baa4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\slack-gif-creator\\SKILL.md": {
+    "mtime": 1780076208.0100563,
+    "ast_hash": "bc51079f6b23e429198bfaf3e651f8a1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\LICENSE.txt": {
+    "mtime": 1780076208.0160592,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\SKILL.md": {
+    "mtime": 1780076208.0170574,
+    "ast_hash": "c7ab1d4f2f9e992f7ccb251d03cfd69d",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\arctic-frost.md": {
+    "mtime": 1780076208.0200598,
+    "ast_hash": "ef05f8f80b89ae7b4898d789d85b4d7b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\botanical-garden.md": {
+    "mtime": 1780076208.0213976,
+    "ast_hash": "e0a5782e1ead0c52a1f658109e73a350",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\desert-rose.md": {
+    "mtime": 1780076208.0213976,
+    "ast_hash": "780c603034a9c9f7e3609d6b3b64930c",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\forest-canopy.md": {
+    "mtime": 1780076208.0224094,
+    "ast_hash": "53d611e6a1f4c713ab40e92e442e934a",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\golden-hour.md": {
+    "mtime": 1780076208.0239186,
+    "ast_hash": "e7cd662cec6c99b63e6bce7f9db38d87",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\midnight-galaxy.md": {
+    "mtime": 1780076208.0245857,
+    "ast_hash": "049f2efc49b6cb41fd745261ef8a65c7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\modern-minimalist.md": {
+    "mtime": 1780076208.0255914,
+    "ast_hash": "2f3a65cdd67ee76f120056f0d3b794d2",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\ocean-depths.md": {
+    "mtime": 1780076208.0255914,
+    "ast_hash": "77f312beccb1b42e19e6c4444cf42454",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\sunset-boulevard.md": {
+    "mtime": 1780076208.0270066,
+    "ast_hash": "f833585a07217fb5a6cdc39c67b1f685",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\themes\\tech-innovation.md": {
+    "mtime": 1780076208.0283074,
+    "ast_hash": "d377455e687701c32962078505f4d995",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\README.md": {
+    "mtime": 1780131462.9338582,
+    "ast_hash": "580d472d4754ada3f27fa7dd9ad85f65",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\template.html": {
+    "mtime": 1780131017.065707,
+    "ast_hash": "0ff2aea80f6fa5b85a13413c541630fe",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-animation\\SKILL.md": {
+    "mtime": 1780128945.4827924,
+    "ast_hash": "889523a4b978de3a3b8c20028c9a87f4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-fundamentals\\SKILL.md": {
+    "mtime": 1780131451.638651,
+    "ast_hash": "d09910ee9537296fedc9716093c98a22",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-games\\SKILL.md": {
+    "mtime": 1780131436.1675537,
+    "ast_hash": "3dac9863bb88fc9a173022ab7bc646ed",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-geometry\\SKILL.md": {
+    "mtime": 1780128945.5056186,
+    "ast_hash": "44f615adaf9af4da6200e2833088fc2b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-interaction\\SKILL.md": {
+    "mtime": 1780128945.5192893,
+    "ast_hash": "f21d928de97c85b259a2441f600de054",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-lighting\\SKILL.md": {
+    "mtime": 1780128945.531318,
+    "ast_hash": "552d5331ad2f789fd75b98ac70b9f3d4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-loaders\\SKILL.md": {
+    "mtime": 1780131491.5147252,
+    "ast_hash": "4c932f72fa79dc3ae0a43e278200558f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-materials\\SKILL.md": {
+    "mtime": 1780128945.5571814,
+    "ast_hash": "ba143d4be6aa2d2534c90a81bff8fb82",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-postprocessing\\SKILL.md": {
+    "mtime": 1780128945.570823,
+    "ast_hash": "2b92954c287e43b638d55111179ac64b",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-shaders\\SKILL.md": {
+    "mtime": 1780128945.5823355,
+    "ast_hash": "fb7afc360f8f09f628f27bab103bc90f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\threejs-skills-main\\skills\\threejs-textures\\SKILL.md": {
+    "mtime": 1780128945.5955336,
+    "ast_hash": "a9f9e1949599617a5a803bcbc7afbad3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\web-artifacts-builder\\LICENSE.txt": {
+    "mtime": 1780076208.0295284,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\web-artifacts-builder\\SKILL.md": {
+    "mtime": 1780076208.0295284,
+    "ast_hash": "c33e090026d10372bd5789aad5354451",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\LICENSE.txt": {
+    "mtime": 1780076208.034714,
+    "ast_hash": "b895df9142976f87a996eaf2e50fcfc0",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\webapp-testing\\SKILL.md": {
+    "mtime": 1780076208.0357227,
+    "ast_hash": "3becd8cd21604694b63809e483bc31a7",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\writing-skill\\SKILL.md": {
+    "mtime": 1780076208.041305,
+    "ast_hash": "daf293b06fac1de9f0f9af99167e89d5",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\LICENSE.txt": {
+    "mtime": 1780076208.0433145,
+    "ast_hash": "03077c38ac09b5515927eb4d5cf12484",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\xlsx\\SKILL.md": {
+    "mtime": 1780076208.0443316,
+    "ast_hash": "5790aed000cb37f8ea00d3976bf226d1",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\spec\\agent-skills-spec.md": {
+    "mtime": 1780076208.1073632,
+    "ast_hash": "e65efe594373d41fa1898799b7b06adf",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\template\\SKILL.md": {
+    "mtime": 1780076208.1086106,
+    "ast_hash": "f9418f9a1816bd626ed61fc015dde278",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\packages\\ai-html-artifacts\\agent-instructions\\skills\\theme-factory\\theme-showcase.pdf": {
+    "mtime": 1780076208.019055,
+    "ast_hash": "ec8fbdc541a62160430606c2ff0a0577",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\app\\icon.svg": {
+    "mtime": 1780055014.1211934,
+    "ast_hash": "1396d74bca8611b6db0f9ea4080ed173",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\artifact-1.png": {
+    "mtime": 1780145666.5399194,
+    "ast_hash": "2db08302eaf687bd22972309d2469412",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\artifact-2.png": {
+    "mtime": 1780145747.5858853,
+    "ast_hash": "e66f67d50e234db5db8dc02f4d356663",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\file.svg": {
+    "mtime": 1779994266.518726,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\game.png": {
+    "mtime": 1780145689.222134,
+    "ast_hash": "456c400f5844aa4200f5f1c688f712ee",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\genui-1.png": {
+    "mtime": 1780145586.149359,
+    "ast_hash": "be61ea217f98c66e6e6d9b957abb16d3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\genui-2.png": {
+    "mtime": 1780145655.9602492,
+    "ast_hash": "2d0e3472a3fe465bcd748df1b4b3e93f",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\globe.svg": {
+    "mtime": 1779994266.5257263,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\markdown.png": {
+    "mtime": 1780145714.9419906,
+    "ast_hash": "bb25ee5a1f955b295db31075c2de9af4",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\Netra-white.svg": {
+    "mtime": 1780055825.753384,
+    "ast_hash": "48dc54f5ef27cac2634203462e0cdcda",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\Netra.svg": {
+    "mtime": 1780054892.2446342,
+    "ast_hash": "05dfaae6c39fc3287c344df82223f0e3",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\next.svg": {
+    "mtime": 1779994266.5330722,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\vercel.svg": {
+    "mtime": 1779994266.5393107,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "C:\\exp\\my-app\\public\\window.svg": {
+    "mtime": 1779994266.5450177,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  }
+}

@@ -1,0 +1,4 @@
+# graphify knowledge-graph memory layer: union-merge the generated graph so
+# concurrent commits don't hard-conflict. Driver: `graphify merge-driver`.
+graphify-out/graph.json merge=graphify
+graphify-out/manifest.json merge=graphify
