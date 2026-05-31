@@ -91,4 +91,5 @@ export const PROVIDERS: { id: string; name: string; defaultModel: string; hint: 
   { id: "openai", name: "OpenAI", defaultModel: "gpt-4o", hint: "sk-…" },
   { id: "deepseek", name: "DeepSeek", defaultModel: "deepseek-chat", hint: "sk-…" },
   { id: "openrouter", name: "OpenRouter", defaultModel: "google/gemini-2.5-flash", hint: "sk-or-…" },
+  { id: "groq", name: "Groq", defaultModel: "llama-3.3-70b-versatile", hint: "gsk_…" },
 ];

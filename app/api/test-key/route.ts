@@ -2,6 +2,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { createOpenAI } from "@ai-sdk/openai";
 import { createDeepSeek } from "@ai-sdk/deepseek";
+import { createGroq } from "@ai-sdk/groq";
 import { generateText } from "ai";
 
 export async function POST(req: Request) {
@@ -17,13 +18,16 @@ export async function POST(req: Request) {
         aiModel = createAnthropic({ apiKey })(modelId || "claude-3-5-sonnet-latest");
         break;
       case "openai":
-        aiModel = createOpenAI({ apiKey })(modelId || "gpt-4o");
+        aiModel = createOpenAI({ apiKey }).chat(modelId || "gpt-4o");
         break;
       case "deepseek":
         aiModel = createDeepSeek({ apiKey })(modelId || "deepseek-chat");
         break;
+      case "groq":
+        aiModel = createGroq({ apiKey })(modelId || "llama-3.3-70b-versatile");
+        break;
       case "openrouter":
-        aiModel = createOpenAI({ apiKey, baseURL: "https://openrouter.ai/api/v1" })(modelId || "google/gemini-2.5-flash");
+        aiModel = createOpenAI({ apiKey, baseURL: "https://openrouter.ai/api/v1" }).chat(modelId || "google/gemini-2.5-flash");
         break;
       default:
         return new Response(JSON.stringify({ error: "Invalid provider" }), { status: 400 });

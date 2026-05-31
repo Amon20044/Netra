@@ -2,6 +2,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createDeepSeek } from '@ai-sdk/deepseek';
+import { createGroq } from '@ai-sdk/groq';
 import { createArtifactStreamResponse } from 'netra-artifacts/server';
 import { generateText, streamText } from 'ai';
 import type { CoreMessage, GenerateText, GenerateTextStream } from 'netra-artifacts/server';
@@ -39,13 +40,19 @@ export async function POST(req: Request) {
       aiModel = createAnthropic({ apiKey })(modelId);
       break;
     case 'openai':
-      aiModel = createOpenAI({ apiKey })(modelId);
+      // .chat() = Chat Completions. The default openai(modelId) uses the
+      // Responses API, which OpenAI-compatible gateways don't implement.
+      aiModel = createOpenAI({ apiKey }).chat(modelId);
       break;
     case 'deepseek':
       aiModel = createDeepSeek({ apiKey })(modelId);
       break;
+    case 'groq':
+      aiModel = createGroq({ apiKey })(modelId);
+      break;
     case 'openrouter':
-      aiModel = createOpenAI({ apiKey, baseURL: 'https://openrouter.ai/api/v1' })(modelId);
+      // OpenRouter only speaks Chat Completions — never the Responses API.
+      aiModel = createOpenAI({ apiKey, baseURL: 'https://openrouter.ai/api/v1' }).chat(modelId);
       break;
     default:
       aiModel = createGoogleGenerativeAI({ apiKey })(modelId);

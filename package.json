@@ -9,12 +9,13 @@
     "build:pkg": "npm run build --workspace netra-artifacts"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.81",
-    "@ai-sdk/deepseek": "^2.0.35",
-    "@ai-sdk/google": "^2",
-    "@ai-sdk/openai": "^3.0.66",
+    "@ai-sdk/anthropic": "^4.0.0-canary.61",
+    "@ai-sdk/deepseek": "^3.0.0-canary.49",
+    "@ai-sdk/google": "^4.0.0-canary.75",
+    "@ai-sdk/groq": "^4.0.0-canary.49",
+    "@ai-sdk/openai": "^4.0.0-canary.66",
     "@vercel/analytics": "^2.0.1",
-    "ai": "^5",
+    "ai": "^7.0.0-canary.159",
     "dompurify": "^3.4.7",
     "doodle-icons": "^1.1.0",
     "gsap": "^3.15.0",

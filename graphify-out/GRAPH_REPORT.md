@@ -1,16 +1,16 @@
 # Graph Report - my-app  (2026-05-31)
 
 ## Corpus Check
-- 405 files · ~444,321 words
+- 405 files · ~444,853 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3871 nodes · 4731 edges · 275 communities (248 shown, 27 thin omitted)
+- 3873 nodes · 4733 edges · 279 communities (251 shown, 28 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.66)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `e033a8e3`
+- Built from commit: `f7ae83b4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -233,6 +233,7 @@
 - [[_COMMUNITY_Community 215|Community 215]]
 - [[_COMMUNITY_Community 216|Community 216]]
 - [[_COMMUNITY_Community 217|Community 217]]
+- [[_COMMUNITY_Community 218|Community 218]]
 - [[_COMMUNITY_Community 219|Community 219]]
 - [[_COMMUNITY_Community 220|Community 220]]
 - [[_COMMUNITY_Community 221|Community 221]]
@@ -247,6 +248,10 @@
 - [[_COMMUNITY_Community 234|Community 234]]
 - [[_COMMUNITY_Community 238|Community 238]]
 - [[_COMMUNITY_Community 239|Community 239]]
+- [[_COMMUNITY_Community 275|Community 275]]
+- [[_COMMUNITY_Community 277|Community 277]]
+- [[_COMMUNITY_Community 278|Community 278]]
+- [[_COMMUNITY_Community 282|Community 282]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `BaseSchemaValidator` - 33 edges
@@ -275,7 +280,7 @@
 ## Import Cycles
 - 1-file cycle: `packages/ai-html-artifacts/agent-instructions/skills/mcp-builder/scripts/evaluation.py -> packages/ai-html-artifacts/agent-instructions/skills/mcp-builder/scripts/evaluation.py`
 
-## Communities (275 total, 27 thin omitted)
+## Communities (279 total, 28 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -283,15 +288,15 @@ Nodes (44): ChatRequestBody, VercelLanguageModel, AuroraBackground(), ChatExperi
 
 ### Community 1 - "Community 1"
 Cohesion: 0.06
-Nodes (40): ABC, Anthropic, Any, str, Any, int, Path, str (+32 more)
+Nodes (41): ABC, Anthropic, Any, str, Any, int, Path, str (+33 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.05
 Nodes (25): cleanArtifactHtml(), cleanStreamingPrefix(), deriveMessage(), findBareHtmlStart(), GUARD, parseArtifactEnvelope(), parseTitle(), recoverBareHtml() (+17 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.06
-Nodes (30): CircuitBreakerOptions, CircuitStatus, CircuitState, CircuitStore, defaultCircuitStore, CIRCUIT_BREAKER_DEFAULTS, CircuitBreaker, MemoryCircuitStore (+22 more)
+Cohesion: 0.13
+Nodes (22): DEFAULT_SANITIZE_OPTIONS, escapeHtml(), escapeHtmlAttribute(), filterImportMapping(), normalizeAllowedImportmap(), normalizeAllowedInlineScript(), normalizeTrustedVideoIframe(), normalizeYouTubeEmbedUrl() (+14 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.06
@@ -301,13 +306,9 @@ Nodes (24): EnvelopeStreamEvent, ParserState, cleanArtifactHtml(), cleanStreamin
 Cohesion: 0.06
 Nodes (10): int, BaseSchemaValidator, Base validator with common validation logic for document files., Validator for Word document XML files against XSD schemas., Validation modules for Word document processing., PPTXSchemaValidator, Validator for PowerPoint presentation XML files against XSD schemas., int (+2 more)
 
-### Community 6 - "Community 6"
-Cohesion: 0.06
-Nodes (10): int, BaseSchemaValidator, Base validator with common validation logic for document files., Validator for Word document XML files against XSD schemas., Validation modules for Word document processing., PPTXSchemaValidator, Validator for PowerPoint presentation XML files against XSD schemas., int (+2 more)
-
 ### Community 7 - "Community 7"
-Cohesion: 0.09
-Nodes (26): ArtifactChatProps, ArtifactMessageProps, STARTER_PROMPTS, StarterPrompt, HtmlArtifactToolbarProps, ArtifactStore, ArtifactChat(), btn() (+18 more)
+Cohesion: 0.10
+Nodes (24): ArtifactChatProps, ArtifactMessageProps, STARTER_PROMPTS, StarterPrompt, HtmlArtifactToolbarProps, ArtifactChat(), btn(), ORDER_JSON (+16 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.04
@@ -346,24 +347,24 @@ Cohesion: 0.05
 Nodes (36): Best practices, CustomBounce, CustomEase, CustomWiggle, Development, Do Not, DOM / UI, Draggable (+28 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.07
-Nodes (25): ArtifactMessage_js_1, jsx_runtime_1, React, starterPrompts_js_1, useArtifactStream_js_1, HtmlArtifactCard_js_1, jsx_runtime_1, MarkdownMessage_js_1 (+17 more)
+Cohesion: 0.08
+Nodes (21): ArtifactMessage_js_1, jsx_runtime_1, React, starterPrompts_js_1, useArtifactStream_js_1, HtmlArtifactCard_js_1, jsx_runtime_1, MarkdownMessage_js_1 (+13 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.10
-Nodes (19): SSE_HEADERS, ArtifactStreamProducer, Emit, createArtifactId(), createMessageId(), randomId(), htmlBreaker, normalizeMode() (+11 more)
+Cohesion: 0.15
+Nodes (10): SSE_HEADERS, ArtifactStreamProducer, Emit, createArtifactId(), createMessageId(), randomId(), htmlBreaker, normalizeMode() (+2 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.08
-Nodes (16): DEFAULT_PREVIEW_OPTIONS, DEFAULT_SANITIZE_OPTIONS, HtmlArtifactCodeViewProps, Device, HtmlArtifactModalProps, HtmlArtifactPreviewProps, AutoSizeOptions, BuildSrcDocOptions (+8 more)
+Cohesion: 0.09
+Nodes (15): DEFAULT_PREVIEW_OPTIONS, HtmlArtifactCodeViewProps, Device, HtmlArtifactModalProps, HtmlArtifactPreviewProps, AutoSizeOptions, BuildSrcDocOptions, pre (+7 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.05
 Nodes (36): Advanced FastMCP Features, Advanced Features (where applicable), Async/Await Best Practices, Code Best Practices, Code Composability and Reusability, Code Quality, Complete Example, Context Parameter Injection (+28 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.06
-Nodes (35): dependencies, ai, @ai-sdk/anthropic, @ai-sdk/deepseek, @ai-sdk/google, @ai-sdk/openai, dompurify, doodle-icons (+27 more)
+Cohesion: 0.05
+Nodes (36): dependencies, ai, @ai-sdk/anthropic, @ai-sdk/deepseek, @ai-sdk/google, @ai-sdk/groq, @ai-sdk/openai, dompurify (+28 more)
 
 ### Community 22 - "Community 22"
 Cohesion: 0.06
@@ -394,12 +395,12 @@ Cohesion: 0.10
 Nodes (17): SseDecoder, encodeSseEvent(), encodeSseEventBytes(), Debounced, ArtifactDeltaEvent, ArtifactDoneEvent, ArtifactSnapshotEvent, ArtifactStartEvent (+9 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.07
-Nodes (29): `ArtifactMessage` — the renderer, Backend — one route handler, Build your own UI, Contributing — we're inviting you, `createArtifactStreamResponse` — the one initializer, Don't stream Markdown. Stream **UI**., Frontend, Frontend — one hook + one component (+21 more)
+Cohesion: 0.06
+Nodes (30): `ArtifactMessage` — the renderer, Backend — one route handler, Build your own UI, Continuing this work with an AI assistant (graphify memory layer), Contributing — we're inviting you, `createArtifactStreamResponse` — the one initializer, Don't stream Markdown. Stream **UI**., Frontend (+22 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.09
-Nodes (14): ClassificationResult, ClassifyModeParams, RuleClassification, classifyMode(), normalizeClassificationMode(), GENERATIVE_UI_SIGNALS, TEXTUAL_SIGNALS, VISUAL_SIGNALS (+6 more)
+Cohesion: 0.16
+Nodes (12): ClassificationResult, ClassifyModeParams, RuleClassification, classifyMode(), normalizeClassificationMode(), GENERATIVE_UI_SIGNALS, TEXTUAL_SIGNALS, VISUAL_SIGNALS (+4 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.07
@@ -506,8 +507,8 @@ Cohesion: 0.16
 Nodes (16): buildArtifactIdentityRule(), buildFontRule(), buildFormRule(), buildHardRules(), buildHtmlArtifactPrompt(), buildOutputFormat(), buildPresentationRule(), buildScriptRule() (+8 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.15
-Nodes (19): latestUserText(), messageToText(), HtmlPromptOptions, ArtifactPresentation, ArtifactStyleProfile, ArtifactTheme, ArtifactModeOption, ClassificationDecision (+11 more)
+Cohesion: 0.10
+Nodes (25): latestUserText(), messageToText(), composeSystem(), streamHtmlArtifact(), streamHtmlArtifactFromTextStream(), composeSystem(), streamMarkdown(), streamMarkdownFromTextStream() (+17 more)
 
 ### Community 59 - "Community 59"
 Cohesion: 0.09
@@ -582,11 +583,11 @@ Cohesion: 0.11
 Nodes (18): Avoid (Common Mistakes), Before Starting, Color Palettes, Content QA, Converting to Images, Creating from Scratch, Dependencies, Design Ideas (+10 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.11
-Nodes (13): HtmlArtifactCodeView_js_1, HtmlArtifactModal_js_1, HtmlArtifactPreview_js_1, HtmlArtifactToolbar_js_1, iframeSrcDoc_js_1, jsx_runtime_1, React, styles_js_1 (+5 more)
+Cohesion: 0.07
+Nodes (19): HtmlArtifactCodeView_js_1, HtmlArtifactModal_js_1, HtmlArtifactPreview_js_1, HtmlArtifactToolbar_js_1, iframeSrcDoc_js_1, jsx_runtime_1, React, styles_js_1 (+11 more)
 
 ### Community 78 - "Community 78"
-Cohesion: 0.15
+Cohesion: 0.13
 Nodes (14): artifactEnvelope_js_1, sandbox_js_1, sanitizeHtml_js_1, trustedCdnHosts_js_1, buildModuleCspMeta(), buildSrcDoc(), injectIntoHead(), inlineCamouflageHtml() (+6 more)
 
 ### Community 79 - "Community 79"
@@ -610,8 +611,8 @@ Cohesion: 0.20
 Nodes (17): buildArtifactIdentityRule(), buildFontRule(), buildFormRule(), buildHardRules(), buildHtmlArtifactPrompt(), buildOutputFormat(), buildPresentationRule(), buildScriptRule() (+9 more)
 
 ### Community 84 - "Community 84"
-Cohesion: 0.15
-Nodes (10): ArtifactAesthetic, ArtifactColorScheme, ArtifactDensity, ArtifactFont, ArtifactMood, ArtifactRadius, ArtifactStatus, ArtifactVisualComplexity (+2 more)
+Cohesion: 0.12
+Nodes (12): ArtifactStore, ArtifactAesthetic, ArtifactColorScheme, ArtifactDensity, ArtifactFont, ArtifactMood, ArtifactRadius, ArtifactStatus (+4 more)
 
 ### Community 85 - "Community 85"
 Cohesion: 0.11
@@ -762,15 +763,15 @@ Cohesion: 0.36
 Nodes (12): Image, int, Path, str, build_slide_list(), convert_to_images(), create_grid(), create_grids() (+4 more)
 
 ### Community 122 - "Community 122"
-Cohesion: 0.17
-Nodes (6): jsx_runtime_1, React, styles_js_1, react_1, React, DEVICES
+Cohesion: 0.14
+Nodes (8): CircuitBreakerOptions, CircuitStatus, CircuitState, CircuitStore, defaultCircuitStore, CIRCUIT_BREAKER_DEFAULTS, CircuitBreaker, MemoryCircuitStore
 
 ### Community 123 - "Community 123"
 Cohesion: 0.17
 Nodes (7): latestUserText(), messageToText(), systemPrompt_js_1, systemPrompt_js_1, defaults_js_1, htmlArtifactPrompt_js_1, markdownPrompt_js_1
 
 ### Community 124 - "Community 124"
-Cohesion: 0.26
+Cohesion: 0.23
 Nodes (5): ArtifactParseError, ClassificationError, StreamError, ArtifactErrorCode, SerializedArtifactError
 
 ### Community 125 - "Community 125"
@@ -850,8 +851,8 @@ Cohesion: 0.27
 Nodes (9): bool, CompletedProcess, _ensure_shim(), get_soffice_env(), _needs_shim(), Helper for running LibreOffice (soffice) in environments where AF_UNIX sockets, run_soffice(), Path (+1 more)
 
 ### Community 144 - "Community 144"
-Cohesion: 0.24
-Nodes (5): Base validator with common validation logic for document files., Validator for Word document XML files against XSD schemas., Validation modules for Word document processing., Validator for PowerPoint presentation XML files against XSD schemas., Validator for tracked changes in Word documents.
+Cohesion: 0.18
+Nodes (6): BaseSchemaValidator, Base validator with common validation logic for document files., Validator for Word document XML files against XSD schemas., Validation modules for Word document processing., PPTXSchemaValidator, Validator for PowerPoint presentation XML files against XSD schemas.
 
 ### Community 146 - "Community 146"
 Cohesion: 0.20
@@ -880,6 +881,10 @@ Nodes (8): Batch with Prompt Caching, Full End-to-End Example, Message Batches A
 ### Community 152 - "Community 152"
 Cohesion: 0.22
 Nodes (8): Raw SSE Format, Streaming — TypeScript, Streaming with Tool Use (Tool Runner), Best Practices, Getting the Final Message, Handling Different Content Types, Quick Start, Stream Event Types
+
+### Community 153 - "Community 153"
+Cohesion: 0.25
+Nodes (3): int, Validator for tracked changes in Word documents., RedliningValidator
 
 ### Community 154 - "Community 154"
 Cohesion: 0.22
@@ -921,9 +926,13 @@ Nodes (7): bool, _condense_xml(), pack(), Pack a directory into a DOCX, PPTX, or
 Cohesion: 0.39
 Nodes (7): bool, _escape_smart_quotes(), _pretty_print_xml(), Unpack Office files (DOCX, PPTX, XLSX) for editing.  Extracts the ZIP archive,, unpack(), Path, str
 
+### Community 164 - "Community 164"
+Cohesion: 0.25
+Nodes (3): int, Validator for tracked changes in Word documents., RedliningValidator
+
 ### Community 165 - "Community 165"
-Cohesion: 0.36
-Nodes (3): SseDecoder, events_js_1, safeJsonParse_js_1
+Cohesion: 0.27
+Nodes (4): SseDecoder, events_js_1, safeJsonParse_js_1, decoder_js_1
 
 ### Community 166 - "Community 166"
 Cohesion: 0.25
@@ -1093,29 +1102,41 @@ Nodes (3): extract_form_structure(), main(), Extract form structure from a non-f
 Cohesion: 0.67
 Nodes (3): is_server_ready(), main(), Wait for server to be ready by polling the port.
 
+### Community 218 - "Community 218"
+Cohesion: 0.32
+Nodes (4): Base validator with common validation logic for document files., Validator for Word document XML files against XSD schemas., Validation modules for Word document processing., Validator for PowerPoint presentation XML files against XSD schemas.
+
 ### Community 220 - "Community 220"
 Cohesion: 0.67
 Nodes (3): peerDependencies, react, react-dom
 
+### Community 277 - "Community 277"
+Cohesion: 0.20
+Nodes (3): extractJsonObject(), safeJsonParse(), tryParse()
+
+### Community 282 - "Community 282"
+Cohesion: 0.83
+Nodes (3): createArtifactId(), createMessageId(), randomId()
+
 ## Knowledge Gaps
-- **1939 isolated node(s):** `DoodleIcon`, `DoodleSet`, `eslintConfig`, `nextConfig`, `name` (+1934 more)
+- **1940 isolated node(s):** `DoodleIcon`, `DoodleSet`, `eslintConfig`, `nextConfig`, `name` (+1935 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **27 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `GenerateText` connect `Community 30` to `Community 73`, `Community 58`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `GenerateText` connect `Community 30` to `Community 73`, `Community 58`, `Community 1`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Why does `classifyMode()` connect `Community 73` to `Community 30`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `Anthropic` connect `Community 1` to `Community 0`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **Are the 12 inferred relationships involving `BaseSchemaValidator` (e.g. with `int` and `str`) actually correct?**
   _`BaseSchemaValidator` has 12 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `DoodleIcon`, `DoodleSet`, `eslintConfig` to the rest of the system?**
-  _2056 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _2057 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.050921861281826165 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.06359189378057302 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.05450733752620545 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06038961038961039 - nodes in this community are weakly interconnected._
